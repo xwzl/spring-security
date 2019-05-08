@@ -1,3 +1,4 @@
-rootProject.name = 'docker'
+rootProject.name = 'spring-cloud'
 include 'spring'
 include 'docker'
+include 'java'

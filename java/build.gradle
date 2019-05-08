@@ -1,0 +1,5 @@
+apply plugin: 'application'
+
+// 标明 docker 镜像运行的主类
+mainClassName = 'com.java.java.JavaApplication'
+
