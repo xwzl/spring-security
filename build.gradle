@@ -107,6 +107,24 @@ configure(allprojects) { project ->
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     }
 
+    task printFileName {
+        if (project.name == "spring") {
+            println bootJar.archiveFile.get().asFile
+            println bootJar.archiveFile.get().toString()
+            println bootJar.archiveFile.get().getAsFile().getName()
+            println "${rootProject.name}/${project.name}:${version}"
+        }
+    }
+
+    docker {
+        // 如果是 spring 子项目，生成的镜像名称为 docker/spring:1.0.0
+        name "${rootProject.name}/${project.name}:${version}"
+        //name "${project.group}/${bootJar.archiveFile.get().getAsFile().getName()}"
+        files bootJar.archiveFile.get().asFile
+        buildArgs(['JAR_FILE': "${bootJar.archiveFile.get().getAsFile().getName()}"])
+
+    }
+
 
     configurations {
         all*.exclude module: 'spring-boot-starter-logging'

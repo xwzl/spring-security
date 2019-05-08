@@ -1,3 +1,7 @@
+apply plugin: 'application'
+// 标明 docker 影响运行的主类
+mainClassName = 'com.java.spring.SpringApplication'
+
 //task test2(){
 //    // 理解为 docker image 名称
 //    println "${project.group}/${project.name}:${project.version}"
