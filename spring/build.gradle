@@ -1,0 +1,5 @@
+//task test2(){
+//    // 理解为 docker image 名称
+//    println "${project.group}/${project.name}:${project.version}"
+//    println "${jar.archiveBaseName}"
+//}

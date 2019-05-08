@@ -1,0 +1,30 @@
+archivesBaseName = 'docker'
+
+apply plugin: 'application'
+
+mainClassName = 'com.java.docker.DockerApplication'
+
+task test33() {
+    println bootJar.archiveFile.get().asFile
+    println bootJar.archiveFile.get().toString()
+    println bootJar.archiveFile.get().getAsFile().getName()
+}
+
+//docker {
+//    name "${project.group}/${bootJar.archiveFile.get().toString()}"
+//    files bootJar.archiveFile.get().getAsFile()
+////    files jar.archivePath
+//
+//    buildArgs(['JAR_FILE': "${bootJar.archiveFileName.get().toString()}"])
+//}
+
+
+docker {
+
+    name "${project.group}/${bootJar.archiveFile.get().getAsFile().getName()}"
+
+    files bootJar.archiveFile.get().asFile
+
+    buildArgs(['JAR_FILE': "${bootJar.archiveFile.get().getAsFile().getName()}"])
+
+}

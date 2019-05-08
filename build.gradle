@@ -1,0 +1,134 @@
+buildscript {
+
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.2'
+    }
+
+}
+
+// 加载其他配置文件
+task locals {
+    def url = "${rootDir}/local.properties";
+    def props = new Properties()
+    new File(url).withInputStream {
+        stream -> props.load(stream)
+    }
+    def config = new ConfigSlurper().parse(props)
+//    println config.test
+
+}
+
+configure(allprojects) { project ->
+
+    // 设置子项目名称
+    group = "${group}${name}"
+
+    version '1.0.0'
+
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        mavenCentral()
+    }
+
+//	def commonCompilerArgs =
+//			["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
+//			 "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
+//			 "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
+//
+//	compileJava.options*.compilerArgs = commonCompilerArgs +
+//			["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
+//			 "-Xlint:deprecation", "-Xlint:unchecked", "-Werror"]
+//
+//	compileTestJava.options*.compilerArgs = commonCompilerArgs +
+//			["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
+//			 "-Xlint:-deprecation", "-Xlint:-unchecked"]
+//
+//    compileJava {
+//        sourceCompatibility = '11'  // can be switched to 8 for testing
+//        targetCompatibility = '11'
+//        options.encoding = "UTF-8"
+//    }
+
+    compileTestJava {
+        sourceCompatibility = '1.8'  // can be switched to 8 for testing
+        targetCompatibility = '1.8'
+        options.encoding = "UTF-8"
+        options.compilerArgs += "-parameters"
+    }
+
+
+    dependencies {
+
+        compile(
+                "org.reflections:reflections:${reflectionsVersion}",
+                "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
+                "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+                "mysql:mysql-connector-java:${mysqlVersion}",
+                "junit:junit:${junitVersion}",
+                "com.google.code.gson:gson:${gsonVersion}",
+                "joda-time:joda-time:${jodaTimeVersion}",
+                "org.projectlombok:lombok:${lombokVersion}",
+                "org.jetbrains:annotations:${jannotationVersion}"
+        )
+
+        //依赖子模块时，要排除子模块中的某个jar包
+//		compile(project(':project-impl')){
+//			exclude(module: 'project-mybatis')
+//			exclude(module: 'mysql-connector-java')
+//		}
+
+
+        implementation('org.springframework.boot:spring-boot-starter-web')
+
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    }
+
+
+    configurations {
+        all*.exclude module: 'spring-boot-starter-logging'
+        all*.exclude module: 'logback-classic'
+        all*.exclude module: 'log4j-over-slf4j'
+    }
+
+//    tasks.withType(JavaCompile) {
+//        options.encoding = 'UTF-8'
+//    }
+
+    // 配置镜像名称和版本号
+    jar {
+        manifest {
+            attributes("Implementation-Title": "Gradle")
+        }
+    }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
+}
