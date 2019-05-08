@@ -1,0 +1,54 @@
+task resources(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+
+dependencies {
+    compile(
+            "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
+            "com.baomidou:mybatis-plus:${baomidouVersion}",
+            "io.netty:netty-all:${nettyAllVersion}",
+            "io.grpc:grpc-netty-shaded:${grpcVersion}",
+            "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}",
+//            "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1",
+            // 加上这个才能辨认到log4j2.yml文件
+            "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8",
+            "com.alibaba:druid-spring-boot-starter:${druidVersion}",
+            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-redis:${redisVersion}",
+            "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-data-elasticsearch:${springBootVersion}",
+//            "io.searchbox:jest:5.3.3",
+            "com.alibaba:fastjson:${fastJsonVersion}",
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+            "io.springfox:springfox-swagger-ui:${swaggerVersion}",
+            "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+            "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}",
+            "org.apache.shiro:shiro-spring:${shiroVersion}",
+            "org.apache.shiro:shiro-core:${shiroVersion}",
+            "org.apache.shiro:shiro-ehcache:${shiroVersion}",
+            "org.crazycake:shiro-redis:${shiroRedis}",
+            "org.apache.commons:commons-lang3:${commonLangVerion}",
+            "com.alibaba:fastjson:${fastjsonVserion}"
+
+
+    )
+
+}
+
+/**
+ * 由于springboot本身自带的logback，会导致冲突。所以这块需要排除默认日志。
+ */
+configurations {
+    // 用自带的日志注释第一行代码，注释 log 指定文件,log4j2依赖，yml指定文件名
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+//    all*.exclude module: 'logback-classic'
+//    all*.exclude module: 'log4j-over-slf4j'
+}

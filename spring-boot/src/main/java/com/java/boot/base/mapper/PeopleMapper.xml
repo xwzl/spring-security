@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.boot.base.mapper.PeopleMapper">
+
+    <resultMap id="baseUser" type="com.java.boot.base.model.People">
+        <id column="u_id" jdbcType="INTEGER" property="uId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="role" jdbcType="INTEGER" property="role"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="apartment" jdbcType="VARCHAR" property="apartment"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+    </resultMap>
+
+    <!--sql 注入集合，使用见-->
+    <sql id="base_user">
+         u_id,address,apartment,create_time,password,
+         phone_number,username,role
+    </sql>
+
+    <sql id="user_less">
+         u_id,address,apartment,password
+    </sql>
+
+    <!--
+       ${}代表一个字符串，注入不安全
+       #{} 相当于一个？，类型安全
+    -->
+    <insert id="addUserByXml" parameterType="com.java.boot.base.model.People">
+           insert into people (u_id,address,role) values (null,#{address},#{role});
+    </insert>
+
+    <select id="getAllByXml" resultMap="baseUser">
+        SELECT
+        <include refid="user_less"></include>
+        FROM user
+    </select>
+
+    <!--
+      动态 SQL 的另外一个常用的操作需求是对一个集合进行遍历，通常是在构建 IN 条件语句的时候。比如：
+
+      foreach 元素的功能非常强大，它允许你指定一个集合，声明可以在元素体内使用的集合项（item）和索引（index）变量。它也允许你指定开头与
+      结尾的字符串以及在迭代结果之间放置分隔符。这个元素是很智能的，因此它不会偶然地附加多余的分隔符。
+
+
+      注意 你可以将任何可迭代对象（如 List、Set 等）、Map 对象或者数组对象传递给 foreach 作为集合参数。当使用可迭代对象或者数组时，index 是
+      当前迭代的次数，item 的值是本次迭代获取的元素。当使用 Map 对象（或者 Map.Entry 对象的集合）时，index 是键，item 是值。
+
+      到此我们已经完成了涉及 XML 配置文件和 XML 映射文件的讨论。下一章将详细探讨 Java API，这样就能提高已创建的映射文件的利用效率。
+
+     <select id="selectPostIn" resultType="domain.blog.Post">
+          SELECT *
+          FROM POST P
+          WHERE ID in
+          <foreach item="item" index="index" collection="list"
+                   open="(" separator="," close=")">
+              #{item}
+          </foreach>
+      </select>
+      -->
+    <!--
+        where 元素只会在至少有一个子元素的条件返回 SQL 子句的情况下才去插入“WHERE”子句。而且，若语句的开头为“AND”或“OR”，where 元素也会将它们去除。
+        Map 通过键值对获取参数
+
+        如果 where 元素没有按正常套路出牌，我们可以通过自定义 trim 元素来定制 where 元素的功能。比如，和 where 元素等价的自定义 trim 元素为：
+
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+          ...
+        </trim>
+
+        prefixOverrides 属性会忽略通过管道分隔的文本序列（注意此例中的空格也是必要的）。它的作用是移除所有指定在 prefixOverrides
+        属性中的内容，并且插入 prefix 属性中指定的内容。
+    -->
+    <select id="getUserByMap" parameterType="Map" resultMap="baseUser">
+        SELECT
+        <include refid="base_user"></include>
+        FROM people
+        <where>
+            <if test="id != null ">
+                and u_id in
+                <foreach item="item" index="1" collection="id" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="address != null">
+                and address = #{address}
+            </if>
+            <if test="role != null">
+                and role = #{role}
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserByParam" resultMap="baseUser">
+        SELECT
+        <include refid="base_user"></include>
+        FROM people
+        Where address = #{address} and role = #{role}
+    </select>
+
+    <select id="getUserByIdXml" parameterType="java.lang.Integer" resultMap="baseUser">
+        SELECT
+        <include refid="user_less"></include>
+        FROM user
+        WHERE u_id = #{uId}
+    </select>
+
+    <insert id="insertUserOtherTag" parameterType="com.java.boot.base.model.People">
+        insert into people
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uId != 0">
+                u_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="role != 0">
+                role,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uId != 0">
+                #{uId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="role != 0">
+                #{role,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--
+        这里，set 元素会动态前置 SET 关键字，同时也会删掉无关的逗号，因为用了条件语句之后很可能就会在生成的 SQL 语句的后面留下这些逗号。
+        （译者注：因为用的是“if”元素，若最后一个“if”没有匹配上而前面的匹配上，SQL 语句的最后就会有一个逗号遗留）
+
+        若你对 set 元素等价的自定义 trim 元素的代码感兴趣，那这就是它的真面目：
+
+        <trim prefix="SET" suffixOverrides=",">
+          ...
+        </trim>
+    -->
+    <update id="updateUserOtherTag" parameterType="com.java.boot.base.model.People">
+        update people
+        <set>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="role != 0 ">
+                role = #{role,jdbcType=INTEGER},
+            </if>
+        </set>
+        where u_id = #{uId,jdbcType=INTEGER}
+    </update>
+</mapper>

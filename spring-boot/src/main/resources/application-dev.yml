@@ -1,0 +1,16 @@
+server:
+  port: 8082
+
+# 日志文件配置,用之前需要排除 logback 的依赖
+logging:
+  config: classpath:log4j/log4j2.properties
+  level:
+    com.xwz.boot.mapper: debug
+
+mybatis-plus:
+  #配置包扫描位置
+  configuration:
+    #适配驼峰命名法
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.xwz.boot.model
+  mapper-locations: classpath:com/xwz/boot/mapper/*.xml

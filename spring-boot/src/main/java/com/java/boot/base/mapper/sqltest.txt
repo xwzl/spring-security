@@ -1,0 +1,1 @@
+SELECT * FROM role WHERE rid IN(SELECT role_id from user_role where uid = 2)

@@ -54,24 +54,24 @@ configure(allprojects) { project ->
         mavenCentral()
     }
 
-//	def commonCompilerArgs =
-//			["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
-//			 "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
-//			 "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
-//
-//	compileJava.options*.compilerArgs = commonCompilerArgs +
-//			["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
-//			 "-Xlint:deprecation", "-Xlint:unchecked", "-Werror"]
-//
-//	compileTestJava.options*.compilerArgs = commonCompilerArgs +
-//			["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
-//			 "-Xlint:-deprecation", "-Xlint:-unchecked"]
-//
-//    compileJava {
-//        sourceCompatibility = '11'  // can be switched to 8 for testing
-//        targetCompatibility = '11'
-//        options.encoding = "UTF-8"
-//    }
+    def commonCompilerArgs =
+            ["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
+             "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
+             "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
+
+    compileJava.options*.compilerArgs = commonCompilerArgs +
+            ["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
+             "-Xlint:deprecation", "-Xlint:unchecked"/*, "-Werror"*/]
+
+    compileTestJava.options*.compilerArgs = commonCompilerArgs +
+            ["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
+             "-Xlint:-deprecation", "-Xlint:-unchecked"]
+
+    compileJava {
+        sourceCompatibility = '1.8'  // can be switched to 8 for testing
+        targetCompatibility = '1.8'
+        options.encoding = "UTF-8"
+    }
 
     compileTestJava {
         sourceCompatibility = '1.8'  // can be switched to 8 for testing
@@ -80,6 +80,11 @@ configure(allprojects) { project ->
         options.compilerArgs += "-parameters"
     }
 
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
 
     dependencies {
 
@@ -91,9 +96,12 @@ configure(allprojects) { project ->
                 "junit:junit:${junitVersion}",
                 "com.google.code.gson:gson:${gsonVersion}",
                 "joda-time:joda-time:${jodaTimeVersion}",
-                "org.projectlombok:lombok:${lombokVersion}",
+//                "org.projectlombok:lombok:${lombokVersion}",
                 "org.jetbrains:annotations:${jannotationVersion}"
         )
+
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
 
         //依赖子模块时，要排除子模块中的某个jar包
 //		compile(project(':project-impl')){
@@ -132,9 +140,9 @@ configure(allprojects) { project ->
         all*.exclude module: 'log4j-over-slf4j'
     }
 
-//    tasks.withType(JavaCompile) {
-//        options.encoding = 'UTF-8'
-//    }
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
 
     // 配置镜像名称和版本号
     jar {
