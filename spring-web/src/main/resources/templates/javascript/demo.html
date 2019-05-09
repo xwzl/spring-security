@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达</title>
+</head>
+<script type="text/javascript" th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}"></script>
+<body>
+  <p id="ssss">验证</p>
+  <div><p>\s : 空格
+       \S : 非空格
+       \d : 数字
+       \D : 非数字
+       \w : 字符 ( 字母 ，数字，下划线_ )
+       \W : 非字符例子：是否有不是数字的字符
+       </p>
+  </div>
+  <div style="margin-left: 50px">
+      <p style="color: red">()：，小括号，叫做分组符。就相当于数学里面的括号。如下
+      <p>var str = '2013-6-7';</p>
+      <p>var re1 = /\d-+/g;  // 全局匹配数字，横杠，横杠数量至少为1，匹配结果为：  3- 6-</p>
+      <p>var re1 = /(\d-）+/g;  // 全局匹配数字，横杠，数字和横杠整体数量至少为1   3-6-</p>
+      <p>var re2  = /(\d+)(-)/g;   //  全局匹配至少一个数字，匹配一个横杠 匹配结果：2013- 6-</p>
+      <p>同时，正则中的每一个带小括号的项，都叫做这个正则的子项。子项在某些时候非常的有用，比如我们来看一个栗子。</p>
+      <p>[abc,a,b,c]( 返回的是匹配结果 以及每个子项  当match不加g的时候才可以获取到子项的集合)</p>
+      <p>[] ： 表示某个集合中的任意一个，比如 [abc] 整体代表一个字符 匹配 a b c 中的任意一个，也可以是范围，[0-9] 范围必须从小到大 。</p>
+      <p>[^a] 整体代表一个字符   ：^写在[]里面的话，就代表排除的意思</p>
+      <p>例子：匹配HTML标签 比如<div class="b">hahahah </div> 找出标签<div class="b"></div></p>
+      <p>复制代码 代码如下:</p>
+      <p>var re = /<[^>]+>/g; //匹配左括号 中间至少一个非右括号的内容(因为标签里面还有属性等一些东西)，然后匹配右括号</p>
+      <p>var re = /<[\w\W]+>/g; //匹配左括号 中间至少一个字符或者非字符的内容，然后匹配右括号</p>
+      <p>// 其实就是找到左括号，然后中间可以有至少一个内容，一直到找到右括号就代表是一个标签。</p>
+      <p>转义字符
+          \s : 空格
+          \S : 非空格
+          \d : 数字
+          \D : 非数字
+          \w : 字符 ( 字母 ，数字，下划线_ )
+          \W : 非字符
+          .（点）——任意字符
+          \. : 真正的点
+          \b : 独立的部分 （ 起始，结束，空格 ）
+          \B : 非独立的部分</P>
+      <p></P>
+  </div>
+  <div>
+      <p>量词：代表出现的次数
+      {n,m}：至少出现n次，最多m次
+      {n,} :至少n次
+      * :任意次 相当于{0,}
+      ？ ：零次或一次 相当于{0,1}
+      + ：一次或任意次相当于 {1,}
+      {n}： 正好n次
+      例子：判断是不是QQ号
+      </p>
+      <p tyle="color: red">//^ : 放在正则的最开始位置，就代表起始的意思，注意  /[^a] /   和   /^[a]/是不一样的，前者是排除的意思，后者是代表首位。
+      //$ : 正则的最后位置 , 就代表结束的意思</p>
+  </div>
+  <div><p>search()  ：在字符串搜索符合正则的内容，搜索到就返回出现的位置（从0开始，如果匹配的不只是一个字母，
+          那只会返回第一个字母的位置）， 如果搜索失败就返回 -1
+       </p>
+  </div>
+  <div>
+      <label>正则表达验证框：</label>
+      <input type="text" id="zz" name="zz" value=""/>
+      <input type="button" id="zz1" name="zz" value="验证"/>
+      <input type="button" id="zz2" name="zz" value="替换1"/>
+      <input type="button" id="zz3" name="zz" value="替换2"/>
+  </div>
+</body>
+<script type="text/javascript">
+    $("#zz1").on("click",function () {
+        var value=$("#zz").val();
+        var re1=/\d+/g; //d返回一个数字数组[1,2,3,43] d+返回[1121212]
+        if(re1.test(value)){
+           var str=value.match(re1);
+           alert(str);
+        }
+        //var re = new RegExp('B','i'); 也可以这样写 i忽略大小写 g全局匹配
+        var re2=/d/ig;
+        if(re2.test(value)){
+            alert("Search方法："+value.search(re2));
+        }
+
+    });
+    $("#zz2").on("click",function () {
+        var str = "我爱北京天安门，天安门上太阳升。";
+        var re = /北京|天安门/g;  //  找到北京 或者天安门 全局匹配
+        var str2 = str.replace(re,function(str){
+            alert(str); //用来测试：函数的第一个参数代表每次搜索到的符合正则的字符，所以第一次str指的是北京 第二次str是天安门 第三次str是天安门
+            var result = '';
+            for(var i=0;i<str.length;i++){
+                result += '*';
+            }
+            return result; //所以搜索到了几个字就返回几个*
+        });
+        alert(str2)  //我爱*****，***上太阳升
+    });
+    $("#zz3").on("click",function () {
+        var str = '2013-6-7';
+        var re = /(\d+)(-)/g;
+        str = str.replace(re,function($0,$1,$2){
+            //replace()中如果有子项，
+            //第一个参数：$0（匹配成功后的整体结果  2013-  6-）,
+            // 第二个参数 : $1(匹配成功的第一个分组，这里指的是\d   2013, 6)
+            //第三个参数 : $1(匹配成功的第二个分组，这里指的是-    - - )
+            return $1 + '.';  //分别返回2013.   6.
+
+        });
+        alert( str );   //2013.6.7
+        //整个过程就是利用子项把2013- 6- 分别替换成了2013. 6.  最终弹出2013.6.7
+    });
+
+   $(function () {
+       $("#ssss").click(function () {
+           alert("xxx");
+           var str = '374829348791';
+           var re = /\D/; // \D代表非数字
+           if( re.test(str) ){ // 返回true,代表在字符串中找到了非数字。
+               alert('不全是数字');
+           }else {
+               alert('全是数字');
+           }
+           var str = 'abc';
+           var re = /(a)(b)(c)/;
+           alert( str.match(re) );  //[abc,a,b,c]( 返回的是匹配结果 以及每个子项  当match不加g的时候才可以获取到子项的集合)
+       });
+   });
+
+
+</script>
+</html>

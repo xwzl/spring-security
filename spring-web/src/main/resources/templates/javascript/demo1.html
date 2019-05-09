@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+
+<body>
+<a th:href="@{/request/test}">#request,#session内置对象</a>
+<label>基于Thymeleaf表达式使用</label>
+<p>字符串拼接 th:text="'这是一个'+${sex}+'拼接'"</p>
+<p th:text="'这是一个'+${sex}+'拼接'">字符串拼接 </p>
+<p>字符串拼接 th:text="|这是一个${sex}拼接|"</p>
+<p th:text="|这是一个${sex}拼接|">字符串拼接 </p>
+<p th:style="'color:red'">三元运算符:<span th:text="${sex==1}?男:女">未知 </span></p>
+<span>th:text 值是放在起始标签和结束标签之间</span>
+<h5>关系运算符</h5>
+<p>算术运算符：+，-，*，/，%</p>
+<p>比较运算符：>,<,>=,<=(gt,it,ge,le)</p>
+<p>相等判断：==,!=(eq,ne)</p>
+<p th:text="${user1.date}"></p>
+<p th:text="${name}"></p>
+<table th:object="${user}" style="border:#ff342e">
+    <tr>
+        <th th:text="${user.id}">a</th>
+        <th th:text="${user.name}">b</th>
+        <th th:text="${user.pass}">c</th>
+        <th th:text="${user.address}">d</th>
+    </tr>
+    <tr>
+        <th th:text="*{id}">a</th>
+        <th th:text="*{name}">b</th>
+        <th th:text="*{pass}">c</th>
+        <th th:text="${user.address}">d</th>
+    </tr>
+</table>
+//动态获取Url地址 具体差异查看网页源代码<br/>
+<p style="color: #ff342e">id 静态值 th:id 动态获取值 th:name th:onclick <span style="color: #ff342e">方法名有 ''</span>会覆盖之前的值</p>
+<form th:action="@{/login/text}" th:name="@{user.name}" th:method="post">
+    <label>
+        <input id="usename" th:id="${user.id}" th:onclick="'getMe()'" type="text" value="测试"/>
+    </label>
+</form>
+<script>
+    function getMe() {
+        alert("th:onclick")
+    }
+</script>
+<br/>
+<div th:style="'border: 1px black solid;width: 500px;height:300px'">
+    <p style="color: #ff342e">内联文本 th:inline="text/javascript/none" 可写入body标签 整个body域写入动态数据接收变量</p>
+    <p th:inline="text" th:onclick="'getText()'">[[${user.name}]]</p>
+    <p th:inline="none">[[${user.name}]]</p>
+
+</div>
+<p style="color: #ff342e">th:if 标签</p>
+<span style="color: aqua" th:if="${sex eq 1}">
+      男
+  </span>
+<span th:if="${sex eq 2}" style="color:#ff342e ">
+      女
+  </span>
+<span style="color: aqua" th:if="${sex == 1}">
+      男
+  </span>
+<span th:if="${sex == 2}" style="color:#ff342e ">
+      女
+  </span>
+<span style="color: chartreuse" th:if="${sex} eq 1">
+      男
+  </span>
+<span th:if="${sex }eq 2" style="color:chartreuse ">
+      女
+  </span>
+<span style="color: chartreuse" th:if="${sex} == 1">
+      男
+  </span>
+<span th:if="${sex }== 2" style="color:chartreuse ">
+      女
+  </span>
+<p style="color: #ff342e">th:unless 标签 与th:if标签相反</p>
+<span style="color: aqua" th:unless="${sex eq 1}">
+      男
+  </span>
+<span th:unless="${sex eq 2}" style="color:#ff342e ">
+      女
+  </span>
+<br/>
+<p style="color: #ff342e">th:switch 与th:case *代表默认</p>
+<div th:switch="${sex}">
+    <p th:case="1">男</p>
+    <p th:case="2">女</p>
+    <p th:case="*">未知</p>
+</div>
+<br/>
+<p style="color: #ff342e">th:src *代表默认 th:src="@{/js/me.js}" 直接写static下面的文件目录</p>
+<a>
+    <img width="300px" height="200px" th:src="@{/image/se.png}"/>
+</a>
+<br/>
+<p style="color: #ff342e">th:value th:attr为属性赋值</p>
+<input th:attr="type='text'" th:value="${user.name}"/>
+<br/>
+<a href="http://www.baidu.com" th:href="@{'http://www.baidu.com?id='+${user.id}}+'&name='+${name}">动态地址</a><br/>
+<a href="http://www.baidu.com" th:href="@{|http://www.baidu.com?id=${user.id}&name=${name}|}">动态地址2</a><br/>
+<a th:href="@{login/text}">动态地址3</a><br/>
+<a th:href="@{/login/text}">动态地址4</a><br/>
+数组和集合获取值，默认状态值为userStat @{list}后台数据 user封装对象
+userStat是循环体信息
+index 当前迭代对象的index 从0开始
+count 当前迭代对象的个数 从1开始
+size 被迭代对象的大小
+even/odd 是否是奇偶行
+<div th:each="user,userStat:${list}">
+    <span th:text="${userStat.index}"></span>
+    <span th:text="${userStat.size}"></span>
+    <span th:text="${userStat.count}"></span>
+    <span th:text="${userStat.even}"></span>
+    <span th:text="${userStat.odd}"></span>
+    <span th:text="${userStat.first}"></span>
+    <span th:text="${user.id}"></span>
+    <span th:text="${user.name}"></span>
+    <span th:text="${user.pass}"></span>
+    <span th:text="${user.address}"></span>
+</div>
+
+<div th:each="maps,userStat:${map}">
+    <!--<span th:text="${userStat.index}"></span>
+    <span th:text="${userStat.size}"></span>
+    <span th:text="${userStat.count}"></span>
+    <span th:text="${userStat.even}"></span>
+    <span th:text="${userStat.odd}"></span>
+    <span th:text="${userStat.first}"></span>-->
+    <span th:text="${maps.key}"></span>
+    <span th:text="${maps.value.id}"></span>
+    <span th:text="${maps.value.name}"></span>
+    <span th:text="${maps.value.pass}"></span>
+    <span th:text="${maps.value.address}"></span>
+</div>
+
+<div th:each="user,userStat:${str}">
+    <span th:text="${user}"></span>
+</div>
+</body>
+<script th:src="@{/js/me.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+    var name = [[${user.name}]];
+
+    function getText() {
+        alert(name);
+    }
+</script>
+</html>

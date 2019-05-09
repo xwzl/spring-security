@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdo.web.mapper.LoginnumMapper">
+  <!--<resultMap id="BaseResultMap" type="com.product.web.model.Loginnum">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="total_login_num" jdbcType="INTEGER" property="totalLoginNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, department, ip_address, login_time, name, number, total_login_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from loginnum
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from loginnum
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.product.web.model.Loginnum">
+    insert into loginnum (id, department, ip_address,
+      login_time, name, number,
+      total_login_num)
+    values (#{id,jdbcType=INTEGER}, #{department,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR},
+      #{loginTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR},
+      #{totalLoginNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.product.web.model.Loginnum">
+    insert into loginnum
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="ipAddress != null">
+        ip_address,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="totalLoginNum != null">
+        total_login_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLoginNum != null">
+        #{totalLoginNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.product.web.model.Loginnum">
+    update loginnum
+    <set>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLoginNum != null">
+        total_login_num = #{totalLoginNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.product.web.model.Loginnum">
+    update loginnum
+    set department = #{department,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      total_login_num = #{totalLoginNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>-->
+</mapper>
