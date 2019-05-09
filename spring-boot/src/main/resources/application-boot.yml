@@ -6,7 +6,7 @@ server:
 
 # 日志文件配置,用之前需要排除 logback 的依赖
 logging:
-  config: classpath:log4j/log4j2.yml
+  config: classpath:log4j/log4j2-linux.yml
 #  level:
 #    com.xwz.boot.mapper: debug
 
