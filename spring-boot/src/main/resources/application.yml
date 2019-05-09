@@ -9,7 +9,7 @@ linux:
 
 spring:
   profiles:
-    active: dev # 激活配置文件
+    active: boot # 激活配置文件
     #    include: boot,druid1 或者 ProtertyConfigure 类中激活配置文件
     include: hikari,redis # 或者 ProtertyConfigure 类中激活配置文件 druid3 配置无效，数据源有效
   datasource:

@@ -21,7 +21,8 @@ Configuration:
       - name: project.name
         value: spring-boot
       - name: log.pattern
-        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
+#        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
+         value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%-5level} [%t] %highlight{%c{1.}.%M(%L)}: %msg%n"
   # 先定义所有的appender
   Appenders:
     #这个输出控制台的配置
@@ -164,7 +165,7 @@ Configuration:
         additivity: false
         AppenderRef:
           - ref: DB_ROLLING_FILE
-      - name: com.xwz.boot.mapper
+      - name: com.java.boot.base.mapper
         additivity: false
         level: debug
         AppenderRef:

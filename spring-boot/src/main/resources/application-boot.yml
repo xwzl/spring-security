@@ -6,7 +6,7 @@ server:
 
 # 日志文件配置,用之前需要排除 logback 的依赖
 logging:
-  config: classpath:log4j/log4j2-linux.yml
+  config: classpath:log4j/log4j2.yml
 #  level:
 #    com.xwz.boot.mapper: debug
 
@@ -16,6 +16,7 @@ mybatis-plus:
     #适配驼峰命名法
     map-underscore-to-camel-case: true #默认为true
   #    interceptors: com.xwz.boot.configure.data.MybatisInterceptor 失败
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.java.boot.base.model
   mapper-locations: classpath:com/java/boot/base/mapper/*.xml
 
