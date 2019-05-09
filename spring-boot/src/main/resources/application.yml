@@ -1,6 +1,6 @@
 linux:
   port:
-    base: 192.168.150.21            # Linux 主服务器端口
+    base: 47.105.218.58                 # Linux 主服务器端口
     master:
       mysql: ${linux.port.base}:3306    # Linux 主 Mysql 端口 写
     slave:
