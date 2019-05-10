@@ -6,6 +6,9 @@ import java.io.Serializable;
  * Created by sang on 2017/12/28.
  */
 public class Role implements Serializable {
+
+    private static final long serialVersionUID = -1302496251116641242L;
+
     private Long id;
     private String name;
     private String nameZh;

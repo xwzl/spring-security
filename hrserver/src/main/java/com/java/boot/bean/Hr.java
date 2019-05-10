@@ -10,9 +10,14 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * 确定权限问题
+ * <p>
  * Created by sang on 2017/12/28.
  */
 public class Hr implements UserDetails {
+
+    private static final long serialVersionUID = -3712936541665367985L;
+
     private Long id;
     private String name;
     private String phone;
@@ -24,29 +29,41 @@ public class Hr implements UserDetails {
     private String remark;
     private List<Role> roles;
     private String userface;
+
+    /**
+     * 根据这个来判断是否有权限
+     */
     @Override
     public boolean isEnabled() {
         return enabled;
     }
+
     @Override
     public String getUsername() {
         return username;
     }
+
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
+    /**
+     * qa
+     */
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -56,6 +73,7 @@ public class Hr implements UserDetails {
         }
         return authorities;
     }
+
     @JsonIgnore
     @Override
     public String getPassword() {
