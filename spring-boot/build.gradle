@@ -4,6 +4,7 @@ task resources(type: Copy) {
             include("**/*.xml")
         }
         into("${rootDir}/${project.name}/out/production/classes")
+        into("${rootDir}/${project.name}/build/classes/java/main/")
     }
 }
 
