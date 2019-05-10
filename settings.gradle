@@ -1,6 +1,6 @@
 rootProject.name = 'spring-cloud'
-include 'spring'
-include 'docker'
 include 'java'
+include 'docker'
+include 'hrserver'
 include 'spring-boot'
 include 'spring-web'

@@ -89,15 +89,14 @@ configure(allprojects) { project ->
     dependencies {
 
         compile(
+                "junit:junit:${junitVersion}",
+                "com.google.code.gson:gson:${gsonVersion}",
+                "mysql:mysql-connector-java:${mysqlVersion}",
+                "org.jetbrains:annotations:${jannotationVersion}",
                 "org.reflections:reflections:${reflectionsVersion}",
                 "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
                 "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
-                "mysql:mysql-connector-java:${mysqlVersion}",
-                "junit:junit:${junitVersion}",
-                "com.google.code.gson:gson:${gsonVersion}",
-                "joda-time:joda-time:${jodaTimeVersion}",
-//                "org.projectlombok:lombok:${lombokVersion}",
-                "org.jetbrains:annotations:${jannotationVersion}"
+                "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}",
         )
 
         compileOnly 'org.projectlombok:lombok'
@@ -128,16 +127,20 @@ configure(allprojects) { project ->
         // 如果是 spring 子项目，生成的镜像名称为 docker/spring:1.0.0
         name "${rootProject.name}/${project.name}:${version}"
         //name "${project.group}/${bootJar.archiveFile.get().getAsFile().getName()}"
+        // bootJar 有一些小问题
         files bootJar.archiveFile.get().asFile
+//        files jar.archiveFile.get().asFile
         buildArgs(['JAR_FILE': "${bootJar.archiveFile.get().getAsFile().getName()}"])
+//        buildArgs(['JAR_FILE': "${jar.archiveFile.get().getAsFile().getName()}"])
 
     }
 
-//    configurations {
+    configurations {
+          all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 //        all*.exclude module: 'spring-boot-starter-logging'
 //        all*.exclude module: 'logback-classic'
 //        all*.exclude module: 'log4j-over-slf4j'
-//    }
+    }
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

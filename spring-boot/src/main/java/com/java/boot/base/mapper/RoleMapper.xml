@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.java.boot.base.mapper.RoleMapper">
-
-    <select id="findRolesByUser" parameterType="com.java.boot.base.model.User" resultType="com.java.boot.base.model.Role">
-            SELECT keyword FROM role where rid in(SELECT role_id from user_role where uid = #{uid})
-    </select>
-
-</mapper>

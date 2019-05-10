@@ -22,7 +22,7 @@ Configuration:
         value: spring-boot
       - name: log.pattern
         #        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
-        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%-5level} [%t] %highlight{%c{1.}.%M(%L)}: %msg%n"
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{-%5p} ${PID:-} [%15.15t] %highlight{%-30.30C{1.}}:%m%n"
   # 先定义所有的appender
   Appenders:
     #这个输出控制台的配置

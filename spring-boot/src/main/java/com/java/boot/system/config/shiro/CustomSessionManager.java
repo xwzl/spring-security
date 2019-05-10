@@ -1,16 +1,5 @@
 package com.java.boot.system.config.shiro;
 
-import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.apache.shiro.web.util.WebUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import java.io.Serializable;
-
 /**
  * 设置session失效时间
  *
@@ -18,9 +7,9 @@ import java.io.Serializable;
  * @author xuweizhi
  * @since 2019/04/29 16:13
  */
-public class CustomSessionManager extends DefaultWebSessionManager {
+public class CustomSessionManager /*extends DefaultWebSessionManager */{
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomSessionManager.class);
+   /* private static final Logger logger = LoggerFactory.getLogger(CustomSessionManager.class);
 
     private static final String AUTHORIZATION = "Authorization";
 
@@ -44,5 +33,5 @@ public class CustomSessionManager extends DefaultWebSessionManager {
             //否则按默认规则从cookie取sessionId
             return super.getSessionId(request, response);
         }
-    }
+    }*/
 }
