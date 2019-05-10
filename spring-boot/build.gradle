@@ -1,12 +1,22 @@
-task resources(type: Copy) {
+task resourceOut(type: Copy) {
     copy {
         from("src/main/java") {
             include("**/*.xml")
         }
         into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+
+task resourceBuild(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
         into("${rootDir}/${project.name}/build/classes/java/main/")
     }
 }
+
+
 
 dependencies {
     compile(
@@ -35,8 +45,15 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-security:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-mail:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-websocket:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-data-elasticsearch:${springBootVersion}",
-
+           
+            "org.apache.poi:poi:3.17",
             "org.apache.commons:commons-lang3:${commonLangVerion}"
 //            "io.searchbox:jest:5.3.3",
 //            "org.apache.shiro:shiro-spring:${shiroVersion}",
@@ -53,6 +70,7 @@ dependencies {
 configurations {
     // 用自带的日志注释第一行代码，注释 log 指定文件,log4j2依赖，yml指定文件名
     all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 //    all*.exclude module: 'logback-classic'
 //    all*.exclude module: 'log4j-over-slf4j'
 }

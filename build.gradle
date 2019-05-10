@@ -96,7 +96,7 @@ configure(allprojects) { project ->
                 "org.reflections:reflections:${reflectionsVersion}",
                 "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
                 "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
-                "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}",
+//                "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}",
         )
 
         compileOnly 'org.projectlombok:lombok'
@@ -135,12 +135,12 @@ configure(allprojects) { project ->
 
     }
 
-    configurations {
-          all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+//    configurations {
+//          all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
 //        all*.exclude module: 'spring-boot-starter-logging'
 //        all*.exclude module: 'logback-classic'
 //        all*.exclude module: 'log4j-over-slf4j'
-    }
+//    }
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

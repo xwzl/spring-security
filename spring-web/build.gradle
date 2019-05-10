@@ -1,4 +1,4 @@
-task resources(type: Copy) {
+task resourceOut(type: Copy) {
     copy {
         from("src/main/java") {
             include("**/*.xml")
@@ -7,6 +7,14 @@ task resources(type: Copy) {
     }
 }
 
+task resourceBuild(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/build/classes/java/main/")
+    }
+}
 dependencies {
     compile(
             "javax.servlet:javax.servlet-api:4.0.1",
