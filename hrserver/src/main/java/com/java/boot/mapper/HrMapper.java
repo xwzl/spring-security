@@ -1,8 +1,8 @@
 package com.java.boot.mapper;
 
-import org.apache.ibatis.annotations.Param;
 import com.java.boot.bean.Hr;
 import com.java.boot.bean.Role;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

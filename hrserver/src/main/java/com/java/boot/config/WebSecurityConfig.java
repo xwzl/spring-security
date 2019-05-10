@@ -1,8 +1,8 @@
 package com.java.boot.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java.boot.service.HrService;
 import com.java.boot.bean.RespBean;
+import com.java.boot.service.HrService;
 import com.java.boot.common.HrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -34,16 +34,12 @@ import java.io.PrintWriter;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Autowired
     HrService hrService;
-
     @Autowired
     CustomMetadataSource metadataSource;
-
     @Autowired
     UrlAccessDecisionManager urlAccessDecisionManager;
-
     @Autowired
     AuthenticationAccessDeniedHandler deniedHandler;
 

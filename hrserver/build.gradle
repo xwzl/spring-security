@@ -1,0 +1,32 @@
+task resources(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+dependencies {
+    compile(
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2",
+            "org.springframework.boot:spring-boot-starter-security:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-mail:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-websocket:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}",
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2",
+            "redis.clients:jedis:2.9.3",
+            "com.alibaba:druid:1.1.10",
+            "org.apache.poi:poi:3.17",
+    )
+}
+
+// 排除 tomcat 依赖
+configurations {
+    all*.exclude group: 'io.lettuce', module: 'lettuce-core'
+//    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+}
+
+
+

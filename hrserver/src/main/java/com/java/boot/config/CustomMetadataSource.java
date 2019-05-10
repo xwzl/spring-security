@@ -1,8 +1,8 @@
 package com.java.boot.config;
 
-import com.java.boot.service.MenuService;
 import com.java.boot.bean.Menu;
 import com.java.boot.bean.Role;
+import com.java.boot.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

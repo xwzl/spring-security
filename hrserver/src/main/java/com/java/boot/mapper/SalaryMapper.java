@@ -1,7 +1,7 @@
 package com.java.boot.mapper;
 
-import org.apache.ibatis.annotations.Param;
 import com.java.boot.bean.Salary;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

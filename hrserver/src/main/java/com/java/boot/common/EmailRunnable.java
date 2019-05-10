@@ -1,7 +1,6 @@
 package com.java.boot.common;
 
 import com.java.boot.bean.Employee;
-import org.jetbrains.annotations.Contract;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.messaging.MessagingException;
@@ -18,7 +17,6 @@ public class EmailRunnable implements Runnable {
     private JavaMailSender javaMailSender;
     private TemplateEngine templateEngine;
 
-    @Contract(pure = true)
     public EmailRunnable(Employee employee,
                          JavaMailSender javaMailSender,
                          TemplateEngine templateEngine) {
