@@ -46,7 +46,6 @@ public class SpringBootRun {
         SpringApplication.run(SpringBootRun.class, args);
     }
 
-
     //public ConfigurableApplicationContext run(String... args) {
     //    // <1> 创建 StopWatch 对象，并启动。StopWatch 主要用于简单统计 run 启动过程的时长。
     //    StopWatch stopWatch = new StopWatch();
