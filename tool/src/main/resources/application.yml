@@ -1,0 +1,9 @@
+server:
+  port: 8081
+user:
+  name1: 熊
+  age: 哈哈
+people:
+  username: 12
+  ha: 12
+  list: 12,2423,412,4,134

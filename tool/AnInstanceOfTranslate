@@ -1,0 +1,4 @@
+If the {@code Sink} is stateful, it should send any stored state downstream at this time, and
+should clear any accumulated state (and associated resources).
+
+如果这个收集器有状态，它应该在此时向下游发送任何储存状态，并且清楚所有的积累状态和相关资源。

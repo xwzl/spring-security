@@ -1,0 +1,26 @@
+apply plugin: 'application'
+
+// 标明 docker 镜像运行的主类
+mainClassName = 'com.security.core.CoreApplication'
+
+dependencies {
+    compile(
+            "org.springframework.boot:spring-boot-starter-redis:${redisVersion}",
+            "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
+
+            // 第三方登录相关依赖
+            "org.springframework.social:spring-social-config:${socialVersion}",
+            "org.springframework.social:spring-social-core:${socialVersion}",
+            "org.springframework.social:spring-social-security:${socialVersion}",
+            "org.springframework.social:spring-social-web:${socialVersion}",
+
+            // 工具包
+            "org.apache.commons:commons-lang3:${commonLangVerion}"
+//            "commons-lang:commons-lang:",
+//            "commons-collections:commons-collections",
+//            "commons-beanutils:commons-beanutils",
+    )
+    implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+
+}

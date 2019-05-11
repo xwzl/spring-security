@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class MenuMeta implements Serializable {
 
+    private static final long serialVersionUID = -792904470485954010L;
+
     private boolean keepAlive;
     private boolean requireAuth;
 

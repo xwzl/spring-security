@@ -1,0 +1,34 @@
+Alt+Enter 打开文件属性
+Winter+E  打开电脑对话框
+Ctrl+Shirt+Alt+T 快捷键大全
+Enter 打开快捷键
+F2快速定位错误位置
+ALT+1快速打开项目
+Ctrl+Alt+B快递定位到方法的实现出
+Ctrl+U快速定位父类
+Ctrl+Windows 移动窗口
+Ctrl+Shirts+Windows 复位窗口
+Ctrl+Capls分屏
+Ctrl+Table 框框快速切换
+Shirt+F4在新窗口打开当前文件夹
+Shift+F10启动方法
+Ctrl+N 搜索文件夹
+Diagrams show Dependencies 展示依赖目录
+alt+M 全屏
+ctrl+shirt+f12 全屏切换
+ctrl+shirt+z取消撤销dasfa
+ctrl + shift + [: 选中从光标所在位置到代码块开始位置
+ctrl + f4: 关闭当前编辑窗口
+ctrl + shift + ]: 选中从光标所在位置到代码块结束位置
+ctrl + shift + +: 展开所有代码
+ctrl + shift + -: 折叠所有代码
+SpringBoot项目导入 百度搜索WebJars 导入相应web
+SpringBoot自动配置全在SpringBoot_AutoConfigure 配置文件下
+shirt+shirt
+ctrl+alt+shift+c 赋值全类名
+
+Shift+Shift即可在一个弹出框中搜索任何东西，包括类、资源、配置项、方法等等。
+
+类的继承关系则可用Ctrl+H打开类层次窗口，在继承层次上跳转则用Ctrl+B/Ctrl+Alt+B分别对应
+父类或父方法定义和子类或子方法实现，查看当前类的所有方法用Ctrl+F12。
+.method 用tab消除已有的方法

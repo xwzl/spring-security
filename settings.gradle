@@ -1,6 +1,18 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
 rootProject.name = 'spring-cloud'
+
 include 'java'
-include 'docker'
+include 'tool'
+include 'mybatis-plus'
+include 'security-app'
+include 'security-core'
+include 'security-browser'
+include 'security-demo'
 include 'hrserver'
 include 'spring-boot'
 include 'spring-web'

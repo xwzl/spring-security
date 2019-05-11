@@ -13,6 +13,9 @@ import java.util.List;
  * Created by sang on 2017/12/28.
  */
 public class Hr implements UserDetails {
+
+    private static final long serialVersionUID = -1397897148599928921L;
+
     private Long id;
     private String name;
     private String phone;

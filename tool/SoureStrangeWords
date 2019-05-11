@@ -1,0 +1,37 @@
+traversed   遍历                    hits 提示
+estimated   估算                    constraint 约束
+explicitly  显示                    decoupling 求耦合
+multiplexor 多路转换器               consistency 内存一致性影响
+commences   着手                    prior to 之前
+partition   分区                    at the discretion of 由谁决定
+protocol    协议                    underlying 底层
+impose      加强                    usable 可用
+memory consistency effects 内存一致性影响
+inherent    固定                    priority 优先
+mutable     易变的                  instance variable 实例变量
+arbitrary   任意                    allocated 分配
+non-deterministic 非确定            ownership 所有权
+interfered   干扰，插入              delegation 委托
+an instance of 一个例子
+concurrent modifications 并发修改
+maintains    维持
+represents   代表
+portion      部分
+encapsulatin 封装
+intermediate 中间操作
+concrete     具体
+segment      段
+inform       通知
+primitive    原始
+specialization 专业化
+tendency     趋势
+specialized  特定
+delegate to  委托给
+emitte       发射
+calculation  计算
+exact        精确
+Indicates    指示
+reduction    聚合
+concatenating 串联
+compute      计算
+pivot table  数据透视表

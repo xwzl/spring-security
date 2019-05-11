@@ -1,0 +1,62 @@
+// https://www.jianshu.com/p/a7b947c86650
+// https://www.jianshu.com/p/a41769bf5118?from=groupmessage
+
+apply plugin: 'application'
+
+// 标明 docker 镜像运行的主类
+mainClassName = 'com.java.tool.bean.MyApplication'
+
+task hello {
+    doLast {
+        println 'Hello World!'
+    }
+}
+
+task resourceOut(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.png")
+            include("**/*.jpg")
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+
+task resourceBuild(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.png")
+            include("**/*.jpg")
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/build/classes/java/main/")
+    }
+}
+// 法方一，在doFirst动作中添加
+    hello.doFirst {
+        println 'Hello doFirst'
+    }
+
+// 法方二 在doLast动作中添加
+    hello.doLast {
+        println 'Hello doLast1'
+    }
+
+// 法方三 在doLast动作中添加
+    hello {
+        doLast {
+            println 'Hello doLast2'
+        }
+    }
+
+
+    dependencies {
+        compile(
+                "org.apache.poi:poi-ooxml:3.11",
+                "org.apache.poi:poi:3.11",
+                "io.springfox:springfox-swagger2:2.9.2",
+                "io.springfox:springfox-swagger2:2.9.2",
+                "org.dom4j:dom4j:2.1.1"
+        )
+    }

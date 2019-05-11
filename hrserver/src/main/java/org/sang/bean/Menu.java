@@ -10,6 +10,9 @@ import java.util.List;
  * Created by sang on 2017/12/28.
  */
 public class Menu implements Serializable {
+
+    private static final long serialVersionUID = -2791690179325281192L;
+
     private Long id;
     private String url;
     private String path;
