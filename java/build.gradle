@@ -27,17 +27,17 @@ dependencies {
     // 依赖 core 模块
 //    compile project(":design-patterns")
 
-    compile(
-            "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
-            "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
-            "com.baomidou:mybatis-plus:${baomidouVersion}",
-            "io.netty:netty-all:${nettyAllVersion}",
-            "io.grpc:grpc-netty-shaded:${grpcVersion}",
-            "joda-time:joda-time:${jodaTimeVersion}",
-            "com.aliyun:aliyun-java-sdk-core:${sdkCoreVersion}",
-            "com.aliyun:aliyun-java-sdk-dysmsapi:${sdkDysmsapiVersion}",
-            "com.google.guava:guava:23.0",
-            "org.openjdk.jmh:jmh-core:1.20",
-            "org.openjdk.jmh:jmh-generator-annprocess:1.20",
-    )
+//    compile(
+//            "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
+//            "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
+//            "com.baomidou:mybatis-plus:${baomidouVersion}",
+//            "io.netty:netty-all:${nettyAllVersion}",
+//            "io.grpc:grpc-netty-shaded:${grpcVersion}",
+//            "joda-time:joda-time:${jodaTimeVersion}",
+//            "com.aliyun:aliyun-java-sdk-core:${sdkCoreVersion}",
+//            "com.aliyun:aliyun-java-sdk-dysmsapi:${sdkDysmsapiVersion}",
+//            "com.google.guava:guava:23.0",
+//            "org.openjdk.jmh:jmh-core:1.20",
+//            "org.openjdk.jmh:jmh-generator-annprocess:1.20",
+//    )
 }

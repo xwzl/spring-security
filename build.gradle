@@ -99,12 +99,13 @@ configure(allprojects) { project ->
                 "mysql:mysql-connector-java:${mysqlVersion}",
                 "org.jetbrains:annotations:${jannotationVersion}",
                 "org.reflections:reflections:${reflectionsVersion}",
-                "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
+//                "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
         )
-        implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+//        implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
         compileOnly 'org.projectlombok:lombok'
         implementation('org.springframework.boot:spring-boot-starter-web')
         annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
         //依赖子模块时，要排除子模块中的某个jar包
 //		compile(project(':project-impl')){
 //			exclude(module: 'project-mybatis')

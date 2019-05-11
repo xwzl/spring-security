@@ -4,6 +4,6 @@
 //mainClassName = 'com.java.java.JavaApplication'
 
 dependencies{
-    compile project(":security-core")
+    compile project(":security-browser")
 }
 

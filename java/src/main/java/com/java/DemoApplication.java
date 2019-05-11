@@ -1,16 +1,17 @@
-package com.java.tool.swagger;
+package com.java;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author xuweizhi
- * @date 2019/03/26 16:02
+ * @since 2019/05/11 20:42
  */
 @SpringBootApplication
-public class Swagger {
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Swagger.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
+
 }

@@ -1,5 +1,3 @@
-server:
-  port: 8989
 # 我们配置了三个数据，其中第一个作为默认数据源也就是我们的master数据源。主要是写操作，那么读操作交给我们的slave1跟slave2
 spring:
   datasource:

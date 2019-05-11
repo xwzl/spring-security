@@ -1,0 +1,9 @@
+spring:
+  session:
+    store-type: none
+  datasource:
+    url: jdbc:mysql://47.105.218.58/wtf?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 158262751
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
