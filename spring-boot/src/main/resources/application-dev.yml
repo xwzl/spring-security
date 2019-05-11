@@ -1,8 +1,8 @@
 server:
   port: 8080
   address: 127.0.0.1
-  servlet:
-    context-path: /spring-boot
+#  servlet:
+#    context-path: /spring-boot
 
 # 日志文件配置,用之前需要排除 logback 的依赖
 logging:

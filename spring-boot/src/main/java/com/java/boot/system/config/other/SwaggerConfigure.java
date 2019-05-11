@@ -51,8 +51,8 @@ public class SwaggerConfigure {
     @Value("${server.address}")
     private String address;
 
-    @Value("${server.servlet.context-path}")
-    private String context;
+    //@Value("${server.servlet.context-path}")
+    //private String context;
 
     @SuppressWarnings("deprecation")
     @Bean
@@ -92,14 +92,14 @@ public class SwaggerConfigure {
         } else {
             sb.append(port);
         }
-        if (!StringUtils.isEmpty(context)) {
-            String prefix = "/";
-            if (context.startsWith(prefix)) {
-                sb.append(context);
-            } else {
-                sb.append(prefix).append(context);
-            }
-        }
+        //if (!StringUtils.isEmpty(context)) {
+        //    String prefix = "/";
+        //    if (context.startsWith(prefix)) {
+        //        sb.append(context);
+        //    } else {
+        //        sb.append(prefix).append(context);
+        //    }
+        //}
         String url = sb.toString();
         return new ApiInfoBuilder()
                 //大标题

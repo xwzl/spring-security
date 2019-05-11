@@ -9,3 +9,19 @@ spring:
     host: ${linux.port.base}
     port: 6379
     timeout: 1000ms #连接时间
+  cache:
+    cache-names: menus_cache
+    redis:
+      time-to-live: 1800s
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: 1510161612@qq.com
+    password: fhmvfkwxjwmzhhjd
+    default-encoding: UTF-8
+    properties:
+        mail:
+          smtp:
+            socketFactory:
+              class: javax.net.ssl.SSLSocketFactory
+          debug: true
