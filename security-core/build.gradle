@@ -8,7 +8,7 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-redis:${redisVersion}",
             "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
-
+            "org.springframework.cloud:spring-cloud-starter-oauth2",
             // 第三方登录相关依赖
             "org.springframework.social:spring-social-config:${socialVersion}",
             "org.springframework.social:spring-social-core:${socialVersion}",
@@ -21,6 +21,7 @@ dependencies {
 //            "commons-collections:commons-collections",
 //            "commons-beanutils:commons-beanutils",
     )
-    implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+    //这样不能被子模块依赖
+    //implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
 
 }

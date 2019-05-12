@@ -4,6 +4,23 @@
 //mainClassName = 'com.java.java.JavaApplication'
 
 dependencies{
-    compile project(":security-browser")
+    compile(project(":security-browser"))
+//    compile("org.springframework.session:spring-session:1.3.5.RELEASE")
+//    compile project(":security-core")
+//    implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
 }
+
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/main/java','../security-browser/src/main/java']
+//        }
+//    }
+//}
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'com.security.demo.DemoApplication'
+//    }
+//}
+
 

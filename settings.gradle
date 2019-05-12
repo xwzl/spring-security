@@ -6,13 +6,14 @@ pluginManagement {
 
 rootProject.name = 'spring-cloud'
 
-include 'java'
-include 'tool'
-include 'mybatis-plus'
+//需要什么模块打开什么模块，多了卡
+//include 'java'
+//include 'tool'
+//include 'mybatis-plus'
 include 'security-app'
 include 'security-core'
 include 'security-browser'
 include 'security-demo'
-include 'hrserver'
-include 'spring-boot'
-include 'spring-web'
+//include 'hrserver'
+//include 'spring-boot'
+//include 'spring-web'

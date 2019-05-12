@@ -4,5 +4,13 @@
 //mainClassName = 'com.java.java.JavaApplication'
 
 dependencies{
-    compile project(":security-core")
+    compile(project(":security-core"))
 }
+
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/main/java','../security-core/src/main/java']
+//        }
+//    }
+//}

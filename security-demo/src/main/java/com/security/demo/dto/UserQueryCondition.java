@@ -1,4 +1,4 @@
-package com.java.demo.dto;
+package com.security.demo.dto;
 
 /**
  * @author xuweizhi
