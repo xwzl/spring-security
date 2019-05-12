@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.security.demo.dto.User;
 import com.security.demo.dto.UserQueryCondition;
 import com.security.demo.exception.UserNotExistException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
@@ -25,9 +27,12 @@ public class UserController {
      * Pageable 分页参数，设置默认的分页参数
      * <p>
      * 指定在指定的视图展示数据
+     *
+     * 指定方法名
      */
     @GetMapping
     @JsonView(User.UserSimpleView.class)
+    @ApiOperation(value = "获取用户详情！")
     public List<User> query(@RequestParam(required = false, name = "usernames", defaultValue = "jack") String username, UserQueryCondition condition, @PageableDefault(page = 1, size = 1, sort = "age,desc") Pageable pageable) {
         List<User> list = new ArrayList<>();
         list.add(new User());
@@ -84,8 +89,11 @@ public class UserController {
         return user;
     }
 
+    /**
+     * 设置参数id
+     */
     @DeleteMapping("/{id:\\d+}")
-    public void delete(@PathVariable String id) {
+    public void delete(@ApiParam("用户id")@PathVariable String id) {
         System.out.println(id);
     }
 

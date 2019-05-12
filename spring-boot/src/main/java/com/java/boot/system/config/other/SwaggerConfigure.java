@@ -40,76 +40,76 @@ import java.util.function.Predicate;
  * @author xuweizhi
  * @date 2019/04/23 14:24
  */
-@Configuration
-@Component
-@EnableSwagger2
+//@Configuration
+//@Component
+//@EnableSwagger2
 public class SwaggerConfigure {
 
-    @Value("${server.port}")
-    private String port;
-
-    @Value("${server.address}")
-    private String address;
-
-    //@Value("${server.servlet.context-path}")
-    //private String context;
-
-    @SuppressWarnings("deprecation")
-    @Bean
-    public Docket createRestApi() {
-        Predicate<RequestHandler> predicate = input -> {
-            Class<?> declaringClass = input.declaringClass();
-            // 排除
-            if (declaringClass == BasicErrorController.class) {
-                return false;
-            }
-            // 被注解的类
-            if (declaringClass.isAnnotationPresent(RestController.class)) {
-                return true;
-            }
-            // 被注解的方法
-            return input.isAnnotatedWith(ResponseBody.class);
-        };
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .useDefaultResponseMessages(false)
-                .select()
-                .apis(predicate::test)
-                .build();
-    }
-
-    @SuppressWarnings("deprecation")
-    private ApiInfo apiInfo() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("https://");
-        if (StringUtils.isEmpty(address)) {
-            sb.append("127.0.0.1:");
-        } else {
-            sb.append(address).append(":");
-        }
-        if (StringUtils.isEmpty(port)) {
-            sb.append("8080");
-        } else {
-            sb.append(port);
-        }
-        //if (!StringUtils.isEmpty(context)) {
-        //    String prefix = "/";
-        //    if (context.startsWith(prefix)) {
-        //        sb.append(context);
-        //    } else {
-        //        sb.append(prefix).append(context);
-        //    }
-        //}
-        String url = sb.toString();
-        return new ApiInfoBuilder()
-                //大标题
-                .title("swagger-bootstrap-ui RESTful APIs")
-                .description("swagger-bootstrap-ui")
-                .termsOfServiceUrl(url)
-                .contact("--")
-                //版本
-                .version("1.0")
-                .build();
-    }
+    //@Value("${server.port}")
+    //private String port;
+    //
+    //@Value("${server.address}")
+    //private String address;
+    //
+    ////@Value("${server.servlet.context-path}")
+    ////private String context;
+    //
+    //@SuppressWarnings("deprecation")
+    //@Bean
+    //public Docket createRestApi() {
+    //    Predicate<RequestHandler> predicate = input -> {
+    //        Class<?> declaringClass = input.declaringClass();
+    //        // 排除
+    //        if (declaringClass == BasicErrorController.class) {
+    //            return false;
+    //        }
+    //        // 被注解的类
+    //        if (declaringClass.isAnnotationPresent(RestController.class)) {
+    //            return true;
+    //        }
+    //        // 被注解的方法
+    //        return input.isAnnotatedWith(ResponseBody.class);
+    //    };
+    //    return new Docket(DocumentationType.SWAGGER_2)
+    //            .apiInfo(apiInfo())
+    //            .useDefaultResponseMessages(false)
+    //            .select()
+    //            .apis(predicate::test)
+    //            .build();
+    //}
+    //
+    //@SuppressWarnings("deprecation")
+    //private ApiInfo apiInfo() {
+    //    StringBuilder sb = new StringBuilder();
+    //    sb.append("https://");
+    //    if (StringUtils.isEmpty(address)) {
+    //        sb.append("127.0.0.1:");
+    //    } else {
+    //        sb.append(address).append(":");
+    //    }
+    //    if (StringUtils.isEmpty(port)) {
+    //        sb.append("8080");
+    //    } else {
+    //        sb.append(port);
+    //    }
+    //    //if (!StringUtils.isEmpty(context)) {
+    //    //    String prefix = "/";
+    //    //    if (context.startsWith(prefix)) {
+    //    //        sb.append(context);
+    //    //    } else {
+    //    //        sb.append(prefix).append(context);
+    //    //    }
+    //    //}
+    //    String url = sb.toString();
+    //    return new ApiInfoBuilder()
+    //            //大标题
+    //            .title("swagger-bootstrap-ui RESTful APIs")
+    //            .description("swagger-bootstrap-ui")
+    //            .termsOfServiceUrl(url)
+    //            .contact("--")
+    //            //版本
+    //            .version("1.0")
+    //            .build();
+    //}
 
 }

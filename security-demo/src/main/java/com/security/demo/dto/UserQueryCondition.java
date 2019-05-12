@@ -1,13 +1,21 @@
 package com.security.demo.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @author xuweizhi
  * @since 2019/05/11 22:59
  */
 public class UserQueryCondition {
 
+    /**
+     * 指定字段信息
+     */
+    @ApiModelProperty(value="用户名")
     private String username;
+
     private int age;
+
     private int ageTo;
 
     public String getUsername() {

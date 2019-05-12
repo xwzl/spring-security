@@ -5,6 +5,7 @@
 
 dependencies{
     compile(project(":security-browser"))
+    compile("com.github.tomakehurst:wiremock:${wireMockVersion}")
 //    compile("org.springframework.session:spring-session:1.3.5.RELEASE")
 //    compile project(":security-core")
 //    implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'

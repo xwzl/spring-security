@@ -17,7 +17,6 @@ task resourceBuild(type: Copy) {
 }
 
 
-
 dependencies {
     compile(
 
@@ -28,7 +27,8 @@ dependencies {
             "io.netty:netty-all:${nettyAllVersion}",
             "io.grpc:grpc-netty-shaded:${grpcVersion}",
             "io.springfox:springfox-swagger2:${swaggerVersion}",
-            "io.springfox:springfox-swagger-ui:${swaggerVersion}",
+//          "io.springfox:springfox-swagger-ui:${swaggerVersion}",
+            compile("com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}"),
 
 //            "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1",
             // 加上这个才能辨认到log4j2.yml文件
@@ -52,7 +52,7 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-data-elasticsearch:${springBootVersion}",
-           
+
             "org.apache.poi:poi:3.17",
             "org.apache.commons:commons-lang3:${commonLangVerion}"
 //            "io.searchbox:jest:5.3.3",

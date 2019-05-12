@@ -15,11 +15,16 @@ dependencies {
             "org.springframework.social:spring-social-security:${socialVersion}",
             "org.springframework.social:spring-social-web:${socialVersion}",
 
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+//            "io.springfox:springfox-swagger-ui:${swaggerVersion}",
+            compile("com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}"),
+
             // 工具包
-            "org.apache.commons:commons-lang3:${commonLangVerion}"
-//            "commons-lang:commons-lang:",
-//            "commons-collections:commons-collections",
-//            "commons-beanutils:commons-beanutils",
+            "org.apache.commons:commons-lang3:${commonLangVerion}",
+            "com.jwebmp.jpms.commons:commons-io:0.67.0.7"
+//            "commons-lang:commons-lang:20030203.000129",
+//            "commons-collections:commons-collections:20040616",
+//            "commons-beanutils:commons-beanutils:20030211.134440"
     )
     //这样不能被子模块依赖
     //implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
