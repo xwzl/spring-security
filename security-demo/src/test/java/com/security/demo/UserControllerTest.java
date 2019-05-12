@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -16,6 +17,10 @@ import org.springframework.web.context.WebApplicationContext;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author xuweizhi
@@ -48,7 +53,7 @@ public class UserControllerTest {
                 // 编码格式
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 // 期望结果
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 // 期望返回的结果为集合，且长度为3
                 // https://github.com/json-path/JsonPath 查看文档
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3))
@@ -63,7 +68,7 @@ public class UserControllerTest {
     public void whenGetInfoSuccess() throws Exception {
         String tom = mockMvc.perform(MockMvcRequestBuilders.get("/user/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 // jsonPath 的值，理解为json格式即可
                 .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("tom"))
                 .andReturn().getResponse().getContentAsString();
@@ -74,7 +79,7 @@ public class UserControllerTest {
     public void whenGetInfoFail() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user/a")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+                .andExpect(status().is4xxClientError());
         //.andExpect(MockMvcResultMatchers.jsonPath("$"));
     }
 
@@ -89,7 +94,7 @@ public class UserControllerTest {
         String content1 = mockMvc.perform(MockMvcRequestBuilders.post("/user").contentType(MediaType.APPLICATION_JSON_UTF8)
                 // 请求内容
                 .content(content))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
                 .andReturn().getResponse().getContentAsString();
         System.out.println(content1);
@@ -105,9 +110,9 @@ public class UserControllerTest {
                 .toInstant().toEpochMilli());
         System.out.println(date.getTime());
         String content = "{\"username\":\"tom\",\"password\":null,\"birthday\":" + date.getTime() + "}";
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/user/1")
+        String result = mockMvc.perform(put("/user/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content(content))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         System.out.println(result);
     }
@@ -116,7 +121,18 @@ public class UserControllerTest {
     public void whenDeleteSuccess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/user/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
+    }
+
+    @Test
+    @SuppressWarnings("deprecated")
+    public void whenUploadSuccess() throws Exception {
+        String content = mockMvc.perform(fileUpload("/file")
+                // 模拟文件上传，参数是file,文件名是test.txt
+                .file(new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello file".getBytes())))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(content);
     }
 }

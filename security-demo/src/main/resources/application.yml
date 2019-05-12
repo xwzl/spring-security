@@ -7,6 +7,16 @@ spring:
     password: 158262751
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    jedis:
+      pool:
+        min-idle: 5
+        max-active: 10
+        max-idle: 10
+        max-wait: 2000ms #连接池等待时间
+    host: 47.105.218.58
+    port: 6379
+    timeout: 1000ms #连接时间
   # 传时间戳
   jackson:
     serialization:

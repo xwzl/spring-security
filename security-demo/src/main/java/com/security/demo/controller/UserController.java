@@ -3,6 +3,7 @@ package com.security.demo.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.security.demo.dto.User;
 import com.security.demo.dto.UserQueryCondition;
+import com.security.demo.exception.UserNotExistException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
@@ -45,6 +46,10 @@ public class UserController {
     @JsonView(User.UserDetailView.class)
     public User getUserInfo(@PathVariable("id") String id) {
         System.out.println(id);
+        if(!id.equals("1")){
+            throw new UserNotExistException(id);
+        }
+
         User user = new User();
         user.setUsername("tom");
         return user;
