@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 1. ES6 之前构造对象
+    /*function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Person.prototype = {
+        constructor: Person,
+        print() {
+            console.log('我叫' + this.name + ",今年" + this.age + '岁');
+        }
+    }
+
+    let person = new Person("张三", 12);
+    console.log(person);
+    person.print();*/
+
+    // 2. 通过 class 面向对象
+    class Person {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        static print() {
+            console.log("哈哈");
+        }
+    }
+
+    Person.print();
+    let peron = new Person("1",1);
+    console.log(peron);
+</script>
+</html>

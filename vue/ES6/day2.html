@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>解构赋值</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 1. 基本用法
+    // let name = 'tom', age = 11, sex = '男';
+    /*  let [name, age, sex] = ['tom', 11, '男'];
+      console.log(name);
+      console.log(age);
+      console.log(sex);*/
+
+    // 2. 对象的解构赋值
+    // let {name, age, friends, pet} = {
+    //     name: '张三',
+    //     age: 12,
+    //     friends: ['tom', 'jack'],
+    //     pet: {
+    //         type: 'pig'
+    //     }
+    // };
+    //
+    // console.log(name);
+    // console.log(age);
+    // console.log(friends);
+    // console.log(pet);
+    //
+    // // 3. 数组的结构赋值,左右规则相同即可
+    // let [arr1, [arr2, [arr3, arr4]]] = [1, [2, [3, 4]]];
+    // console.log(arr1, arr2, arr3, arr4);
+
+    let [aa, , ,cc] = [1, 2, 3];
+    console.log(aa);
+    console.log(cc);
+
+    // 4. 基本类型的结构赋值
+    // let [a, b, c, d, e] = '基本类型';
+    // console.log(a);
+    // console.log(b);
+    // console.log(c);
+    // console.log(d);
+    // console.log(e);
+</script>
+</html>

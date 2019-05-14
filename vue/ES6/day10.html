@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>圣杯布局</title>
+</head>
+<style type="text/css">
+    *{
+        padding: 0px;
+        margin: 0px;
+        color: rgba(255,255,255,1);
+        font-size: 20px;
+    }
+    header,
+    footer{
+        width: 100%;
+        height: 50px;
+        background: rgba(0,123,123,1);
+    }
+    .center{
+        width: 100%;
+        height: auto;
+        display: -webkit-flex;
+        display: flex;
+    }
+    .center-left,
+    .center-right{
+        flex: 1;
+        background: rgba(123,123,0,1);
+    }
+    .center-center{
+        flex: 8;
+        background: rgba(0,123,0,1);
+        height: 660px;
+    }
+    /*使子元素居中*/
+    .child-center{
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+</style>
+<body>
+<header class="child-center">
+    header
+</header>
+<div class="center">
+    <div class="center-left child-center">
+        left
+    </div>
+    <div class="center-center child-center">
+        center
+    </div>
+    <div class="center-right child-center">
+        right
+    </div>
+</div>
+<footer class="child-center">
+    footer
+</footer>
+</body>
+</html>

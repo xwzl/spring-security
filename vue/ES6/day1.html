@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Let and Const</title>
+</head>
+<body>
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<button>按钮4</button>
+<button>按钮5</button>
+</body>
+<script>
+    // let 和 const 声明变量和常量
+    //  let 和 var 差别
+    // 1.let 作用域仅限于当前代码块
+    /* {
+         var va1 = 'str1';
+         console.log(va1);
+
+         let va2 = 'str2'
+         console.log(va2);
+     }
+     console.log('str1:' + va1);
+
+     // let 作用域对外不可见，Uncaught ReferenceError: str2 is not defined
+     console.log('str2:' + va2);*/
+
+    // 2. 作用域的提升
+    /* {
+         console.log(str1);
+         // 作用域提升，输出 undefine
+         var str1 = "abc";
+
+         // 提示后的代码顺序
+         // var str1;
+         // console.log(str1);
+         // str1="abc";
+     }
+
+     {
+         console.log(str2);
+         // 不存在作用域提升，直接报错
+         let str2 = "11";
+     }*/
+
+    // 3. 相同的作用域下不能声明相同的变量
+    /* {
+         var str1 = "1";
+         var str1 = "2";
+         console.log(str1);
+
+         // let str2 = "3";
+         let str2 = "4";
+         console.log(str2);
+     }*/
+
+    //  4. for 循环体体现 let 的父子作用域
+    var btns = document.querySelectorAll('button');
+    /*for (var i = 0; i < btns.length; i++) {
+        btns[i].onclick = function () {
+            // i 变量一直是五
+            console.log(i);
+        }
+    }*/
+
+    // 闭包解决作用域问题
+    // for (var i = 0; i < btns.length; i++) {
+    //     (function (i) {
+    //         btns[i].onclick = function () {
+    //             console.log(i);
+    //         }
+    //     })(i)
+    // }
+
+    // 或者是 let 解决
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].onclick = function () {
+            console.log(i);
+        }
+    }
+
+    // 2 const 与 let 特性相似
+
+    {
+        // 声明时必须赋值，且不可改变
+        const var1 = {name: '1'};
+        console.log(var1.name);
+        var1.name = 2;
+        var1.name2 = 2;
+        console.log(va r1);
+    }
+
+</script>
+</html>

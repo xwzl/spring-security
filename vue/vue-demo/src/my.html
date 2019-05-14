@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>小练习</title>
+</head>
+<style>
+
+    #app {
+        margin: 50px auto;
+        width: 600px;
+    }
+
+    fieldset {
+        border: 1px solid orangered;
+        margin-bottom: 20px;
+    }
+
+    fieldset input {
+        width: 200px;
+        height: 30px;
+        margin: 10px 0;
+    }
+
+    table {
+        width: 600px;
+        border: 2px solid orangered;
+        text-align: center;
+    }
+
+    thead {
+        background-color: orangered;
+    }
+
+</style>
+<body>
+<div id="app">
+    <!--第一部分-->
+    <fieldset>
+        <legend>学生录入系统</legend>
+        <div>
+            <span>姓名:</span>
+            <input type="text" v-model="person.name" placeholder="请输入姓名">
+        </div>
+        <div>
+            <span>年龄:</span>
+            <input type="text" v-model="person.age" placeholder="请输入年龄">
+        </div>
+        <div>
+            <span>性别:</span>
+            <select v-model="person.sex">
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div>
+        <div>
+            <span>手机:</span>
+            <input type="text" v-model="person.phone" placeholder="请输入手机号码">
+        </div>
+        <button @click="createPerson()">创建新用户</button>
+    </fieldset>
+    <!--第二部分-->
+    <table>
+        <thead>
+        <tr>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>手机</td>
+            <td>删除</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(person,index) in persons">
+            <td>{{person.name}}</td>
+            <td>{{person.age}}</td>
+            <td>{{person.sex}}</td>
+            <td>{{person.phone}}</td>
+            <td>
+                <button @click="deletePerson(index)">{{index}}</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            person: {name: "", age: 0, sex: '男', phone: ''},
+            persons: [
+                {name: "张三", age: 13, sex: '男', phone: '15280875199'},
+                {name: "李四", age: 14, sex: '男', phone: '15280875199'},
+                {name: "王五", age: 13, sex: '男', phone: '15280875199'},
+                {name: "赵柳", age: 15, sex: '男', phone: '15280875199'}
+            ]
+        },
+        methods: {
+            createPerson() {
+                if (this.person.name === '') {
+                    alert('姓名不能为空');
+                    return;
+                }
+                if (this.person.age <= 0) {
+                    alert('年龄不能小于0');
+                    return;
+                }
+                if (this.person.phone === '') {
+                    alert('手机号码不能为空');
+                    return;
+                }
+                // 向数组插入值，且当前下标为0
+                this.persons.unshift(this.person);
+                this.person = {name: "", age: 0, sex: '男', phone: ''};
+            },
+            deletePerson(index) {
+                this.persons.splice(index, 1);
+            }
+        }
+
+    });
+</script>
+</html>

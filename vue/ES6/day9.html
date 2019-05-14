@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex 布局</title>
+</head>
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .parent {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        /*超出一行后, 换行 */
+        flex-wrap: wrap;
+        /*子标签居中对齐*/
+        /*justify-content: center;*/
+        justify-content: space-around;
+    }
+
+    .box {
+        display: flex;
+        flex-direction: row;
+        width: 500px;
+        height: 150px;
+        border: 1px solid black;
+    }
+
+    .box1 {
+        display: flex;
+        /*水平主轴*/
+        flex-direction: row-reverse;
+        width: 500px;
+        height: 150px;
+        border: 1px solid black;
+    }
+
+    .box2 {
+        display: flex;
+        /*垂直主轴*/
+        flex-direction: column;
+        width: 500px;
+        height: 150px;
+        border: 1px solid black;
+    }
+
+    .box3 {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 500px;
+        height: 150px;
+        border: 1px solid black;
+    }
+
+    .test {
+        background: yellow;
+        width: 10px;
+        height: 10px;
+    }
+</style>
+<body>
+<div class="parent">
+    <div class="box">
+        <div class="test"></div>
+        <div class="test"></div>
+        <div class="test"></div>
+    </div>
+    <div class="box1">
+        <div class="test"></div>
+        <div class="test"></div>
+        <div class="test"></div>
+    </div>
+    <div class="box2">
+        <div class="test"></div>
+        <div class="test"></div>
+        <div class="test"></div>
+    </div>
+    <div class="box3">
+        <div class="test"></div>
+        <div class="test"></div>
+        <div class="test"></div>
+    </div>
+</div>
+
+</body>
+</html>

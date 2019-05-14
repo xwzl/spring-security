@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 常用指令</title>
+</head>
+<style>
+    table {
+        width: 600px;
+        border: 2px solid orangered;
+        text-align: center;
+    }
+
+    thead {
+        background-color: orangered;
+    }
+
+    .box {
+        font-size: 25px;
+        color: red;
+    }
+
+    .content {
+        margin-left: 30px;
+    }
+</style>
+
+<body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+
+<div id="app">
+    <h2> 1 vue 常见指令的使用</h2>
+
+    <h3>1、v-once 用于数据不可修改,v-model用于数据双向绑定</h3>
+    <div class="content">
+        <p v-once>原始值：{{msg}}</p>
+        <p>可改变的值：{{msg}}</p>
+        <input type="text" v-model="msg">
+    </div>
+
+    <h3>2、v-if 进行条件判断，符合要求则渲染，不符合用注释代替<!----></h3>
+    <div class="content">
+        <p v-if="height > 1">小明的身高是：{{height}} m</p>
+        <p v-else-if="height >0.5">小明的身高是：{{height}} m,v-else-if 标签，只会显示0.5到1.0的数据</p>
+        <p v-else>小明的身高未知，v-else必须和 v-if 或者 vi-if 联合使用，且不用写条件判断</p>
+    </div>
+
+    <h3>3、v-show 与 v-if 指令相似，用于隐藏标签的内容，不过是 css 的 dispaly：none 实现</h3>
+    <div class="content">
+        <p v-show="height > 1">小明的身高是：{{height}} m</p>
+    </div>
+
+    <h3>4、v-if 与v-show 的区别</h3>
+    <div class="content">
+        <ul>
+            <li>
+                v-if 是真实的条件渲染，因为它确保条件在切换当中适当地销毁与重建条件块内的事件鉴定器<br/>
+                和子组件，v-show 则只是简单的基于 css 切换
+            </li>
+            <li>
+                v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗，因此，如果需要频繁切换使用 v-show<br/>
+                较好，如果在运行时条件不大可能改变则使用 v-if 较好。
+            </li>
+        </ul>
+    </div>
+
+
+    <h3>5、v-for 标签，语法为 (value,index) in array</h3>
+    <div class="content">
+        <ul>
+            <li v-for="(score,index) in scores" v-if="score > 25">
+                {{index}}":"{{score}}
+            </li>
+        </ul>
+
+        <table>
+            <thead>
+            <tr>
+                <td>姓名</td>
+                <td>年龄</td>
+                <td>性别</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="person in persons">
+                <td>{{person.name}}</td>
+                <td>{{person.age}}</td>
+                <td>{{person.sex}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>6、v-text,v-html</h3>
+    <div class="content">
+        <p>v-test向标签中注入值，覆盖标签中的内容，v-html注入html</p>
+        <p>{{msg}}</p>
+        <p v-text="msg">覆盖标签中的内容！</p>
+        <div v-html="html"></div>
+    </div>
+
+    <h3>7、v-bind 用于 dom 动态绑定属性</h3>
+    <div class="content">
+        <ul>
+            <li>v-bind:src="url" 可以缩写成 :src="url"</li>
+            <li>v-bind:class="url" 可以缩写成 :class="url"</li>
+            <li>v-bind:style="url" 可以缩写成 :style="url"</li>
+        </ul>
+        <div>
+            <img v-bind:src="url" v-bind:alt="alt">
+            <p v-for="college in colleges" v-bind:class="college === flag? 'box' :''">
+                {{college}}
+            </p>
+            <p :style="{color:colors}">v-bind:style</p>
+        </div>
+    </div>
+
+    <h3>8、 v-on 用于绑定时间 v-on:click 或者 @click</h3>
+    <div class="content">
+        <p>{{msg}}</p>
+        <button v-on:click="changeContent()">改变内容</button>
+        <button @click="changeColor()">改变颜色</button>
+    </div>
+
+    <h2> 2 vue 中的计算属性,默认只有 getter 方法，setter方法需要显示自定义，赋值时触发 setter方法</h2>
+    <div class="content">
+        <p>模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。在模板中放入太多的逻辑会让模板过重且难以维护。</p>
+        <p>当页面重新渲染（不是刷新）的时候，计算属性不会变化，直接读取缓存使用，适合较大量的计算和频率较低的属性</p>
+        <p>而method，就是当页面重新渲染的时候(页面元素的data变化，页面就会从新渲染)，都会重新调用method</p>
+        <p>如果不需要缓存,可以用 method 取代 computed.</p>
+        <p>原始值:{{hello}}</p>
+        <p>反转值:{{hello.split('').reverse().join('')}}</p>
+        <p>函数调用:{{reverseStr()}}</p>
+        <p>计算属性，相当于函数称为属性:{{reverse}}</p>
+        <p>set测试:{{fullName}}</p>
+        <button v-on:click="deal()">计算属性set方法</button>
+    </div>
+
+    <h2> 3 组件的使用</h2>
+    <my-app></my-app>
+    <my-app1></my-app1>
+
+    <p>父组件的使用</p>
+    <parent></parent>
+
+    <my-div></my-div>
+    <my-div></my-div>
+    <my-div></my-div>
+    <my-div></my-div>
+</div>
+
+<template id="my-div">
+    <div>
+        <p>这是一个组件{{messages}}</p>
+        <button @click="count+=1">{{count}}</button>
+    </div>
+</template>
+
+</body>
+<script>
+    // 1. 创建组件构造器
+    // let profile = Vue.extend({
+    //     // 模板选项
+    //     template: `
+    //         <div>
+    //              <p>天气不错呀</p>
+    //             <input type="text">
+    //         </div>
+    //     `
+    // });
+
+    // 2. 注册全局组件,所有 vue 都可使用
+    Vue.component('my-app', {
+        // 模板选项
+        template: `
+            <div>
+                 <p>天气不错呀</p>
+                <input type="text">
+            </div>
+        `
+    });
+
+    let child1 = Vue.extend({
+        template: `<p>第一个子组件！</p>`
+    })
+
+    let child2 = Vue.extend({
+        template: `<p>第二个子组件！</p>`
+    })
+
+    // 父组件，子组件仅仅在父组件注册
+    Vue.component('parent', {
+        components: {
+            'my-child1': child1,
+            'my-child2': child2
+        },
+        template: `
+            <div>
+              <my-child1></my-child1>
+              <my-child2></my-child2>
+            </div>
+       `
+    });
+
+    // 组件中使用 data 必须以函数的形势返回,可以保证数据独一一份
+    Vue.component('my-div', {
+        template: '#my-div',
+        data() {
+            return {
+                messages: '这是一个消息,必须你函数形势返回!',
+                count: 0
+            };
+        }
+    })
+    ;
+
+    let vm = new Vue({
+        el: '#app',
+        components: {
+            'my-app1': {
+                // 模板选项
+                template: `
+            <div>
+                 <p>天气不错呀</p>
+                <input type="text">
+            </div>
+        `
+            }
+        },
+        data: {
+            msg: 'Hello Vue !',
+            height: (Math.random() * 2).toFixed(2),
+            scores: [13, 23, 42, 43],
+            hello: '当前时间：' + Date.now().toLocaleString(),
+            firstName: 'firstName',
+            lastName: 'lastName',
+            persons: [
+                {name: "张三", age: 13, sex: '男'},
+                {name: "李四", age: 14, sex: '男'},
+                {name: "王五", age: 13, sex: '男'}
+            ],
+            html: '<p>v-html慎用，因为可以外界改变内容！</p>',
+            url: '../static/favicon.ico',
+            alt: '我是一张图片',
+            flag: 'ios 学院',
+            colors: 'green',
+            colleges: [
+                'ios 学院',
+                'java 学院',
+                'google 学院',
+                'html 学院',
+                'vr 学院'
+            ]
+        },
+        methods: {
+            changeContent() {
+                this.msg = '你好啊！';
+            },
+            changeColor() {
+                this.colors = 'red';
+            },
+            reverseStr() {
+                return this.hello.split('').reverse().join('');
+            },
+            deal() {
+                this.fullName = 'Jack Tom';
+            }
+        },
+        computed: {
+            //计算属性的 getter,就相当于是一个有函数方法的属性值
+            reverse() {
+                return this.hello.split('').reverse().join('');
+            },
+            // get 方法
+            /*fullName() {
+                return this.lastName + ":" + this.firstName;
+            }*/
+            fullName: {
+                get() {
+                    return this.lastName + ":" + this.firstName;
+                },
+                set(str) {
+                    let nameArr = str.split(' ');
+                    this.firstName = nameArr[0];
+                    this.lastName = nameArr[1];
+                }
+            }
+        }
+    });
+</script>
+</html>

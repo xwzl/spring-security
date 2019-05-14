@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set 和 Map</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 1. 创建一个集合,去重复的操作
+    /*let set = new Set([1, 2, 3, 4, 5, 1]);
+    set.forEach(value => console.log(value));
+
+    // 2. 属性
+    console.log(set.size);
+
+    // 3. 方法
+    set.add('我们').add("是");
+    console.log(set.size);
+
+    let delect = set.delete("是");
+    console.log(delect);
+
+    console.log(set.has('是'));
+    // 键和值一样
+    console.log(set.keys());
+    set.clear();
+
+    console.log(set);*/
+
+    // 二.Map
+    // 正常对象无法以对象作为键
+    // let o1 = {name: 1}, o2 = {name1: 2}, o3 = {name2: 3};
+    // o1[o2] = '大海';
+    // o1[o3] = '大海1';
+    //
+    // console.log(o1);
+    // // 对象中当存在对象作为键时，先把键转成在字符串，然后进行添加
+    // console.log(o2.toString());
+    // console.log(o1.toString());
+    // console.log(o1.toString() == o2.toString());
+
+    // let o1 = {name: 1}, o2 = {name1: 2};
+    // // map 也可用于去重
+    // const map = new Map([
+    //     ['name', 'tom'],
+    //     ['age', 18],
+    //     ['sex', '男'],
+    //     [o1, "天气"],
+    //     [o2, '水货']
+    // ]);
+    //
+    // map.set('redis', 'haha');
+    // // console.log(map);
+    //
+    // console.log(map.get(o1));
+    // map.delete(o1);
+    // console.log(map.has(o1));
+    //
+    // map.forEach(value => console.log(value));
+
+    // 3 symbol 解决命名长途问题
+    let str1 = Symbol('name');
+    let str2 = Symbol('name');
+    console.log(str1 == str2);
+
+    const obj = {};
+    obj.name = '11';
+    obj.name = '11';
+    console.log(obj);
+
+    obj[Symbol('1')] = "11";
+    obj[Symbol('1')] = "11";
+    console.log(obj);
+</script>
+</html>

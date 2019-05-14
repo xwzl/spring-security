@@ -1,17 +1,17 @@
 spring:
   session:
     store-type: none
-#  datasource:
-#    url: jdbc:mysql://47.105.218.58/wtf?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-#    username: root
-#    password: 158262751
-#    type: com.zaxxer.hikari.HikariDataSource
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#
-#  thymeleaf:
-#    cache: false
-#    prefix: classpath:/templates/
-#    suffix: .html
+  #  datasource:
+  #    url: jdbc:mysql://47.105.218.58/wtf?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+  #    username: root
+  #    password: 158262751
+  #    type: com.zaxxer.hikari.HikariDataSource
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #
+  #  thymeleaf:
+  #    cache: false
+  #    prefix: classpath:/templates/
+  #    suffix: .html
   redis:
     jedis:
       pool:
@@ -26,3 +26,8 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: true
+
+# 配置请求登录界面
+com:
+  security:
+    browser: /index.html

@@ -1,5 +1,7 @@
 package com.security.browser.config;
 
+import com.security.core.proterties.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private SecurityProperties securityProperties;
 
     /**
      * 注入加密解密
@@ -47,16 +52,21 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 // 登录需要认证的页面，但是由于自身也需要进行身份认证，所以一直循环认证自身
                 // 配置 thymeleaf,需要配置controller 进行路径转发
-                .loginPage("/index.html")
+                .loginPage("/authentication/require")
+                // 请求登陆处理地址
+                .loginProcessingUrl("/login/form")
                 .and()
                 // 判断之前的过滤配置，进行授权
                 .authorizeRequests()
-                // 以下路径不需要进行身份认证
-                .antMatchers("/index.html","/static/**","favicon.ico").permitAll()
+                // 以下路径不需要进行身份认证,securityProperties.getBrowser().getLoginPage()是真正的登录页面，包括用户自定义的
+                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage(),"/static/**", "favicon.ico").permitAll()
                 // 任何请求都需要进行身份认证
                 .anyRequest()
                 // 授权的配置
-                .authenticated();
+                .authenticated()
+                .and()
+                // 防护伪造的功能
+                .csrf().disable();
     }
 
 }

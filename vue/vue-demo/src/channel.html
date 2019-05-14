@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>组件之间通信</title>
+</head>
+<body>
+<div id="app">
+    <my-div message="今天很好" url="../static/favicon.ico"></my-div>
+    <my-div message="今天不好" url="../static/favicon.ico"></my-div>
+    <h2>多层组件传递，一定要用动态绑定</h2>
+    <my-parent :title="title" :url="img"></my-parent>
+
+</div>
+
+<template id="my-div">
+    <div>
+        <h3>天气不错{{message}}</h3>
+        <img :src="url">
+    </div>
+</template>
+
+<template id="my-img">
+    <img v-bind:src="url"></img>
+</template>
+
+<template id="my-title">
+    <p>{{title}}</p>
+</template>
+
+<!-- 多层传递，一定要用动态绑定-->
+<template id="my-parent">
+    <div>
+        <my-title :title="title"></my-title>
+        <my-img :url="url"></my-img>
+    </div>
+</template>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    // 组件间通信，变量不支持驼峰命名法
+    Vue.component('my-div', {
+        template: '#my-div',
+        // 定义组件之间传递信息的方式,定义变量
+        props: ['message', 'url']
+    })
+
+    let child1 = Vue.extend({
+        template: '#my-img',
+        props: ['url']
+    });
+
+    let child2 = Vue.extend({
+        template: '#my-title',
+        props: ['title']
+    });
+
+    Vue.component('my-parent', {
+        props: ['title', 'url'],
+        components: {
+            'my-title': child2,
+            'my-img': child1
+        },
+        template: '#my-parent'
+    })
+
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            title: '你好啊',
+            img: '../static/favicon.ico'
+        }
+    });
+</script>
+</html>
