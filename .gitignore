@@ -22,8 +22,8 @@
 
 .idea/**
 /.idea/**
-/*/out/**
-/*/build/**
+/**/out/**
+/**/build/**
 /.gradle/**
 /build/**
 ./**/node_modules

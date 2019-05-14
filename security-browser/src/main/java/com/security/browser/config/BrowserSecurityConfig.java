@@ -1,0 +1,62 @@
+package com.security.browser.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+/**
+ * 权限认证
+ *
+ * @author xuweizhi
+ * @date 2019/05/13 21:31
+ */
+@Configuration
+@EnableWebSecurity
+public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    /**
+     * 注入加密解密
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        // 其默认实现
+        return new BCryptPasswordEncoder();
+    }
+
+
+    //@Override
+    //public void configure(WebSecurity web) throws Exception {
+    //    web.ignoring().antMatchers("/index", "/static/**", "/favicon.ico");
+    //}
+
+
+    /**
+     * http 的验证开始
+     *
+     * @param http 过滤 http 请求
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // 默认提供的 form 表单登录
+        //http.httpBasic()
+        // form 表单登录进行身份认证，所有的请求都需要身份认证才能访问
+        http.formLogin()
+                // 登录需要认证的页面，但是由于自身也需要进行身份认证，所以一直循环认证自身
+                // 配置 thymeleaf,需要配置controller 进行路径转发
+                .loginPage("/index.html")
+                .and()
+                // 判断之前的过滤配置，进行授权
+                .authorizeRequests()
+                // 以下路径不需要进行身份认证
+                .antMatchers("/index.html","/static/**","favicon.ico").permitAll()
+                // 任何请求都需要进行身份认证
+                .anyRequest()
+                // 授权的配置
+                .authenticated();
+    }
+
+}
