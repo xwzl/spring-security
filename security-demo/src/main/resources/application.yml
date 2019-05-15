@@ -2,7 +2,7 @@ spring:
   session:
     store-type: none
   datasource:
-    url: jdbc:mysql://47.105.218.58/wtf?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://47.105.218.58/qq?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     username: root
     password: 158262751
     type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
@@ -32,8 +32,15 @@ com:
   security:
     browser:
       loginPage: /index.html
-    #      配置请求成功后返回 HTML 还是 JSON
-    #      loginType: REDIRECT
+      #      配置 JSON 还是重定向 REDIRECT
+      loginType: JSON
+    # 配置验证码默认级别的配置
+#    code:
+#      image:
+#         length: 6
+#         width: 100
+#         # 配置一定要加 ，
+#         url: /user,/user/*
     social:
       qq:
         #        申请

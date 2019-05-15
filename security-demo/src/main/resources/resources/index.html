@@ -1,44 +1,68 @@
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Spring Security 标准登录页面</title>
 </head>
 <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
-<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.js"></script>
 <script src="/static/vue.js"></script>
 <body>
 <div id="app">
-    <div style="width:500px;margin-left: 400px;margin-top: 150px;">
-        <form class="form-horizontal" action="/login/form" method="post">
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">用户名:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" name="username" placeholder="请输入用户名!">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">密 码:</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="请输入密码!">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Remember me
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">登陆</button>
-                </div>
-            </div>
-        </form>
-    </div>
+
+    <h3>用户名登录</h3>
+    <form action="/authentication/form" method="post">
+        <table>
+            <tr>
+                <td>用户名:</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>密码:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td>图形验证码:</td>
+                <td>
+                    <input type="text" name="imageCode">
+                    <img alt="" src="/code/image">
+                </td>
+            </tr>
+            <tr colspan="2">
+                <input name="remember-me" type="checkbox" value="true"/>记住我
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">登录</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <br/>
+
+    <h3>手机登录</h3>
+    <form action="/authentication/mobile" method="post">
+        <table>
+            <tr>
+                <td>手机号:</td>
+                <td><input type="text" id="mobile" name="mobile" value="18012345678"></td>
+            </tr>
+            <tr>
+                <td>图形验证码:</td>
+                <td>
+                    <input type="text" name="smsCode">
+                    <a href="javascript:applySmsCode();">发送验证码</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">登录</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
 </div>
 <script>
     let vm = new Vue({

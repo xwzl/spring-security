@@ -1,6 +1,7 @@
 package com.security.browser.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.security.browser.support.SimpleResponse;
 import com.security.core.proterties.LoginType;
 import com.security.core.proterties.SecurityProperties;
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthentication
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
             // 以 json 格式返回认证信息
-            response.getWriter().write(objectMapper.writeValueAsString(exception));
+            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
         }else{
             // 父类的方法就是跳转
             super.onAuthenticationFailure(request, response, exception);

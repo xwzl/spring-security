@@ -6,13 +6,20 @@ package com.security.core.proterties;
  */
 public class BrowserProperties {
 
-
     /**
      * 设置默认的登录页面
      */
     private String loginPage = "/login.html";
 
+    /**
+     * 默认返回的类型
+     */
     private LoginType loginType = LoginType.JSON;
+
+    /**
+     * 配置 token  默认的失效时间
+     */
+    private int rememberMeSeconds = 3600;
 
     public BrowserProperties() {
     }
@@ -35,5 +42,13 @@ public class BrowserProperties {
 
     public void setLoginType(LoginType loginType) {
         this.loginType = loginType;
+    }
+
+    public int getRememberMeSeconds() {
+        return rememberMeSeconds;
+    }
+
+    public void setRememberMeSeconds(int rememberMeSeconds) {
+        this.rememberMeSeconds = rememberMeSeconds;
     }
 }
