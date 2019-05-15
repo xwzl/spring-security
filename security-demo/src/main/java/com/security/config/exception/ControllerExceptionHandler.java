@@ -29,8 +29,9 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(UserNotExistException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @SuppressWarnings({"rawtypes","unchecked"})
     public Map<String,String> handleUserNotExistException(UserNotExistException ex){
-        Map<String,String> result = new HashMap();
+        Map<String,String> result = new HashMap<>();
         result.put("id",ex.getId());
         result.put("message",ex.getMessage());
         return result;

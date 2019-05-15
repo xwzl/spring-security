@@ -166,6 +166,9 @@ configure(allprojects) { project ->
         }
     }
 
+    // 解决 jar 无法被发现的问题
+    jar.enabled=true
+
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"

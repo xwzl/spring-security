@@ -23,6 +23,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private BrowserAuthenticationSuccessHandler browserSuccessHandler;
+
+    @Autowired
+    private BrowserAuthenticationFailureHandler browserFailureHandler;
+
     /**
      * 注入加密解密
      */
@@ -55,11 +61,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/authentication/require")
                 // 请求登陆处理地址
                 .loginProcessingUrl("/login/form")
+                // 表单登录成功后的 handler 处理器
+                .successHandler(browserSuccessHandler)
+                // 失败处理
+                .failureHandler(browserFailureHandler)
                 .and()
                 // 判断之前的过滤配置，进行授权
                 .authorizeRequests()
                 // 以下路径不需要进行身份认证,securityProperties.getBrowser().getLoginPage()是真正的登录页面，包括用户自定义的
-                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage(),"/static/**", "favicon.ico").permitAll()
+                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage(), "**.js", "**.css","favicon.ico").permitAll()
                 // 任何请求都需要进行身份认证
                 .anyRequest()
                 // 授权的配置

@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +26,19 @@ import java.util.List;
 public class UserController {
 
     /**
+     * 获取当前用户的身份信息
+     */
+    @GetMapping("/me")
+    public UserDetails getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+        return user;
+        //return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    /**
      * Pageable 分页参数，设置默认的分页参数
      * <p>
      * 指定在指定的视图展示数据
-     *
+     * <p>
      * 指定方法名
      */
     @GetMapping
@@ -51,7 +62,7 @@ public class UserController {
     @JsonView(User.UserDetailView.class)
     public User getUserInfo(@PathVariable("id") String id) {
         System.out.println(id);
-        if(!id.equals("1")){
+        if (!id.equals("1")) {
             throw new UserNotExistException(id);
         }
 
@@ -93,7 +104,7 @@ public class UserController {
      * 设置参数id
      */
     @DeleteMapping("/{id:\\d+}")
-    public void delete(@ApiParam("用户id")@PathVariable String id) {
+    public void delete(@ApiParam("用户id") @PathVariable String id) {
         System.out.println(id);
     }
 
