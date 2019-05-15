@@ -1,7 +1,6 @@
 package com.security.core.validate.core;
 
 import com.security.core.proterties.SecurityProperties;
-import com.security.core.validate.core.image.ImageCode;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +23,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.security.core.constant.SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM;
+import static com.security.core.constant.SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE;
 
 
 /**
- * 每次请求调用一次，处理验证拦截
+ * 短信验证拦截
  *
  * @author xuweizhi
  * @date 2019/05/15 19:02
  */
-public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
+public class SmsValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -65,13 +64,13 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        if(StringUtils.isNoneBlank(securityProperties.getCode().getImage().getUrl())){
-            String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrl(), ",");
+        if (StringUtils.isNoneBlank(securityProperties.getCode().getImage().getUrl())) {
+            String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getSms().getUrl(), ",");
             urls.addAll(Arrays.asList(configUrls));
         }
 
         // 登录请求的图片验证一定要加
-        urls.add(DEFAULT_LOGIN_PROCESSING_URL_FORM);
+        urls.add(DEFAULT_LOGIN_PROCESSING_URL_MOBILE);
     }
 
     @Override
@@ -101,10 +100,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
 
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(request, ValidateCodeController.SESSION_KEY);
+        ValidateCode codeInSession = (ValidateCode) sessionStrategy.getAttribute(request, "SESSION_KEY_FOR_CODE_sms");
 
         // 与前端页面的输入框有关系，imageCode
-        String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "imageCode");
+        String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "smsCode");
 
         // 验证码不能为空
         if (StringUtils.isBlank(codeInRequest)) {

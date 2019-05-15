@@ -1,6 +1,6 @@
 package com.security.core.validate.core.image;
 
-import com.security.core.validate.core.sms.ValidateCode;
+import com.security.core.validate.core.ValidateCode;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;

@@ -1,6 +1,7 @@
 package com.security.core.validate.core.sms;
 
 import com.security.core.proterties.SecurityProperties;
+import com.security.core.validate.core.ValidateCode;
 import com.security.core.validate.core.ValidateCodeGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,14 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author xuweizhi
  * @date 2019/05/15 20:42
  */
-@Component("smsCodeGenerator")
+@Component("smsValidateCodeGenerator")
 public class SmsCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired
     SecurityProperties securityProperties;
 
     @Override
-    public ValidateCode generator(ServletWebRequest request) {
+    public ValidateCode generate(ServletWebRequest request) {
          // 生成验证按的长度
          String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
          return new ValidateCode(code, securityProperties.getCode().getImage().getExpireIn());

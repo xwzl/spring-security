@@ -1,6 +1,8 @@
 package com.security.browser.config;
 
+import com.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
 import com.security.core.proterties.SecurityProperties;
+import com.security.core.validate.core.SmsValidateCodeFilter;
 import com.security.core.validate.core.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import javax.sql.DataSource;
 
-import static com.security.core.constant.URLConstant.*;
+import static com.security.core.constant.SecurityConstants.*;
 
 /**
  * 权限认证
@@ -43,6 +45,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService myUserDetailService;
+
+    @Autowired
+    private SmsCodeAuthenticationConfig smsCodeAuthenticationConfig;
 
     //@Autowired
     //private SpringSocialConfigurer mySecuritySocialConfig;
@@ -89,43 +94,51 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();
 
+        SmsValidateCodeFilter smsCodeFilter = new SmsValidateCodeFilter();
+        // 初始化配置
+        smsCodeFilter.setAuthenticationFailureHandler(browserFailureHandler);
+        smsCodeFilter.setSecurityProperties(securityProperties);
+        smsCodeFilter.afterPropertiesSet();
+
 
         // 设置验证码校验在 密码处理之前
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+        http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 /* .apply(mySecuritySocialConfig)*/
                 // 默认提供的 form 表单登录
                 //http.httpBasic()
                 // form 表单登录进行身份认证，所有的请求都需要身份认证才能访问
                 .formLogin()
-                    // 登录需要认证的页面，但是由于自身也需要进行身份认证，所以一直循环认证自身
-                    // 配置 thymeleaf,需要配置controller 进行路径转发
-                    .loginPage(AUTHENTICATION_URL)
-                    // 请求登陆处理地址,登录的 url 不用特意写controller
-                    .loginProcessingUrl(LOGIN_URL)
-                    // 表单登录成功后的 handler 处理器
-                    .successHandler(browserSuccessHandler)
-                    // 失败处理
-                    .failureHandler(browserFailureHandler)
-                    .and()
+                // 登录需要认证的页面，但是由于自身也需要进行身份认证，所以一直循环认证自身
+                // 配置 thymeleaf,需要配置controller 进行路径转发
+                .loginPage(AUTHENTICATION_URL)
+                // 请求登陆处理地址,登录的 url 不用特意写controller
+                .loginProcessingUrl(DEFAULT_LOGIN_PROCESSING_URL_FORM)
+                // 表单登录成功后的 handler 处理器
+                .successHandler(browserSuccessHandler)
+                // 失败处理
+                .failureHandler(browserFailureHandler)
+                .and()
                 .rememberMe()
-                    // 添加 token
-                    .tokenRepository(persistentTokenRepository())
-                    // 配置过期时间
-                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                    // 这个去做登录
-                    .userDetailsService(myUserDetailService)
+                // 添加 token
+                .tokenRepository(persistentTokenRepository())
+                // 配置过期时间
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                // 这个去做登录
+                .userDetailsService(myUserDetailService)
                 .and()
                 // 判断之前的过滤配置，进行授权
                 .authorizeRequests()
                 // 以下路径不需要进行身份认证,securityProperties.getBrowser().getLoginPage()是真正的登录页面，包括用户自定义的
-                .antMatchers(AUTHENTICATION_URL, securityProperties.getBrowser().getLoginPage(), "/code/image", STATIC_RESOURCES_URL, "favicon.ico").permitAll()
+                .antMatchers(AUTHENTICATION_URL, securityProperties.getBrowser().getLoginPage(), "/code/*", STATIC_RESOURCES_URL, "favicon.ico").permitAll()
                 // 任何请求都需要进行身份认证
                 .anyRequest()
                 // 授权的配置
                 .authenticated()
                 .and()
                 // 防护伪造的功能
-                .csrf().disable();
+                .csrf().disable()
+                .apply(smsCodeAuthenticationConfig);
     }
 
 }

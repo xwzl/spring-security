@@ -25,8 +25,8 @@ public class ValidateCodeBeanConfig {
      * 如果 Spring 容器存在 imageCodeGenerator Bean ，就不会使用这个 Bean
      */
     @Bean
-    @ConditionalOnMissingBean(name = "imageCodeGenerator")
-    public ValidateCodeGenerator imageCodeGenerator() {
+    @ConditionalOnMissingBean(name = "imageValidateCodeGenerator")
+    public ValidateCodeGenerator imageValidateCodeGenerator() {
         ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
         codeGenerator.setSecurityProperties(securityProperties);
         return codeGenerator;

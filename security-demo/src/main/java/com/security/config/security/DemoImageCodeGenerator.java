@@ -1,6 +1,6 @@
 package com.security.config.security;
 
-import com.security.core.validate.core.sms.ValidateCode;
+import com.security.core.validate.core.ValidateCode;
 import com.security.core.validate.core.ValidateCodeBeanConfig;
 import com.security.core.validate.core.ValidateCodeController;
 import com.security.core.validate.core.ValidateCodeGenerator;
@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
 
     @Override
-    public ValidateCode generator(ServletWebRequest request) {
+    public ValidateCode generate(ServletWebRequest request) {
         System.out.println("更高级图形验证am");
         return null;
     }

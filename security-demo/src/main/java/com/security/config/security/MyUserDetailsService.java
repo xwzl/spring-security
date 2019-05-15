@@ -9,9 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.social.security.SocialUser;
-import org.springframework.social.security.SocialUserDetails;
-import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,9 +18,9 @@ import org.springframework.stereotype.Component;
  * @date 2019/05/14 1:04
  */
 @Component
-public class MyUserDetailService implements UserDetailsService/*, SocialUserDetailsService */{
+public class MyUserDetailsService implements UserDetailsService/*, SocialUserDetailsService */{
 
-    private final Logger log = LoggerFactory.getLogger(MyUserDetailService.class);
+    private final Logger log = LoggerFactory.getLogger(MyUserDetailsService.class);
 
     /**
      * 正常情况注入数据查询 Mapper 获取密码
@@ -47,9 +44,9 @@ public class MyUserDetailService implements UserDetailsService/*, SocialUserDeta
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("用户的登录名是：" + username);
         // 根据用户名查询用户信息，若果不存在就抛出异常
-        if (!username.equals("user")) {
-            throw new RuntimeException("用户名不存在");
-        }
+        //if (!username.equals("user")) {
+        //    throw new RuntimeException("用户名不存在");
+        //}
         // 必须进行加密，不然会报错,正常情况下，应该在注册的时候就进行加密转换,每次加密的盐=不一样
         String encode = passwordEncoder.encode("123456");
         log.info("数据库密码是："+encode);

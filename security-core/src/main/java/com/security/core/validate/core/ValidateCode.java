@@ -1,4 +1,4 @@
-package com.security.core.validate.core.sms;
+package com.security.core.validate.core;
 
 import java.time.LocalDateTime;
 

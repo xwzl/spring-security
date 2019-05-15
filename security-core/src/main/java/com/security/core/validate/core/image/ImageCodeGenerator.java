@@ -22,7 +22,7 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
     SecurityProperties securityProperties;
 
     @Override
-    public ImageCode generator(ServletWebRequest request) {
+    public ImageCode generate(ServletWebRequest request) {
         // 从请求中获取 width 属性，没有的话使用默认属性
         int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width", securityProperties.getCode().getImage().getWidth());
         int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height", securityProperties.getCode().getImage().getHeight());
