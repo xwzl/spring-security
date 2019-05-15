@@ -1,12 +1,12 @@
 spring:
   session:
     store-type: none
-  #  datasource:
-  #    url: jdbc:mysql://47.105.218.58/wtf?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-  #    username: root
-  #    password: 158262751
-  #    type: com.zaxxer.hikari.HikariDataSource
-  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    url: jdbc:mysql://47.105.218.58/wtf?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 158262751
+    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
   #
   #  thymeleaf:
   #    cache: false
@@ -32,5 +32,10 @@ com:
   security:
     browser:
       loginPage: /index.html
-#      配置请求成功后返回 HTML 还是 JSON
-#      loginType: REDIRECT
+    #      配置请求成功后返回 HTML 还是 JSON
+    #      loginType: REDIRECT
+    social:
+      qq:
+        #        申请
+        app-id:
+        app-secret:
