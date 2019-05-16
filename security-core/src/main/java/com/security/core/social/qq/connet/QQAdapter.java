@@ -7,7 +7,7 @@ import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 
 /**
- * Api 适配器
+ * Api 适配器，适配类型 qq
  *
  * @author xuweizhi
  * @date 2019/05/15 15:08
@@ -15,7 +15,7 @@ import org.springframework.social.connect.UserProfile;
 public class QQAdapter implements ApiAdapter<QQ> {
 
     /**
-     * 测试服务是否通畅
+     * 测试服务是否通畅,需要测试
      */
     @Override
     public boolean test(QQ api) {
@@ -41,7 +41,7 @@ public class QQAdapter implements ApiAdapter<QQ> {
     }
 
     /**
-     * 个人主页
+     * 解绑是采用这个
      */
     @Override
     public UserProfile fetchUserProfile(QQ api) {

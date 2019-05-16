@@ -1,6 +1,7 @@
 package com.security.core.social.qq.connet;
 
 import com.security.core.social.qq.api.QQ;
+import com.security.core.social.qq.api.QQImpl;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.oauth2.OAuth2Template;
 
@@ -16,7 +17,7 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
     private String appId;
 
     /**
-     * Step1：获取Authorization Code
+     * Step1：获取Authorization Code,引导用于跳转需要的地址
      */
     private static final String URL_AUTHORIZE = "https://graph.qq.com/oauth2.0/authorize";
 
@@ -27,13 +28,19 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
      */
     private static final String URL_ACCESS_TOKEN = "https://graph.qq.com/oauth2.0/token";
 
+    /**
+     * 应用对应的 appId 和 appSecret
+     * @param appId  应用对应的id
+     * @param appSecret 应用对应的 appSecret
+     */
     public QQServiceProvider(String appId, String appSecret) {
+        // qq 互联的 appId 和 appSecret
         super(new OAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
     }
 
     @Override
     public QQ getApi(String accessToken) {
-        return null;
+        return new QQImpl(accessToken,appId);
     }
 
 }

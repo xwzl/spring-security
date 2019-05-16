@@ -8,7 +8,7 @@ package com.security.core.social;
  */
 //@Configuration
 //@EnableSocial
-public class SocialConfig /*extends SocialConfigurerAdapter */{
+public class SocialConfig /*extends SocialConfigurerAdapter*/ {
 
     //@Autowired
     //private DataSource dataSource;
@@ -23,7 +23,7 @@ public class SocialConfig /*extends SocialConfigurerAdapter */{
     //}
     //
     ///**
-    // * 注册 socail 拦截链
+    // * 注册 social 拦截链
     // */
     //@Bean
     //public SpringSocialConfigurer mySecuritySocailConfig(){
