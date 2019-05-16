@@ -3,6 +3,7 @@ package com.security.core.proterties;
 import com.security.core.proterties.source.SocialProperties;
 
 /**
+ * QQ 配置
  * @author xuweizhi
  * @date 2019/05/15 16:07
  */

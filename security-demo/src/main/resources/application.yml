@@ -26,14 +26,15 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: true
-
 # 配置请求登录界面
 com:
   security:
     browser:
-      loginPage: /index.html
+      loginPage: /demo-index.html
       #      配置 JSON 还是重定向 REDIRECT
       loginType: JSON
+    # qq 授权后的登录页面
+      signUrl: /demo-sign.html
     # 配置验证码默认级别的配置
     validateCode:
       imageCode:
@@ -43,8 +44,15 @@ com:
 #         url: /user,/user/*
       smsCode:
         length: 6
+# 网站回调域名 www.pinzhi365.com/qqLogin/callback.do QQ 互联的应用网站配置
     social:
+      # QQ 登录会访问 //qqLogin
+      filterProcessesUrl: /qqLogin
       qq:
-        #        申请
-        app-id:
-        app-secret:
+   #  申请
+        app-id: 100550231
+        app-secret: 1212123123213
+        providerId: callback.do
+# 必须以 80 端口，当然有自己的域名也可以
+server:
+  port: 80

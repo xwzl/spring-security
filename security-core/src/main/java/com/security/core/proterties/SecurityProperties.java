@@ -14,13 +14,15 @@ public class SecurityProperties {
 
     private BrowserProperties browser = new BrowserProperties();
 
-    //private SocialProperties socialProperties = new SocialProperties();
+    /**
+     * social 相关配置
+     */
+    private SocialProperties social = new SocialProperties();
 
     /**
      * 验证码属性配置
      */
     private ValidateCodeProperties validateCode = new ValidateCodeProperties();
-
 
     public BrowserProperties getBrowser() {
         return browser;
@@ -30,6 +32,14 @@ public class SecurityProperties {
         this.browser = browser;
     }
 
+    public SocialProperties getSocial() {
+        return social;
+    }
+
+    public void setSocial(SocialProperties social) {
+        this.social = social;
+    }
+
     public ValidateCodeProperties getValidateCode() {
         return validateCode;
     }
@@ -37,13 +47,4 @@ public class SecurityProperties {
     public void setValidateCode(ValidateCodeProperties validateCode) {
         this.validateCode = validateCode;
     }
-
-    //public SocialProperties getSocialProperties() {
-    //    return socialProperties;
-    //}
-    //
-    //public void setSocialProperties(SocialProperties socialProperties) {
-    //    this.socialProperties = socialProperties;
-    //}
-
 }

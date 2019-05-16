@@ -1,5 +1,7 @@
 package com.security.core.proterties;
 
+import com.security.core.constant.SecurityConstants;
+
 /**
  * @author xuweizhi
  * @date 2019/05/15 1:02
@@ -7,9 +9,14 @@ package com.security.core.proterties;
 public class BrowserProperties {
 
     /**
+     * 默认的 qq 登录后的注册页
+     */
+    private String signUrl ="/sign.html";
+
+    /**
      * 设置默认的登录页面,在 BrowserController 进行替换逻辑
      */
-    private String loginPage = "/login.html";
+    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
     /**
      * 默认返回的类型，失败成功处理返回类型
@@ -50,5 +57,13 @@ public class BrowserProperties {
 
     public void setRememberMeSeconds(int rememberMeSeconds) {
         this.rememberMeSeconds = rememberMeSeconds;
+    }
+
+    public String getSignUrl() {
+        return signUrl;
+    }
+
+    public void setSignUrl(String signUrl) {
+        this.signUrl = signUrl;
     }
 }

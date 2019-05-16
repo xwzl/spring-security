@@ -1,5 +1,7 @@
 package com.security.config.security;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +11,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUser;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 /**
  * UserDetailsService 处理表单的登录结果
  * SocialUserDetails 处理第三方认证
+ *
  * @author xuweizhi
  * @date 2019/05/14 1:04
  */
 @Component
-public class MyUserDetailsService implements UserDetailsService/*, SocialUserDetailsService */{
+public class MyUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(MyUserDetailsService.class);
 
@@ -42,30 +48,31 @@ public class MyUserDetailsService implements UserDetailsService/*, SocialUserDet
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("用户的登录名是：" + username);
+        log.info("用户登录名是：" + username);
+        return getUserDetails(username);
+    }
+
+
+    /**
+     * 社交登录使用，第三方登录,userId 就是 opendId
+     */
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        log.info("第三方登录名是：" + userId);
+        return getUserDetails(userId);
+    }
+
+    private SocialUserDetails getUserDetails(String username) {
         // 根据用户名查询用户信息，若果不存在就抛出异常
         //if (!username.equals("user")) {
         //    throw new RuntimeException("用户名不存在");
         //}
         // 必须进行加密，不然会报错,正常情况下，应该在注册的时候就进行加密转换,每次加密的盐=不一样
         String encode = passwordEncoder.encode("123456");
-        log.info("数据库密码是："+encode);
+        log.info("数据库密码是：" + encode);
         // 数据库中用户和密码，以及相应的权限信息，密码会与前端传入的进行匹配,这是 Spring 提供的 UserDetails 实现类
         // 四个布尔分别对应 UserDetails 实现接口对象的状态信息，用户校验逻辑
-        return new User(username, encode, true, true, true, true,
+        return new SocialUser(username, encode, true, true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
-
-    /**
-     * 社交登录使用，第三方登录
-     */
-    //@Override
-    //public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-    //    log.info("用户的登录名是：" + userId);
-    //    // 必须进行加密，不然会报错,正常情况下，应该在注册的时候就进行加密转换,每次加密的盐=不一样
-    //    String encode = passwordEncoder.encode("123456");
-    //    log.info("数据库密码是："+encode);
-    //    return new SocialUser(userId, encode, true, true, true, true,
-    //            AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-    //}
 }

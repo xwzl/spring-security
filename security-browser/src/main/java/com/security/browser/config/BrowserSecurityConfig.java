@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -57,8 +58,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationConfig smsCodeAuthenticationConfig;
 
-    //@Autowired
-    //private SpringSocialConfigurer mySecuritySocialConfig;
+    @Autowired
+    private SpringSocialConfigurer coreSecuritySocialConfig;
 
 
     /**
@@ -105,6 +106,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 应用短信验证码认证安全配置
                 .apply(smsCodeAuthenticationConfig)
                 .and()
+                .apply(coreSecuritySocialConfig)
+                .and()
                 .rememberMe()
                 // 添加 token
                 .tokenRepository(persistentTokenRepository())
@@ -119,9 +122,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         DEFAULT_UNAUTHENTICATION_URL,
                         securityProperties.getBrowser().getLoginPage(),
+                        // 配置 qq 授权后的注册页面
+                        securityProperties.getBrowser().getSignUrl(),
                         DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
                         STATIC_RESOURCES_URL,
-                        "favicon.ico"
+                        "favicon.ico",
+                        "/user/regist"
                 ).permitAll()
                 // 任何请求都需要进行身份认证
                 .anyRequest()

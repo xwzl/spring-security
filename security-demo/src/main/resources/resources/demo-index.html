@@ -63,6 +63,12 @@
         </table>
     </form>
 
+    <h3>社交登录</h3>
+    <p>SocialAuthenticationFilter 默认的拦截路径是 /auth ,/qq 是 core 中 QQAutoConfig 中配置的 qq#providerId 属性，默认是 qq</p>
+    <p>授权成功后，要进行注册</p>
+    <a href="/qqLogin/callback.do">QQ登录</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/qqLogin/weixin">微信登录</a>
 </div>
 <script>
     let vm = new Vue({

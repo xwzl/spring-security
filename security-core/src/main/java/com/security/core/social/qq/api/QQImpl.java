@@ -2,6 +2,8 @@ package com.security.core.social.qq.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
 
@@ -17,6 +19,8 @@ import java.io.IOException;
  */
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
+
+    private Logger log = LoggerFactory.getLogger(getClass());
     /**
      * 获取 openid
      * <p>
@@ -46,7 +50,7 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         String result = getRestTemplate().getForObject(url, String.class);
 
         // callback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} );
-        System.out.println(result);
+        log.info(result);
 
         this.openId = StringUtils.substringBetween(result, "\"openid\":", "}");
     }
@@ -58,7 +62,7 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
         String result = getRestTemplate().getForObject(url, String.class);
 
-        System.out.println(result);
+        log.info(result);
         QQUserInfo userInfo = null;
         // 转成 json 对象
         try {
