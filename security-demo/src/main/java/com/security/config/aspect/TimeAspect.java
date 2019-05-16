@@ -2,9 +2,11 @@ package com.security.config.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
 
@@ -19,8 +21,8 @@ import java.util.stream.Stream;
  * @author xuweizhi
  * @since 2019/05/12 14:17
  */
-//@Aspect
-//@Component
+@Aspect
+@Component
 public class TimeAspect {
 
     private final Logger log = LoggerFactory.getLogger(TimeAspect.class);

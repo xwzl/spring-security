@@ -21,10 +21,10 @@ import org.springframework.stereotype.Component;
 public class SmsCodeAuthenticationConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
-    private AuthenticationSuccessHandler browserSuccessHandler;
+    private AuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
 
     @Autowired
-    private AuthenticationFailureHandler browserFailureHandler;
+    private AuthenticationFailureHandler defaultAuthenticationFailureHandler;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -34,8 +34,8 @@ public class SmsCodeAuthenticationConfig extends SecurityConfigurerAdapter<Defau
 
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(browserSuccessHandler);
-        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(browserFailureHandler);
+        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(defaultAuthenticationSuccessHandler);
+        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(defaultAuthenticationFailureHandler);
 
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
         smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);

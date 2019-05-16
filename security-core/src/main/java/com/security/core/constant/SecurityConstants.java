@@ -16,12 +16,12 @@ public interface SecurityConstants {
     /**
      * 认证拦截地址
      */
-    public final static String AUTHENTICATION_URL="/authentication/require";
+    public final static String AUTHENTICATION_URL = "/authentication/require";
 
     /**
      * 静态地址
      */
-    public final static String STATIC_RESOURCES_URL="/static/**";
+    public final static String STATIC_RESOURCES_URL = "/static/**";
 
 
     /**
@@ -30,9 +30,7 @@ public interface SecurityConstants {
     String DEFAULT_VALIDATE_CODE_URL_PREFIX = "/code";
 
     /**
-     * 当请求需要身份认证时，默认跳转的url
-     *
-     * @see SecurityController
+     * 当请求需要身份认证时，默认跳转的url,各自模块的处理层实现
      */
     String DEFAULT_UNAUTHENTICATION_URL = "/authentication/require";
 
@@ -48,7 +46,6 @@ public interface SecurityConstants {
 
     /**
      * 默认登录页面
-     *
      */
     String DEFAULT_LOGIN_PAGE_URL = "/login.html";
 

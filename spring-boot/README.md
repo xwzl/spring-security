@@ -8,7 +8,7 @@
 
 <property name="dynamic.classpath" value="true" />
     
-![](documents/image/1.png)
+![](documents/imageCode/1.png)
 
 ### shell 执行环境
 
@@ -16,4 +16,4 @@
 
 配置 bash 环境
 
-![](documents/image/2.png)
+![](documents/imageCode/2.png)

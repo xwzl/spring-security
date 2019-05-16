@@ -8,24 +8,24 @@ package com.security.core.proterties;
  */
 public class ValidateCodeProperties {
 
-    private ImageCodeProperties image = new ImageCodeProperties();
+    private ImageCodeProperties imageCode = new ImageCodeProperties();
 
-    private SmsCodeProperties sms = new SmsCodeProperties();
+    private SmsCodeProperties smsCode = new SmsCodeProperties();
 
-    public ImageCodeProperties getImage() {
-        return image;
+    public ImageCodeProperties getImageCode() {
+        return imageCode;
     }
 
-    public void setImage(ImageCodeProperties image) {
-        this.image = image;
+    public void setImageCode(ImageCodeProperties imageCode) {
+        this.imageCode = imageCode;
     }
 
-    public SmsCodeProperties getSms() {
-        return sms;
+    public SmsCodeProperties getSmsCode() {
+        return smsCode;
     }
 
-    public void setSms(SmsCodeProperties sms) {
-        this.sms = sms;
+    public void setSmsCode(SmsCodeProperties smsCode) {
+        this.smsCode = smsCode;
     }
 
 }

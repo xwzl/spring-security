@@ -7,12 +7,12 @@ package com.security.core.proterties;
 public class BrowserProperties {
 
     /**
-     * 设置默认的登录页面
+     * 设置默认的登录页面,在 BrowserController 进行替换逻辑
      */
     private String loginPage = "/login.html";
 
     /**
-     * 默认返回的类型
+     * 默认返回的类型，失败成功处理返回类型
      */
     private LoginType loginType = LoginType.JSON;
 

@@ -64,8 +64,8 @@ public class SmsValidateCodeFilter extends OncePerRequestFilter implements Initi
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        if (StringUtils.isNoneBlank(securityProperties.getCode().getImage().getUrl())) {
-            String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getSms().getUrl(), ",");
+        if (StringUtils.isNoneBlank(securityProperties.getValidateCode().getImageCode().getUrl())) {
+            String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getValidateCode().getSmsCode().getUrl(), ",");
             urls.addAll(Arrays.asList(configUrls));
         }
 

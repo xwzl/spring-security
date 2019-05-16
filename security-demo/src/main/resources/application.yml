@@ -35,12 +35,14 @@ com:
       #      配置 JSON 还是重定向 REDIRECT
       loginType: JSON
     # 配置验证码默认级别的配置
-#    code:
-#      image:
-#         length: 6
-#         width: 100
-#         # 配置一定要加 ，
+    validateCode:
+      imageCode:
+         length: 6
+         width: 200
+         # 配置一定要加 ，URL地址一定会被验证码拦截
 #         url: /user,/user/*
+      smsCode:
+        length: 6
     social:
       qq:
         #        申请

@@ -23,8 +23,8 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
     @Override
     public ValidateCode generate(ServletWebRequest request) {
          // 生成验证按的长度
-         String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
-         return new ValidateCode(code, securityProperties.getCode().getImage().getExpireIn());
+         String code = RandomStringUtils.randomNumeric(securityProperties.getValidateCode().getSmsCode().getLength());
+         return new ValidateCode(code, securityProperties.getValidateCode().getImageCode().getExpireIn());
     }
 
     public SecurityProperties getSecurityProperties() {

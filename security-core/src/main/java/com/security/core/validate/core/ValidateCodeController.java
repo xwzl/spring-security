@@ -73,7 +73,7 @@ public class ValidateCodeController {
     //    sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
     //
     //    // 3. 返回图片信息
-    //    ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
+    //    ImageIO.write(imageCode.getImageCode(), "JPEG", response.getOutputStream());
     //}
     //
     ///**
@@ -90,7 +90,7 @@ public class ValidateCodeController {
     //    // 请求必须包含参数
     //    String mobile = ServletRequestUtils.getRequiredStringParameter(request, "mobile");
     //
-    //    smsCodeSender.send(mobile,smsCode.getCode());
+    //    smsCodeSender.send(mobile,smsCode.getValidateCode());
     //}
 
 }

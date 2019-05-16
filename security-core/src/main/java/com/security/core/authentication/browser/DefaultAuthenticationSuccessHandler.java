@@ -1,4 +1,4 @@
-package com.security.browser.config;
+package com.security.core.authentication.browser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.core.proterties.LoginType;
@@ -21,8 +21,8 @@ import java.io.IOException;
  * @author xuweizhi
  * @date 2019/05/15 1:31
  */
-@Component("browserSuccessHandler")
-public class BrowserAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+@Component("defaultAuthenticationSuccessHandler")
+public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -5,7 +5,7 @@
 <h1>问题描述</h1>
 <p>Spring  Cache提供的@Cacheable注解不支持配置过期时间，还有缓存的自动刷新。<br>
 我们可以通过配置CacheManneg来配置默认的过期时间和针对每个缓存容器（value）单独配置过期时间，但是总是感觉不太灵活。下面是一个示例:</p>
-<pre class="hljs java"><code class="java"><span class="hljs-meta">@Bean</span>
+<pre class="hljs java"><validateCode class="java"><span class="hljs-meta">@Bean</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> CacheManager <span class="hljs-title">cacheManager</span><span class="hljs-params">(RedisTemplate redisTemplate)</span> </span>{
 RedisCacheManager cacheManager= <span class="hljs-keyword">new</span> RedisCacheManager(redisTemplate);
 cacheManager.setDefaultExpiration(<span class="hljs-number">60</span>);
@@ -14,34 +14,34 @@ expiresMap.put(<span class="hljs-string">"Product"</span>,<span class="hljs-numb
 cacheManager.setExpires(expiresMap);
 <span class="hljs-keyword">return</span> cacheManager;
 }
-</code></pre>
+</validateCode></pre>
 <p>我们想在注解上直接配置过期时间和自动刷新时间，就像这样：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-meta">@Cacheable</span>(value = <span class="hljs-string">"people#120#90"</span>, key = <span class="hljs-string">"#person.id"</span>)
+<pre class="hljs java"><validateCode class="java"><span class="hljs-meta">@Cacheable</span>(value = <span class="hljs-string">"people#120#90"</span>, key = <span class="hljs-string">"#person.id"</span>)
 <span class="hljs-function"><span class="hljs-keyword">public</span> Person <span class="hljs-title">findOne</span><span class="hljs-params">(Person person)</span> </span>{
 Person p = personRepository.findOne(person.getId());
 System.out.println(<span class="hljs-string">"为id、key为:"</span> + p.getId() + <span class="hljs-string">"数据做了缓存"</span>);
 <span class="hljs-keyword">return</span> p;
 }
-</code></pre>
+</validateCode></pre>
 <p>value属性上用#号隔开，第一个是原始的缓存容器名称，第二个是缓存的有效时间，第三个是缓存的自动刷新时间，单位都是秒。</p>
 <p>缓存的有效时间和自动刷新时间支持SpEl表达式，支持在配置文件中配置，如：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-meta">@Cacheable</span>(value = <span class="hljs-string">"people#${select.cache.timeout:1800}#${select.cache.refresh:600}"</span>, key = <span class="hljs-string">"#person.id"</span>, sync = <span class="hljs-keyword">true</span>)<span class="hljs-comment">//3</span>
+<pre class="hljs java"><validateCode class="java"><span class="hljs-meta">@Cacheable</span>(value = <span class="hljs-string">"people#${select.cache.timeout:1800}#${select.cache.refresh:600}"</span>, key = <span class="hljs-string">"#person.id"</span>, sync = <span class="hljs-keyword">true</span>)<span class="hljs-comment">//3</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> Person <span class="hljs-title">findOne</span><span class="hljs-params">(Person person)</span> </span>{
 Person p = personRepository.findOne(person.getId());
 System.out.println(<span class="hljs-string">"为id、key为:"</span> + p.getId() + <span class="hljs-string">"数据做了缓存"</span>);
 <span class="hljs-keyword">return</span> p;
 }
-</code></pre>
+</validateCode></pre>
 <h1>解决思路</h1>
 <p>查看源码你会发现缓存最顶级的接口就是CacheManager和Cache接口。</p>
 <h2>CacheManager说明</h2>
 <p>CacheManager功能其实很简单就是管理cache，接口只有两个方法，根据容器名称获取一个Cache。还有就是返回所有的缓存名称。</p>
-<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CacheManager</span> </span>{
+<pre class="hljs java"><validateCode class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">CacheManager</span> </span>{
 
 <span class="hljs-comment">/**
 * 根据名称获取一个Cache（在实现类里面是如果有这个Cache就返回，没有就新建一个Cache放到Map容器中）
-* <span class="hljs-doctag">@param</span> name the cache identifier (must not be {<span class="hljs-doctag">@code</span> null})
-* <span class="hljs-doctag">@return</span> the associated cache, or {<span class="hljs-doctag">@code</span> null} if none found
+* <span class="hljs-doctag">@param</span> name the cache identifier (must not be {<span class="hljs-doctag">@validateCode</span> null})
+* <span class="hljs-doctag">@return</span> the associated cache, or {<span class="hljs-doctag">@validateCode</span> null} if none found
 */</span>
 <span class="hljs-function">Cache <span class="hljs-title">getCache</span><span class="hljs-params">(String name)</span></span>;
 
@@ -52,10 +52,10 @@ System.out.println(<span class="hljs-string">"为id、key为:"</span> + p.getId(
 <span class="hljs-function">Collection&lt;String&gt; <span class="hljs-title">getCacheNames</span><span class="hljs-params">()</span></span>;
 
 }
-</code></pre>
+</validateCode></pre>
 <h2>Cache说明</h2>
 <p>Cache接口主要是操作缓存的。get根据缓存key从缓存服务器获取缓存中的值，put根据缓存key将数据放到缓存服务器，evict根据key删除缓存中的数据。</p>
-<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Cache</span> </span>{
+<pre class="hljs java"><validateCode class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Cache</span> </span>{
 
 <span class="hljs-function">ValueWrapper <span class="hljs-title">get</span><span class="hljs-params">(Object key)</span></span>;
 
@@ -66,7 +66,7 @@ System.out.println(<span class="hljs-string">"为id、key为:"</span> + p.getId(
 ...
 }
 
-</code></pre>
+</validateCode></pre>
 <h2>请求步骤</h2>
 <ol>
 <li>请求进来，在方法上面扫描@Cacheable注解，那么会触发org.springframework.cache.interceptor.CacheInterceptor缓存的拦截器。</li>
@@ -75,7 +75,7 @@ System.out.println(<span class="hljs-string">"为id、key为:"</span> + p.getId(
 </ol>
 <h2>代码分析</h2>
 <p>在最上面我们说了Spring Cache可以通过配置CacheManager来配置过期时间。那么这个过期时间是在哪里用的呢？设置默认的时间setDefaultExpiration，根据特定名称设置有效时间setExpires，获取一个缓存名称（value属性）的有效时间computeExpiration，真正使用有效时间是在createCache方法里面，而这个方法是在父类的getCache方法调用。通过RedisCacheManager源码我们看到：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-comment">// 设置默认的时间</span>
+<pre class="hljs java"><validateCode class="java"><span class="hljs-comment">// 设置默认的时间</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setDefaultExpiration</span><span class="hljs-params">(<span class="hljs-keyword">long</span> defaultExpireTime)</span> </span>{
 <span class="hljs-keyword">this</span>.defaultExpiration = defaultExpireTime;
 }
@@ -107,9 +107,9 @@ cacheNullValues);
 <span class="hljs-function"><span class="hljs-keyword">protected</span> Cache <span class="hljs-title">getMissingCache</span><span class="hljs-params">(String name)</span> </span>{
 <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.dynamic ? createCache(name) : <span class="hljs-keyword">null</span>;
 }
-</code></pre>
+</validateCode></pre>
 <p>AbstractCacheManager父类源码：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-comment">// 根据名称获取Cache如果没有调用getMissingCache方法，生成新的Cache，并将其放到Map容器中去。</span>
+<pre class="hljs java"><validateCode class="java"><span class="hljs-comment">// 根据名称获取Cache如果没有调用getMissingCache方法，生成新的Cache，并将其放到Map容器中去。</span>
 <span class="hljs-meta">@Override</span>
 <span class="hljs-function"><span class="hljs-keyword">public</span> Cache <span class="hljs-title">getCache</span><span class="hljs-params">(String name)</span> </span>{
 Cache cache = <span class="hljs-keyword">this</span>.cacheMap.get(name);
@@ -133,10 +133,10 @@ updateCacheNames(name);
 }
 }
 }
-</code></pre>
+</validateCode></pre>
 <p>由此这个有效时间的设置关键就是在getCache方法上，这里的name参数就是我们注解上的value属性。所以在这里解析这个特定格式的名称我就可以拿到配置的过期时间和刷新时间。getMissingCache方法里面在新建缓存的时候将这个过期时间设置进去，生成的Cache对象操作缓存的时候就会带上我们的配置的过期时间，然后过期就生效了。解析SpEL表达式获取配置文件中的时间也在也一步完成。</p>
 <p>CustomizedRedisCacheManager源码：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-keyword">package</span> com.xiaolyuh.redis.cache;
+<pre class="hljs java"><validateCode class="java"><span class="hljs-keyword">package</span> com.xiaolyuh.redis.cache;
 
 <span class="hljs-keyword">import</span> com.xiaolyuh.redis.cache.helper.SpringContextHolder;
 <span class="hljs-keyword">import</span> com.xiaolyuh.redis.utils.ReflectionUtils;
@@ -340,11 +340,11 @@ Boolean cacheNullValues = (Boolean) ReflectionUtils.getFieldValue(getInstance(),
 <span class="hljs-keyword">this</span>.getRedisOperations(), expirationSecondTime, preloadSecondTime, cacheNullValues) : <span class="hljs-keyword">null</span>;
 }
 }
-</code></pre>
+</validateCode></pre>
 <p>那自动刷新时间呢？</p>
 <p>在RedisCache的属性里面没有刷新时间，所以我们继承该类重写我们自己的Cache的时候要多加一个属性preloadSecondTime来存储这个刷新时间。并在getMissingCache方法创建Cache对象的时候指定该值。</p>
 <p>CustomizedRedisCache部分源码：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-comment">/**
+<pre class="hljs java"><validateCode class="java"><span class="hljs-comment">/**
 * 缓存主动在失效前强制刷新缓存的时间
 * 单位：秒
 */</span>
@@ -367,11 +367,11 @@ Boolean cacheNullValues = (Boolean) ReflectionUtils.getFieldValue(getInstance(),
 <span class="hljs-keyword">this</span>.preloadSecondTime = preloadSecondTime;
 <span class="hljs-keyword">this</span>.prefix = prefix;
 }
-</code></pre>
+</validateCode></pre>
 <p>那么这个自动刷新时间有了，怎么来让他自动刷新呢？</p>
 <p>在调用Cache的get方法的时候我们都会去缓存服务查询缓存，这个时候我们在多查一个缓存的有效时间，和我们配置的自动刷新时间对比，如果缓存的有效时间小于这个自动刷新时间我们就去刷新缓存（这里注意一点在高并发下我们最好只放一个请求去刷新数据，尽量减少数据的压力，所以在这个位置加一个分布式锁）。所以我们重写这个get方法。</p>
 <p>CustomizedRedisCache部分源码：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-comment">/**
+<pre class="hljs java"><validateCode class="java"><span class="hljs-comment">/**
 * 重写get方法，获取到缓存后再次取缓存剩余的时间，如果时间小余我们配置的刷新时间就手动刷新缓存。
 * 为了不影响get的性能，启用后台线程去完成缓存的刷。
 * 并且只放一个线程去刷新数据。
@@ -456,11 +456,11 @@ redisLock.unlock();
 });
 }
 }
-</code></pre>
+</validateCode></pre>
 <p>那么自动刷新肯定要掉用方法访问数据库，获取值后去刷新缓存。这时我们又怎么能去调用方法呢？</p>
 <p>我们利用java的反射机制。所以我们要用一个容器来存放缓存方法的方法信息，包括对象，方法名称，参数等等。我们创建了CachedInvocation类来存放这些信息，再将这个类的对象维护到容器中。</p>
 <p>CachedInvocation源码：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CachedInvocation</span> </span>{
+<pre class="hljs java"><validateCode class="java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CachedInvocation</span> </span>{
 
 <span class="hljs-keyword">private</span> Object key;
 <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Object targetBean;
@@ -516,9 +516,9 @@ CachedInvocation that = (CachedInvocation) o;
 <span class="hljs-keyword">return</span> key.hashCode();
 }
 }
-</code></pre>
+</validateCode></pre>
 <p>（方案一）维护缓存方法信息的容器（在内存中建一个MAP）和刷新缓存的类CacheSupportImpl 关键代码：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String SEPARATOR = <span class="hljs-string">"#"</span>;
+<pre class="hljs java"><validateCode class="java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String SEPARATOR = <span class="hljs-string">"#"</span>;
 
 <span class="hljs-comment">/**
 * 记录缓存执行方法信息的容器。
@@ -608,11 +608,11 @@ refreshCache(invocation, cacheName);
 }
 }
 
-</code></pre>
+</validateCode></pre>
 <p>（方案二）维护缓存方法信息的容器（放到Redis）这个部分代码贴出来，直接看源码。</p>
 <p>现在刷新缓存和注册缓存执行方法的信息都有了，我们怎么来把这个执行方法信息注册到容器里面呢？这里还少了触发点。</p>
 <p>所以我们还需要一个切面，当执行@Cacheable注解获取缓存信息的时候我们还需要注册执行方法的信息，所以我们写了一个切面：</p>
-<pre class="hljs java"><code class="java"><span class="hljs-comment">/**
+<pre class="hljs java"><validateCode class="java"><span class="hljs-comment">/**
 * 缓存拦截，用于注册方法信息
 * <span class="hljs-doctag">@author</span> yuhao.wang
 */</span>
@@ -681,19 +681,19 @@ cacheRefreshSupport.registerInvocation(joinPoint.getTarget(), method, joinPoint.
 
 }
 }
-</code></pre>
+</validateCode></pre>
 <p><strong>注意：一个缓存名称（@Cacheable的value属性），也只能配置一个过期时间，如果配置多个以第一次配置的为准。</strong></p>
 <p>至此我们就把完整的设置过期时间和刷新缓存都实现了，当然还可能存在一定问题，希望大家多多指教。</p>
 <p>使用这种方式有个不好的地方，我们破坏了Spring Cache的结构，导致我们切换Cache的方式的时候要改代码，有很大的依赖性。</p>
 <p><a href="https://www.jianshu.com/p/e53c1b60c6e1" target="_blank">下一篇</a>我将对 redisCacheManager.setExpires()方法进行扩展来实现过期时间和自动刷新，进而不会去破坏Spring Cache的原有结构，切换缓存就不会有问题了。</p>
 <p>代码结构图：</p>
 <br>
-<div class="image-package">
-<div class="image-container" style="max-width: 418px; max-height: 594px; background-color: transparent;">
-<div class="image-container-fill" style="padding-bottom: 142.11%;"></div>
-<div class="image-view" data-width="418" data-height="594"><img data-original-src="//upload-images.jianshu.io/upload_images/6464086-ae81068a0ade2a41" data-original-width="418" data-original-height="594" data-original-format="" data-original-filesize="43946" style="cursor: zoom-in;" class="" src="//upload-images.jianshu.io/upload_images/6464086-ae81068a0ade2a41?imageMogr2/auto-orient/strip%7CimageView2/2/w/418/format/webp"></div>
+<div class="imageCode-package">
+<div class="imageCode-container" style="max-width: 418px; max-height: 594px; background-color: transparent;">
+<div class="imageCode-container-fill" style="padding-bottom: 142.11%;"></div>
+<div class="imageCode-view" data-width="418" data-height="594"><img data-original-src="//upload-images.jianshu.io/upload_images/6464086-ae81068a0ade2a41" data-original-width="418" data-original-height="594" data-original-format="" data-original-filesize="43946" style="cursor: zoom-in;" class="" src="//upload-images.jianshu.io/upload_images/6464086-ae81068a0ade2a41?imageMogr2/auto-orient/strip%7CimageView2/2/w/418/format/webp"></div>
 </div>
-<div class="image-caption">image</div>
+<div class="imageCode-caption">imageCode</div>
 </div>
 <p>源码地址：<br>
 <a href="https://github.com/wyh-spring-ecosystem-student/spring-boot-student/tree/releases" target="_blank" rel="nofollow">https://github.com/wyh-spring-ecosystem-student/spring-boot-student/tree/releases</a></p>
@@ -706,12 +706,12 @@ cacheRefreshSupport.registerInvocation(joinPoint.getTarget(), method, joinPoint.
 <li><a href="http://hbxflihua.iteye.com/blog/2354414" target="_blank" rel="nofollow">http://hbxflihua.iteye.com/blog/2354414</a></li>
 </ul>
 <p><a href="https://github.com/xiaolyuh/layering-cache" target="_blank" rel="nofollow">为监控而生的多级缓存框架 layering-cache</a>这是我开源的一个多级缓存框架的实现，如果有兴趣可以看一下</p>
-<div class="image-package">
-<div class="image-container" style="max-width: 700px; max-height: 971px; background-color: transparent;">
-<div class="image-container-fill" style="padding-bottom: 138.74%;"></div>
-<div class="image-view" data-width="1079" data-height="1497"><img data-original-src="//upload-images.jianshu.io/upload_images/6464086-66015db4df45091e" data-original-width="1079" data-original-height="1497" data-original-format="" data-original-filesize="134083" style="cursor: zoom-in;" class="" src="//upload-images.jianshu.io/upload_images/6464086-66015db4df45091e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp"></div>
+<div class="imageCode-package">
+<div class="imageCode-container" style="max-width: 700px; max-height: 971px; background-color: transparent;">
+<div class="imageCode-container-fill" style="padding-bottom: 138.74%;"></div>
+<div class="imageCode-view" data-width="1079" data-height="1497"><img data-original-src="//upload-images.jianshu.io/upload_images/6464086-66015db4df45091e" data-original-width="1079" data-original-height="1497" data-original-format="" data-original-filesize="134083" style="cursor: zoom-in;" class="" src="//upload-images.jianshu.io/upload_images/6464086-66015db4df45091e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp"></div>
 </div>
-<div class="image-caption">扫码有红包哦</div>
+<div class="imageCode-caption">扫码有红包哦</div>
 </div>
 
 </div>

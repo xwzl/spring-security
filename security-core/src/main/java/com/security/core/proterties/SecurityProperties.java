@@ -19,7 +19,7 @@ public class SecurityProperties {
     /**
      * 验证码属性配置
      */
-    private ValidateCodeProperties code = new ValidateCodeProperties();
+    private ValidateCodeProperties validateCode = new ValidateCodeProperties();
 
 
     public BrowserProperties getBrowser() {
@@ -30,12 +30,12 @@ public class SecurityProperties {
         this.browser = browser;
     }
 
-    public ValidateCodeProperties getCode() {
-        return code;
+    public ValidateCodeProperties getValidateCode() {
+        return validateCode;
     }
 
-    public void setCode(ValidateCodeProperties code) {
-        this.code = code;
+    public void setValidateCode(ValidateCodeProperties validateCode) {
+        this.validateCode = validateCode;
     }
 
     //public SocialProperties getSocialProperties() {
