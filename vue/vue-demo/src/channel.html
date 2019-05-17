@@ -11,6 +11,15 @@
     <h2>多层组件传递，一定要用动态绑定</h2>
     <my-parent :title="title" :url="img"></my-parent>
 
+    <p>父组件监听子组件的事件获取值，{{totalCounter}}</p>
+
+    <search @total="allCount()"></search>
+    <search @total="allCount()"></search>
+    <search @total="allCount()"></search>
+    <search @total="allCount()"></search>
+    <search @total="allCount()"></search>
+
+    <p>父组件与子组件通过自定义事件进行，即自定义函数的方式返回{{totalCounter}}</p>
 </div>
 
 <template id="my-div">
@@ -35,6 +44,10 @@
         <my-img :url="url"></my-img>
     </div>
 </template>
+
+<template id="search">
+        <button @click="total()">点击了{{count}}次</button>
+</template>
 </body>
 <script src="../node_modules/vue/dist/vue.js"></script>
 <script>
@@ -56,6 +69,23 @@
         props: ['title']
     });
 
+    // 子组件自定义事件
+    Vue.component('search', {
+        template: '#search',
+        data() {
+            return {
+                count: 0
+            }
+        },
+        methods: {
+            total() {
+                this.count += 1;
+                // 通知外界调用了这个方法
+                this.$emit('total')
+            }
+        }
+    })
+
     Vue.component('my-parent', {
         props: ['title', 'url'],
         components: {
@@ -70,7 +100,13 @@
         el: '#app',
         data: {
             title: '你好啊',
-            img: '../static/favicon.ico'
+            img: '../static/favicon.ico',
+            totalCounter: 0
+        },
+        methods: {
+            allCount() {
+                this.totalCounter += 1;
+            }
         }
     });
 </script>
