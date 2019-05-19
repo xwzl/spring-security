@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>组件之间通信</title>
+</head>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script src="../../node_modules/vue-router/dist/vue-router.js"></script>
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+<style>
+  body {
+    background-color: #e8e8e8;
+  }
+</style>
+<body>
+<div id="app">
+  <div class="row">
+    <!--占用 8 个格子，偏移 2 个格子-->
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="page-header">
+        <h1>IT 666 学院</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-2">
+      <div class="list-group">
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link class="list-group-item" to="{name:'t1'}">Go to T1</router-link>
+        <router-link class="list-group-item" to="/t2">Go to T2</router-link>
+        <router-link class="list-group-item" to="/t3">Go to T3</router-link>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <!-- 路由出口 -->
+      <!-- 路由匹配到的组件将渲染在这里 -->
+      <router-view></router-view>
+    </div>
+  </div>
+</div>
+
+<template id="t1">
+  <div>
+    <h2>This is t1 template !</h2>
+    <p>Hello Vue Router -- t1!</p>
+    <div>
+      <ul class="nav nav-tabs">
+          <router-link to="/t4">t4</router-link>
+          <router-link to="/t5">t5</router-link>
+      </ul>
+      <div class="tab-content">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="t2">
+  <div>
+    <h2>This is t2 template !</h2>
+    <p>Hello Vue Router -- t2!</p>
+  </div>
+</template>
+
+<template id="t3">
+  <div>
+    <h2>This is t3 template !</h2>
+    <p>Hello Vue Router -- t3!</p>
+  </div>
+</template>
+
+<template id="t4">
+  <div>
+    <h2>This is t4 template !</h2>
+    <p>Hello Vue Router -- t4!</p>
+  </div>
+</template>
+
+
+<template id="t5">
+  <div>
+    <h2>This is t3 template !</h2>
+    <p>Hello Vue Router -- t5!</p>
+  </div>
+</template>
+
+
+</body>
+
+<script>
+  // 0. 如果使用模块化机制编程，导入 Vue 和 VueRouter，要调用 Vue.use(VueRouter)
+
+  // 1. 定义（路由）组件。
+  // 可以从其他文件 import 进来
+  const t1 = Vue.extend({
+    template: '#t1'
+  });
+
+  const t2 = Vue.extend({
+    template: '#t2'
+  });
+
+
+  const t3 = Vue.extend({
+    template: '#t3'
+  });
+
+  const t4 = Vue.extend({
+    template: '#t4'
+  });
+
+  const t5 = Vue.extend({
+    template: '#t5'
+  });
+
+
+  // 2. 定义路由
+  // 每个路由应该映射一个组件。 其中"component" 可以是
+  // 通过 Vue.extend() 创建的组件构造器，
+  // 或者，只是一个组件配置对象。
+  // 我们晚点再讨论嵌套路由。
+  const routes = [
+    {
+      path: '/t1',
+      component: t1,
+      name:t1,
+      children: [
+        {path: 't4', component: t4},
+        {path: 't5', component: t5}
+      ]
+    },
+    {path: '/t4', component: t4},
+    {path: '/t5', component: t5},
+    // 配置跟路由
+    {path: '/', redirect: '/t4'}
+  ]
+
+  // 3. 创建 router 实例，然后传 `routes` 配置
+  // 你还可以传别的配置参数, 不过先这么简单着吧。
+  const router = new VueRouter({
+    routes // （缩写）相当于 routes: routes
+  })
+
+  // 4. 创建和挂载根实例。
+  // 记得要通过 router 配置参数注入路由，
+  // 从而让整个应用都有路由功能
+  const app = new Vue({
+    router
+  }).$mount('#app')
+
+</script>
+</html>

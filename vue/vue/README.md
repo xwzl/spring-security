@@ -30,6 +30,9 @@
     npm install http-proxy-middleware --save-dev
     npm install serve-index --save-dev
     npm install connect-history-api-fallback --save-dev
+    
+    # 安装 bootstrap
+    npm install bootstrap@3
 # vue
 
 > This is vue demo !

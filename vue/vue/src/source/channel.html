@@ -6,8 +6,8 @@
 </head>
 <body>
 <div id="app">
-    <my-div message="今天很好" url="../static/favicon.ico"></my-div>
-    <my-div message="今天不好" url="../static/favicon.ico"></my-div>
+    <my-div message="今天很好" url="../../static/favicon.ico"></my-div>
+    <my-div message="今天不好" url="../../static/favicon.ico"></my-div>
     <h2>多层组件传递，一定要用动态绑定</h2>
     <my-parent :title="title" :url="img"></my-parent>
 
@@ -49,7 +49,7 @@
         <button @click="total()">点击了{{count}}次</button>
 </template>
 </body>
-<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../../node_modules/vue/dist/vue.js"></script>
 <script>
 
     // 组件间通信，变量不支持驼峰命名法
@@ -100,7 +100,7 @@
         el: '#app',
         data: {
             title: '你好啊',
-            img: '../static/favicon.ico',
+            img: '../../static/favicon.ico',
             totalCounter: 0
         },
         methods: {
