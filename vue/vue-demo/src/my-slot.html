@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>组件之间通信</title>
+</head>
+<body>
+<div id="app">
+
+    <my-slot>
+        <h2>匿名插槽的替换</h2>
+        <h2 slot="apu">我 slot 属性替换了apu的实名插槽</h2>
+    </my-slot>
+
+</div>
+<template id="my-slot">
+    <div id="panel">
+        <h2 class="panel-header">插槽的头部,匿名插槽</h2>
+        <!--可以预留一个槽位，用于替换标签-->
+        <slot>匿名插槽可以替换任何标签，默认显示提示的内容</slot>
+        <!--实名插槽-->
+        <slot name="cpu">实名插槽，增加 name 属性，可以替换任何标签，默认显示提示的内容</slot>
+        <slot name="apu">可以替换任何标签，默认显示提示的内容</slot>
+        <slot name="gpu">可以替换任何标签，默认显示提示的内容</slot>
+        <footer>插槽的尾部</footer>
+    </div>
+</template>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component('my-slot', {
+        template: '#my-slot'
+    })
+
+    let vm = new Vue({
+        el: '#app'
+    });
+</script>
+</html>
