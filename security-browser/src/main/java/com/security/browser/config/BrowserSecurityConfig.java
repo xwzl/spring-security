@@ -127,7 +127,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                         DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
                         STATIC_RESOURCES_URL,
                         "favicon.ico",
-                        "/user/regist"
+                        "/user/regist",
+                        "/qqLogin/weixin"
                 ).permitAll()
                 // 任何请求都需要进行身份认证
                 .anyRequest()
