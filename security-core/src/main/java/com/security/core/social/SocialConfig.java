@@ -16,6 +16,7 @@ import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
+import org.springframework.social.security.SocialAuthenticationProvider;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -42,14 +43,17 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired(required = false)
     private ConnectionSignUp connectionSignUp;
 
+    /**
+     * {@link SocialAuthenticationProvider#toUserId},查询
+     */
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         // 未做任何的加密解密操作，JdbcUsersConnectionRepository 点进去，有一个建表的脚本
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
         // 只能更改数据中的前缀，不能改变表明
-        repository.setTablePrefix("my_");
-        if(connectionSignUp!=null){
-          repository.setConnectionSignUp(connectionSignUp);
+        //repository.setTablePrefix("my_");
+        if (connectionSignUp != null) {
+            repository.setConnectionSignUp(connectionSignUp);
         }
         return repository;
     }

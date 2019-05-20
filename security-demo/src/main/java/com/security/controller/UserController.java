@@ -39,7 +39,7 @@ public class UserController {
     public void regist(User user, HttpServletRequest request) {
         // 不管是注册用户还是绑定用户，都会拿到一个用户唯一标识
         String userId = user.getUsername();
-        // 做一个查询的动作,向数据库中的表 my_UserConnection 中插入数据
+        // 做一个查询的动作,向数据库中的表 UserConnection 中插入数据
         providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
     }
 

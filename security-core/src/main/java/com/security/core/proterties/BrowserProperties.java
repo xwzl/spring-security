@@ -3,6 +3,8 @@ package com.security.core.proterties;
 import com.security.core.constant.SecurityConstants;
 
 /**
+ * 浏览器端属性
+ *
  * @author xuweizhi
  * @date 2019/05/15 1:02
  */
@@ -11,7 +13,7 @@ public class BrowserProperties {
     /**
      * 默认的 qq 登录后的注册页
      */
-    private String signUrl ="/sign.html";
+    private String signUrl = "/sign.html";
 
     /**
      * 设置默认的登录页面,在 BrowserController 进行替换逻辑
@@ -66,4 +68,5 @@ public class BrowserProperties {
     public void setSignUrl(String signUrl) {
         this.signUrl = signUrl;
     }
+
 }

@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://47.105.218.58/qq?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     username: root
     password: 158262751
-    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+#    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
   #
   #  thymeleaf:
@@ -47,12 +47,12 @@ com:
 # 网站回调域名 www.pinzhi365.com/qqLogin/callback.do QQ 互联的应用网站配置
     social:
       # QQ 登录会访问 //qqLogin
-      filterProcessesUrl: /qqLogin
+      filterProcessesUrl: /login
       qq:
    #  申请
-        app-id: 100550231
-        app-secret: 1212123123213
-        providerId: callback.do
+        app-id: 101581644
+        app-secret: 9364692f2f218d8a8d0dadf2dcb978c6
+        providerId: qq
 # 必须以 80 端口，当然有自己的域名也可以
 server:
-  port: 80
+  port: 8080

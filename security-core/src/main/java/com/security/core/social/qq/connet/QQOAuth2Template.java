@@ -41,13 +41,9 @@ public class QQOAuth2Template extends OAuth2Template {
 
         assert items != null;
 
-        //String accessToken = StringUtils.substringAfterLast(items[0], "=");
-        //Long expiresIn = Long.valueOf(StringUtils.substringAfterLast(items[1], "="));
-        //String refreshToken = StringUtils.substringAfterLast(items[2], "=");
-        String accessToken = "token";
-        Long expiresIn = Long.valueOf(300);
-        String refreshToken = "token1";
-
+        String accessToken = StringUtils.substringAfterLast(items[0], "=");
+        Long expiresIn = Long.valueOf(StringUtils.substringAfterLast(items[1], "="));
+        String refreshToken = StringUtils.substringAfterLast(items[2], "=");
 
         return new AccessGrant(accessToken, null, refreshToken, expiresIn);
     }

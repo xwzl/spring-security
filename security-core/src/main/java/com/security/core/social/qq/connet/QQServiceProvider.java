@@ -29,17 +29,19 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
 
     /**
      * 应用对应的 appId 和 appSecret
-     * @param appId  应用对应的id
+     *
+     * @param appId     应用对应的id
      * @param appSecret 应用对应的 appSecret
      */
     public QQServiceProvider(String appId, String appSecret) {
         // qq 互联的 appId 和 appSecret
         super(new QQOAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
+        this.appId = appId;
     }
 
     @Override
     public QQ getApi(String accessToken) {
-        return new QQImpl(accessToken,appId);
+        return new QQImpl(accessToken, appId);
     }
 
 }
