@@ -1,7 +1,7 @@
 package com.security.browser.controller;
 
-import com.security.browser.support.SocialUserInfo;
 import com.security.core.proterties.SecurityProperties;
+import com.security.core.social.support.SocialUserInfo;
 import com.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

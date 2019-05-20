@@ -1,6 +1,8 @@
 package com.security.core.social;
 
 import com.security.core.proterties.SecurityProperties;
+import com.security.core.social.support.CoreSpringSocialConfigurer;
+import com.security.core.social.support.SocialAuthenticationFilterPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +39,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired(required = false)
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+
     /**
      * 不一定每一个项目都要注册，这是一个授权后默认登录的注入，不需要注册,/user/regist 就会无效
      */
@@ -65,7 +70,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public SpringSocialConfigurer coreSecuritySocialConfig() {
         String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
         CoreSpringSocialConfigurer configurer = new CoreSpringSocialConfigurer(filterProcessesUrl);
+        // 设置social中的注册页为
         configurer.signupUrl(securityProperties.getBrowser().getSignUrl());
+        configurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return configurer;
     }
 
