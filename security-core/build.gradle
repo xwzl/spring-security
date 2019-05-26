@@ -21,9 +21,9 @@ dependencies {
 
             // 工具包
             "org.apache.commons:commons-lang3:${commonLangVerion}",
-            "com.jwebmp.jpms.commons:commons-io:0.67.0.7"
+            "com.jwebmp.jpms.commons:commons-io:0.67.0.7",
 //            "commons-lang:commons-lang:20030203.000129",
-//            "commons-collections:commons-collections:20040616",
+            "org.apache.commons:commons-collections4:4.0",
 //            "commons-beanutils:commons-beanutils:20030211.134440"
     )
     //这样不能被子模块依赖
