@@ -30,6 +30,8 @@ public class BrowserProperties {
      */
     private int rememberMeSeconds = 3600;
 
+    private SessionProperties session = new SessionProperties();
+
     public BrowserProperties() {
     }
 
@@ -69,4 +71,11 @@ public class BrowserProperties {
         this.signUrl = signUrl;
     }
 
+    public SessionProperties getSession() {
+        return session;
+    }
+
+    public void setSession(SessionProperties session) {
+        this.session = session;
+    }
 }

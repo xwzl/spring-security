@@ -1,5 +1,6 @@
 package com.security.core.validate.core;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -8,7 +9,9 @@ import java.time.LocalDateTime;
  * @author xuweizhi
  * @date 2019/05/15 18:36
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable {
+
+    private static final long serialVersionUID = 8418486433439613686L;
 
     /**
      * 状态码

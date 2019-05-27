@@ -60,7 +60,9 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * 保存校验码，用于比较验证时从中获取验证码的相关信息
      */
     private void save(ServletWebRequest request, C validateCode) {
-        sessionStrategy.setAttribute(request, getSessionKey(request), validateCode);
+        // ImageCode 无法序列化
+        ValidateCode code = new ValidateCode(validateCode.getCode(), validateCode.getExpireTime());
+        sessionStrategy.setAttribute(request, getSessionKey(request), code);
     }
 
     /**
@@ -105,25 +107,25 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         // 验证码不能为空
         if (StringUtils.isBlank(codeInRequest)) {
-            throw new ValidateCodeException(codeType+"请填写验证码");
+            throw new ValidateCodeException(codeType + "请填写验证码");
         }
 
         // 验证码不存在
         if (codeInSession == null) {
-            throw new ValidateCodeException(codeType +"验证码不存在");
+            throw new ValidateCodeException(codeType + "验证码不存在");
         }
 
         // 验证码已过期
         if (codeInSession.isExpired()) {
             sessionStrategy.removeAttribute(request, getSessionKey(request));
-            throw new ValidateCodeException(codeType +"验证码已过期");
+            throw new ValidateCodeException(codeType + "验证码已过期");
         }
 
         // 验证码不匹配
         if (!StringUtils.equalsIgnoreCase(codeInSession.getCode(), codeInRequest)) {
-            throw new ValidateCodeException(codeType +"验证码不匹配");
+            throw new ValidateCodeException(codeType + "验证码不匹配");
         }
 
-        sessionStrategy.removeAttribute(request,getSessionKey(request));
+        sessionStrategy.removeAttribute(request, getSessionKey(request));
     }
 }

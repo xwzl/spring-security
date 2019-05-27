@@ -13,8 +13,10 @@ import java.time.LocalDateTime;
  */
 public class ImageCode  extends ValidateCode {
 
+    private static final long serialVersionUID = 8418486433439613686L;
+
     /**
-     * 图片
+     * 图片无法被序列化，因此不放入 session 中
      */
     private BufferedImage image;
 
