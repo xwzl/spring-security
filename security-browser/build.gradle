@@ -6,7 +6,6 @@ mainClassName = 'com.java.java.JavaApplication'
 dependencies{
     // 依赖其它子模块有问题
     compile(project(":security-core"))
-    compile("org.springframework.session:spring-session:1.3.5.RELEASE")
 }
 
 // 解决方案

@@ -1,6 +1,6 @@
 spring:
   session:
-    store-type: none
+    store-type: REDIS
   datasource:
     url: jdbc:mysql://47.105.218.58/qq?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     username: root
