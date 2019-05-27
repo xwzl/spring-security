@@ -4,8 +4,11 @@ package com.security.core.social.view;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.web.ConnectController;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +27,9 @@ public class CoreConnectionStatusView extends AbstractView {
     @Autowired
     private ObjectMapper objectMapper;
 
-
+    /**
+     * {@link ConnectController#connectionStatus(NativeWebRequest, Model)}
+     */
     @SuppressWarnings("unchecked")
     @Override
     protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {

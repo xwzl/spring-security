@@ -1,5 +1,6 @@
 package com.security.browser.config;
 
+import com.security.browser.session.BrowserExpiredSessionStrategy;
 import com.security.core.authentication.browser.FormAuthenticationConfig;
 import com.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
 import com.security.core.proterties.SecurityProperties;
@@ -102,20 +103,33 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 验证码认证安全配置
         http.apply(validateCodeSecurityConfig)
-                .and()
+                    .and()
                 // 应用短信验证码认证安全配置
                 .apply(smsCodeAuthenticationConfig)
-                .and()
+                    .and()
                 .apply(coreSecuritySocialConfig)
-                .and()
+                    .and()
                 .rememberMe()
-                // 添加 token
-                .tokenRepository(persistentTokenRepository())
-                // 配置过期时间
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                // 这个去做登录
-                .userDetailsService(myUserDetailsService)
-                .and()
+                   // 添加 token
+                    .tokenRepository(persistentTokenRepository())
+                    // 配置过期时间
+                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                    // 这个去做登录
+                    .userDetailsService(myUserDetailsService)
+                    .and()
+                // session 管理
+                .sessionManagement()
+                    // invalid 失效后的地址
+                    .invalidSessionUrl("/session/invalid")
+                    // 最大登录 session 数量,默认踢出第一个用户
+                    .maximumSessions(1)
+                    // 当 session 数量到达最大后阻止 session 行为
+                    .maxSessionsPreventsLogin(true)
+                    // session 被挤下去后处理策略
+                    .expiredSessionStrategy(new BrowserExpiredSessionStrategy())
+                    // 两个 and
+                    .and()
+                    .and()
                 // 判断之前的过滤配置，进行授权
                 .authorizeRequests()
                 // 以下路径不需要进行身份认证,securityProperties.getBrowser().getLoginPage()是真正的登录页面，包括用户自定义的
@@ -128,13 +142,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                         STATIC_RESOURCES_URL,
                         "favicon.ico",
                         "/user/regist",
-                        "/qqLogin/weixin"
+                        DEFAULT_SESSION_INVALID_URL
                 ).permitAll()
                 // 任何请求都需要进行身份认证
                 .anyRequest()
                 // 授权的配置
                 .authenticated()
-                .and()
+                    .and()
                 // 防护伪造的功能
                 .csrf().disable();
     }

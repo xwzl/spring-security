@@ -38,7 +38,7 @@ com:
     # 配置验证码默认级别的配置
     validateCode:
       imageCode:
-        length: 6
+        length: 1
         width: 200
         # 配置一定要加 ，URL地址一定会被验证码拦截
       #         url: /user,/user/*
@@ -60,3 +60,7 @@ com:
 # 必须以 80 端口，当然有自己的域名也可以
 server:
   port: 8080
+  servlet:
+    session:
+      # TomcatServletWebServerFactory#configureSession 查看 Tomcat 上下文信息
+      timeout: 10 # session 超时时间设置，在SpringBoot 最少的超时时间为 1 m
