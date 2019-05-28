@@ -16,6 +16,11 @@ public class BrowserProperties {
     private String signUrl = "/sign.html";
 
     /**
+     * 退出成功跳转路径
+     */
+    private String signOutUrl;
+
+    /**
      * 设置默认的登录页面,在 BrowserController 进行替换逻辑
      */
     private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
@@ -77,5 +82,13 @@ public class BrowserProperties {
 
     public void setSession(SessionProperties session) {
         this.session = session;
+    }
+
+    public String getSignOutUrl() {
+        return signOutUrl;
+    }
+
+    public void setSignOutUrl(String signOutUrl) {
+        this.signOutUrl = signOutUrl;
     }
 }

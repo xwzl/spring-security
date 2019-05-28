@@ -35,6 +35,8 @@ com:
       loginType: JSON
       # qq 授权后的登录页面
       signUrl: /demo-sign.html
+      # 不配置默认返回 JSON 数据
+#      signOutUrl: /demo-logout.html
     # 配置验证码默认级别的配置
     validateCode:
       imageCode:

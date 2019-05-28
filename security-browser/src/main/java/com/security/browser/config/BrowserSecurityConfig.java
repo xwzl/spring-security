@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -69,6 +70,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
     /**
      * 注入加密解密
      */
@@ -112,31 +116,40 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 应用短信验证码认证安全配置
                 .apply(smsCodeAuthenticationConfig)
-                .and()
+                    .and()
                 .apply(coreSecuritySocialConfig)
-                .and()
+                    .and()
                 .rememberMe()
-                // 添加 token
-                .tokenRepository(persistentTokenRepository())
-                // 配置过期时间
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                // 这个去做登录
-                .userDetailsService(myUserDetailsService)
-                .and()
-                // session 管理
+                    // 添加 token
+                    .tokenRepository(persistentTokenRepository())
+                    // 配置过期时间
+                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                    // 这个去做登录
+                    .userDetailsService(myUserDetailsService)
+                    .and()
+                    // session 管理
                 .sessionManagement()
-                // invalid 失效后的地址
-                //.invalidSessionUrl("/session/invalid")
-                // 最大登录 session 数量,默认踢出第一个用户
-                .invalidSessionStrategy(invalidSessionStrategy)
-                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
-                // 当 session 数量到达最大后阻止 session 行为
-                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
-                // session 被挤下去后处理策略
-                .expiredSessionStrategy(sessionInformationExpiredStrategy)
-                // 两个 and
-                .and()
-                .and()
+                    // invalid 失效后的地址
+                    //.invalidSessionUrl("/session/invalid")
+                    // 最大登录 session 数量,默认踢出第一个用户
+                    .invalidSessionStrategy(invalidSessionStrategy)
+                    .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                    // 当 session 数量到达最大后阻止 session 行为
+                    .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+                    // session 被挤下去后处理策略
+                    .expiredSessionStrategy(sessionInformationExpiredStrategy)
+                    // 两个 and
+                    .and()
+                    .and()
+                .logout()
+                    // 突出请求 url ,默认是 logout
+                    .logoutUrl("/signOut")
+                    // 突出成功默认处理 url 为登陆的 url
+                    //.logoutSuccessUrl("demo-logout.html")
+                    // 退出成功处理器，和 url 二选一，配置退出成功处理逻辑
+                    .logoutSuccessHandler(logoutSuccessHandler)
+                    .deleteCookies("JSESSIONID")
+                    .and()
                 // 判断之前的过滤配置，进行授权
                 .authorizeRequests()
                 // 以下路径不需要进行身份认证,securityProperties.getBrowser().getLoginPage()是真正的登录页面，包括用户自定义的
@@ -145,6 +158,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                         securityProperties.getBrowser().getLoginPage(),
                         // 配置 qq 授权后的注册页面
                         securityProperties.getBrowser().getSignUrl(),
+                        securityProperties.getBrowser().getSignOutUrl()== null?"404":securityProperties.getBrowser().getSignOutUrl(),
                         DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
                         STATIC_RESOURCES_URL,
                         "favicon.ico",
