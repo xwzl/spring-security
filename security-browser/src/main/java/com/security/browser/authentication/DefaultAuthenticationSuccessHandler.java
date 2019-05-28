@@ -1,4 +1,4 @@
-package com.security.core.authentication.browser;
+package com.security.browser.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.core.proterties.LoginType;

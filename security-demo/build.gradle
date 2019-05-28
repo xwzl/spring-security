@@ -5,6 +5,7 @@
 
 dependencies{
     compile(project(":security-browser"))
+//    compile(project(":security-app"))
     compile("com.github.tomakehurst:wiremock:${wireMockVersion}")
     compile("org.springframework.session:spring-session-data-redis:2.1.5.RELEASE")
 }

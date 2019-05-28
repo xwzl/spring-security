@@ -1,9 +1,9 @@
-package com.security.core.authentication.browser;
+package com.security.app.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.core.proterties.LoginType;
-import com.security.core.support.SimpleResponse;
 import com.security.core.proterties.SecurityProperties;
+import com.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
