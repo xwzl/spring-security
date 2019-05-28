@@ -1,12 +1,9 @@
 package com.security.config.security;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -73,6 +70,6 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
         // 数据库中用户和密码，以及相应的权限信息，密码会与前端传入的进行匹配,这是 Spring 提供的 UserDetails 实现类
         // 四个布尔分别对应 UserDetails 实现接口对象的状态信息，用户校验逻辑
         return new SocialUser(username, encode, true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 }
