@@ -2,9 +2,9 @@ security:
   oauth2:
     client:
       # 不配置，随机生成
-      client-id: app
+      client-id: imooc
       # 不配置随机生成
-      client-secret: appSeret
+      client-secret: imoocsecret
 spring:
   session:
     store-type: REDIS

@@ -2,7 +2,7 @@ package com.security.core.social.weixin.connet;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

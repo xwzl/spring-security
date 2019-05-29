@@ -106,9 +106,7 @@ configure(allprojects) { project ->
                 "mysql:mysql-connector-java:${mysqlVersion}",
                 "org.jetbrains:annotations:${jannotationVersion}",
                 "org.reflections:reflections:${reflectionsVersion}",
-//                "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
         )
-//        implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
         compileOnly 'org.projectlombok:lombok'
         implementation('org.springframework.boot:spring-boot-starter-web')
         annotationProcessor 'org.projectlombok:lombok'
