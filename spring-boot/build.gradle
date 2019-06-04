@@ -19,6 +19,7 @@ task resourceBuild(type: Copy) {
 
 dependencies {
     compile(
+            "redis.clients:jedis:2.9.3",
 
             "com.baomidou:mybatis-plus:${baomidouVersion}",
             "com.baomidou:mybatis-plus-generator:${baomidouVersion}",

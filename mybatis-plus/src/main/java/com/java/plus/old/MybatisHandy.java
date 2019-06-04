@@ -1,11 +1,15 @@
 package com.java.plus.old;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import lombok.Data;
+
 /**
  * mybatis 辅助类
  *
  * @author xuweizhi
  * @date 2019/04/03 18:10
  */
+@Data
 public class MybatisHandy {
 
     /**
@@ -78,115 +82,25 @@ public class MybatisHandy {
      */
     private String baseEntitySimpleName;
 
-    public String getBasePackageName() {
-        return basePackageName;
-    }
+    /**
+     * 是否生成字段名常量
+     */
+    private boolean entityColumnConstant = false;
 
-    public void setBasePackageName(String basePackageName) {
-        this.basePackageName = basePackageName;
-    }
+    /**
+     * 基础的列表值
+     */
+    private boolean baseColumnList = false;
 
-    public String getUrl() {
-        return url;
-    }
+    /**
+     * 基础的返回结果
+     */
+    private boolean baseResultMap = false;
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+    /**
+     * 主键策略
+     */
+    private IdType idType;
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getClassPath() {
-        return classPath;
-    }
-
-    public void setClassPath(String classPath) {
-        this.classPath = classPath;
-    }
-
-    public String getModuleName() {
-        return moduleName;
-    }
-
-    public void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public String getChildModuleName() {
-        return childModuleName;
-    }
-
-    public void setChildModuleName(String childModuleName) {
-        this.childModuleName = childModuleName;
-    }
-
-    public boolean isChildModule() {
-        return isChildModule;
-    }
-
-    public void setChildModule(boolean childModule) {
-        isChildModule = childModule;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getBaseControllerSimpleName() {
-        return baseControllerSimpleName;
-    }
-
-    public void setBaseControllerSimpleName(String baseControllerSimpleName) {
-        this.baseControllerSimpleName = baseControllerSimpleName;
-    }
-
-    public String getBaseServiceSimpleName() {
-        return baseServiceSimpleName;
-    }
-
-    public void setBaseServiceSimpleName(String baseServiceSimpleName) {
-        this.baseServiceSimpleName = baseServiceSimpleName;
-    }
-
-    public String getBaseServiceImplSimpleName() {
-        return baseServiceImplSimpleName;
-    }
-
-    public void setBaseServiceImplSimpleName(String baseServiceImplSimpleName) {
-        this.baseServiceImplSimpleName = baseServiceImplSimpleName;
-    }
-
-    public String getBaseEntitySimpleName() {
-        return baseEntitySimpleName;
-    }
-
-    public void setBaseEntitySimpleName(String baseEntitySimpleName) {
-        this.baseEntitySimpleName = baseEntitySimpleName;
-    }
 }
