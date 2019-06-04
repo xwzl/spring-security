@@ -17,10 +17,10 @@ public class HandyTest {
 
         //如果是子模块，必须设置
         handy.setChildModule(true);
-        handy.setChildModuleName("user-server1");
-        handy.setBasePackageName("com.cloud");
+        handy.setChildModuleName("dynamic-datasource");
+        handy.setBasePackageName("com.data");
         handy.setAuthor("xuweizhi");
-        handy.setUrl("47.105.218.58:3306/mooc");
+        handy.setUrl("47.105.218.58:3306/product_master");
 
         handy.setBaseColumnList(true);
         handy.setBaseResultMap(true);

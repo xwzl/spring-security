@@ -1,0 +1,78 @@
+spring:
+  datasource:
+    druid:
+      master:
+        name: master
+        url: jdbc:mysql://47.105.218.58/product_master?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: 158262751
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      slave-alpha:
+        name: SlaveAlpha
+        url: jdbc:mysql://47.105.218.58/product_slave_alpha?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: 158262751
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      slave-beta:
+        name: SlaveBeta
+        url: jdbc:mysql://47.105.218.58/product_slave_beta?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: 158262751
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      slave-gamma:
+        name: SlaveGamma
+        url: jdbc:mysql://47.105.218.58/product_slave_gamma?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: 158262751
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      pool-prepared-statements: false
+      validation-query: select 1
+      validation-query-timeout: 30000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      filters: stat,wall,log4j
+      filter:
+        stat:
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          enabled: true
+          config:
+            delete-allow: true
+            drop-table-allow: false
+        slf4j:
+          enabled: true
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+        allow:
+        deny:
+      web-stat-filter:
+        enabled: true
+        url-pattern: '*'
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        session-stat-enable: true
+        session-stat-max-count: 10
+        principal-session-name: user
+        principal-cookie-name:
+        profile-enable: true
+      use-global-data-source-stat: true
+      aop-patterns: 'com.data.dynamic.service.*'
+    type: com.alibaba.druid.pool.DruidDataSource
+  aop:
+    proxy-target-class: true
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-handlers-package: com.data.dynamic.model

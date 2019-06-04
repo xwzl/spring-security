@@ -190,7 +190,7 @@ public class GeneratorUntil {
         }
 
         //实体属性 Swagger2 注解
-        gc.setSwagger2(true);
+        gc.setSwagger2(false);
 
         gc.setEntityName("%s");
         gc.setMapperName("%sMapper");
