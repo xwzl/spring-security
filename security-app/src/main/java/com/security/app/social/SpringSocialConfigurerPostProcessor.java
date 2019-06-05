@@ -1,6 +1,5 @@
 package com.security.app.social;
 
-import com.security.core.constant.SecurityConstants;
 import com.security.core.social.support.CoreSpringSocialConfigurer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
@@ -22,9 +21,10 @@ public class SpringSocialConfigurerPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (StringUtils.equals(beanName, "coreSpringSocialConfigurer")) {
+        if (StringUtils.equals(beanName, "coreSecuritySocialConfig")) {
             CoreSpringSocialConfigurer config = (CoreSpringSocialConfigurer) bean;
-            config.signupUrl(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL);
+            //config.signupUrl(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL);
+            config.signupUrl("/socail/signUp");
             return config;
         }
         return bean;

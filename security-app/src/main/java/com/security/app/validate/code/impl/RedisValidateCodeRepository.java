@@ -14,8 +14,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 基于redis的验证码存取器，避免由于没有session导致无法存取验证码的问题
+ *
  * @author xuweizhi
- * @since  2019-5-29
+ * @since 2019-5-29
  */
 @Component
 public class RedisValidateCodeRepository implements ValidateCodeRepository {
@@ -26,9 +27,7 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
     @Override
     public void save(ServletWebRequest request, ValidateCode code, ValidateCodeType validateCodeType) {
         redisTemplate.opsForValue().set(buildKey(request, validateCodeType),
-                code,
-                30,
-                TimeUnit.MINUTES);
+                code, 30, TimeUnit.MINUTES);
     }
 
     @Override

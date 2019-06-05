@@ -30,21 +30,20 @@ public class AppSecurityController {
 
     /**
      * 需要注册时跳到这里，返回401和用户信息给前端
-     *
      */
     @GetMapping("/social/signUp")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
+
         SocialUserInfo userInfo = new SocialUserInfo();
-        Connection<?> connection = providerSignInUtils
-                .getConnectionFromSession(new ServletWebRequest(request));
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
+
         userInfo.setProviderId(connection.getKey().getProviderId());
         userInfo.setProviderUserId(connection.getKey().getProviderUserId());
         userInfo.setNickname(connection.getDisplayName());
         userInfo.setHeadImg(connection.getImageUrl());
 //        保存到redis
-        appSingUpUtils.saveConnectionData(new ServletWebRequest(request),
-                connection.createData());
+        appSingUpUtils.saveConnectionData(new ServletWebRequest(request), connection.createData());
         return userInfo;
     }
 

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 认证资源服务器,依赖该项目的模块已经是资源服务器了
  *
- * http://127.0.0.1:8080/oauth/authorize?response_type=code&client_id=49596fb9-19a1-462c-b3d8-59d173438aa0&redirect_url=http://127.0.0.1:8080&scope=all
+ * http://127.0.0.1:8080/oauth/authorize?response_type=code&client_id=imooc&redirect_url=http://127.0.0.1:8080&scope=all
  *
  * client_id: 应用 id
  * redirect_url: 重定向地址

@@ -1,6 +1,6 @@
 package com.security.app.social;
 
-import com.security.app.AppSecretException;
+import com.security.app.server.AppSecretException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,7 +29,6 @@ public class AppSingUpUtils {
 
     @Autowired
     private ConnectionFactoryLocator connectionFactoryLocator;
-
 
     /**
      * 缓存社交网站用户信息到redis

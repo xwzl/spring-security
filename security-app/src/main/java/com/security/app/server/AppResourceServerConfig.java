@@ -1,5 +1,6 @@
 package com.security.app.server;
 
+import com.security.app.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import com.security.core.authentication.browser.FormAuthenticationConfig;
 import com.security.core.authentication.mobile.SmsCodeAuthenticationConfig;
 import com.security.core.constant.SecurityConstants;
@@ -14,11 +15,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.security.web.session.InvalidSessionStrategy;
-import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -33,6 +31,7 @@ import static com.security.core.constant.SecurityConstants.*;
 @Configuration
 @EnableResourceServer
 public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
+
     @Autowired
     private SecurityProperties securityProperties;
 
@@ -68,6 +67,9 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationFailureHandler defaultAuthenticationFailureHandler;
+
+    @Autowired
+    private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
 
 
     /**
@@ -106,6 +108,8 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .apply(smsCodeAuthenticationConfig)
                 .and()
                 .apply(coreSecuritySocialConfig)
+                .and()
+                .apply(openIdAuthenticationSecurityConfig)
                 .and()
                 /*.rememberMe()
                 // 添加 token
@@ -151,6 +155,8 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                         STATIC_RESOURCES_URL,
                         "favicon.ico",
                         "/user/regist",
+                        "oauth/authorize",
+                        "/social/signUp",
                         DEFAULT_SESSION_INVALID_URL
                 ).permitAll()
                 // 任何请求都需要进行身份认证

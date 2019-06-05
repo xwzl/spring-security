@@ -1,4 +1,4 @@
-package com.security.app;
+package com.security.app.server;
 
 /**
  * @author xuweizhi

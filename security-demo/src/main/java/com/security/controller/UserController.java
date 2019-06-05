@@ -15,7 +15,6 @@ import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -35,12 +34,16 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
+    //@Autowired
+    //private AppSingUpUtils appSingUpUtils;
+
     @PostMapping("/regist")
     public void regist(User user, HttpServletRequest request) {
         // 不管是注册用户还是绑定用户，都会拿到一个用户唯一标识
         String userId = user.getUsername();
         // 做一个查询的动作,向数据库中的表 UserConnection 中插入数据
-        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        //providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        //appSingUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
     }
 
 

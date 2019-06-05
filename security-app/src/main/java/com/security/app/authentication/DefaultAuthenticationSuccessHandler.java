@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAut
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -51,12 +52,13 @@ public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthen
     private AuthorizationServerTokenServices authorizationServerTokenServices;
 
     /**
-     * Authentication是spring security的核心接口，封装了认证信息
+     * Authentication是spring security的核心接口，封装了认证信息{@link BasicAuthenticationFilter}
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
 
+        // 从请求头中获取信息
         String header = request.getHeader("Authorization");
 
         if (header == null || !header.startsWith("Basic ")) {
@@ -69,6 +71,7 @@ public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthen
         String clientId = tokens[0];
         String clientSecret = tokens[1];
 
+        // 获取客户端的详细信息
         ClientDetails clientDetails = clientDetailService.loadClientByClientId(clientId);
 
         if (clientDetails == null) {
