@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
 
-import java.io.IOException;
-
 /**
  * 第六步获取用户信息 api 获取用户信息
  * <p>
@@ -32,7 +30,7 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
      * 完整从 url ,但是 access_token 交给父类处理
      * https://graph.qq.com/user/get_user_info?access_token=%S&oauth_consumer_key=%S&openid=%S
      */
-    private static final String URL_GET_USER_INFO = "https://graph.qq.com/user/get_user_info?oauth_consumer_key=%S&openid=%S";
+    private static final String URL_GET_USER_INFO = "https://graph.qq.com/user/get_user_info?oauth_consumer_key=%s&openid=%s";
 
     private String appId;
 
@@ -67,10 +65,10 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         // 转成 json 对象
         try {
             userInfo = objectMapper.readValue(result, QQUserInfo.class);
-            //userInfo.setOpenId(this.openId);
-        } catch (IOException e) {
-            e.printStackTrace();
+            userInfo.setOpenId(this.openId);
+            return userInfo;
+        } catch (Exception e) {
+            throw new RuntimeException("获取用户信息失败", e);
         }
-        return userInfo;
     }
 }
