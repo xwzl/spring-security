@@ -1,6 +1,7 @@
 package com.security.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.security.app.social.AppSingUpUtils;
 import com.security.dto.User;
 import com.security.dto.UserQueryCondition;
 import com.security.exception.UserNotExistException;
@@ -15,6 +16,7 @@ import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -34,8 +36,11 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
-    //@Autowired
-    //private AppSingUpUtils appSingUpUtils;
+    /**
+     * app 端用这个
+     */
+    @Autowired
+    private AppSingUpUtils appSingUpUtils;
 
     @PostMapping("/regist")
     public void regist(User user, HttpServletRequest request) {
@@ -43,7 +48,7 @@ public class UserController {
         String userId = user.getUsername();
         // 做一个查询的动作,向数据库中的表 UserConnection 中插入数据
         //providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-        //appSingUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
+        appSingUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
     }
 
 

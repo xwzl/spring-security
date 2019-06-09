@@ -82,6 +82,7 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
         return tokenRepository;
     }
 
+
     /**
      * http 的验证开始
      *
@@ -155,7 +156,8 @@ public class AppResourceServerConfig extends ResourceServerConfigurerAdapter {
                         STATIC_RESOURCES_URL,
                         "favicon.ico",
                         "/user/regist",
-                        "oauth/authorize",
+                        "/oauth/authorize",
+                        "/oauth/token",
                         "/social/signUp",
                         DEFAULT_SESSION_INVALID_URL
                 ).permitAll()

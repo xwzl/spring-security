@@ -42,8 +42,10 @@ public class AppSecurityController {
         userInfo.setProviderUserId(connection.getKey().getProviderUserId());
         userInfo.setNickname(connection.getDisplayName());
         userInfo.setHeadImg(connection.getImageUrl());
+
 //        保存到redis
         appSingUpUtils.saveConnectionData(new ServletWebRequest(request), connection.createData());
+
         return userInfo;
     }
 

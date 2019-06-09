@@ -24,6 +24,8 @@ public class SecurityProperties {
      */
     private ValidateCodeProperties validateCode = new ValidateCodeProperties();
 
+    private OAuth2Properties oauth2 = new OAuth2Properties();
+
     public BrowserProperties getBrowser() {
         return browser;
     }
@@ -46,5 +48,13 @@ public class SecurityProperties {
 
     public void setValidateCode(ValidateCodeProperties validateCode) {
         this.validateCode = validateCode;
+    }
+
+    public OAuth2Properties getOauth2() {
+        return oauth2;
+    }
+
+    public void setOauth2(OAuth2Properties oauth2) {
+        this.oauth2 = oauth2;
     }
 }

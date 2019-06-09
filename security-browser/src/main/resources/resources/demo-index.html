@@ -1,0 +1,82 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security 标准登录页面</title>
+</head>
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="/static/vue.js"></script>
+<body>
+<div id="app">
+
+    <h3>用户名登录</h3>
+    <form action="/authentication/form" method="post">
+        <table>
+            <tr>
+                <td>用户名:</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>密码:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td>图形验证码:</td>
+                <td>
+                    <input type="text" name="imageCode">
+                    <img alt="" src="/code/image">
+                </td>
+            </tr>
+            <tr colspan="2">
+                <input name="remember-me" type="checkbox" value="true"/>记住我
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">登录</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <br/>
+
+    <h3>手机登录</h3>
+    <form action="/authentication/mobile" method="post">
+        <table>
+            <tr>
+                <td>手机号:</td>
+                <td><input type="text" id="mobile" name="mobile" value="18012345678"></td>
+            </tr>
+            <tr>
+                <td>图形验证码:</td>
+                <td>
+                    <input type="text" name="smsCode">
+                    <a href="/code/sms?mobile=11">发送验证码</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">登录</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <h3>社交登录</h3>
+    <p>SocialAuthenticationFilter 默认的拦截路径是 /auth ,/qq 是 core 中 QQAutoConfig 中配置的 qq#providerId 属性，默认是 qq</p>
+    <p>授权成功后，要进行注册</p>
+    <a href="/login/qq">QQ登录</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/login/weixin">微信登录</a>
+</div>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '消息'
+        }
+    })
+</script>
+</body>
+</html>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * app 环境下修改访问 地址
+ * app 环境下修改访问 地址,Spring Bean 初始化之前都会经过这两个方法
  * @author xuweizhi
  */
 @Component
@@ -19,12 +19,15 @@ public class SpringSocialConfigurerPostProcessor implements BeanPostProcessor {
         return bean;
     }
 
+    /**
+     * coreSecuritySocialConfig 初始化 bean 后，改变其值。
+     */
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (StringUtils.equals(beanName, "coreSecuritySocialConfig")) {
             CoreSpringSocialConfigurer config = (CoreSpringSocialConfigurer) bean;
             //config.signupUrl(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL);
-            config.signupUrl("/socail/signUp");
+            config.signupUrl("/social/signUp");
             return config;
         }
         return bean;
