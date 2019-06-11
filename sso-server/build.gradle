@@ -1,0 +1,13 @@
+apply plugin: 'application'
+
+// 标明 docker 镜像运行的主类
+mainClassName = 'com.security.core.CoreApplication'
+
+dependencies {
+    compile(
+            "org.springframework.boot:spring-boot-starter-security",
+            "org.springframework.security.oauth:spring-security-oauth2:2.0.15.RELEASE",
+            "org.springframework.security:spring-security-jwt:1.0.9.RELEASE"
+    )
+
+}
