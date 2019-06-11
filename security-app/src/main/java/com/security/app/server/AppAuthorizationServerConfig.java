@@ -1,5 +1,6 @@
 package com.security.app.server;
 
+import com.security.app.token.TokenStoreConfig;
 import com.security.core.proterties.OAuth2ClientProperties;
 import com.security.core.proterties.SecurityProperties;
 import org.apache.commons.lang3.ArrayUtils;
@@ -14,9 +15,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,6 +62,18 @@ public class AppAuthorizationServerConfig extends AuthorizationServerConfigurerA
     private TokenStore tokenStore;
 
     /**
+     * 详情见 {@link TokenStoreConfig.JWtTokenConfig}
+     */
+    @Autowired(required = false)
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    /**
+     * 该注入不一定会注入
+     */
+    @Autowired(required = false)
+    private TokenEnhancer jwtTokenEnhancer;
+
+    /**
      * 替换默认的 Token 处理方式
      */
     @Override
@@ -65,6 +83,18 @@ public class AppAuthorizationServerConfig extends AuthorizationServerConfigurerA
                 .tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(myUserDetailsService);
+
+        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+            TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+
+            List<TokenEnhancer> enhancers = new ArrayList<>();
+            enhancers.add(jwtTokenEnhancer);
+            enhancers.add(jwtAccessTokenConverter);
+            enhancerChain.setTokenEnhancers(enhancers);
+            endpoints
+                    .tokenEnhancer(enhancerChain)
+                    .accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 
     /**

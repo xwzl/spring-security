@@ -22,6 +22,7 @@ dependencies {
             // 工具包
             "org.apache.commons:commons-lang3:${commonLangVerion}",
             "commons-collections:commons-collections:3.2.2",
+            
     )
     //这样不能被子模块依赖
     //implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'

@@ -2,14 +2,20 @@ package com.security.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.security.app.social.AppSingUpUtils;
+import com.security.core.proterties.SecurityProperties;
 import com.security.dto.User;
 import com.security.dto.UserQueryCondition;
 import com.security.exception.UserNotExistException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -19,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +35,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     /**
@@ -35,6 +43,9 @@ public class UserController {
      */
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
+
+    @Autowired
+    private SecurityProperties securityProperties;
 
     /**
      * app 端用这个
@@ -57,6 +68,20 @@ public class UserController {
      */
     @GetMapping("/me")
     public UserDetails getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+        return user;
+        //return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    @GetMapping("/me1")
+    public Authentication getCurrentUsers(Authentication user,HttpServletRequest request) throws UnsupportedEncodingException {
+        String header = request.getHeader("Authorization");
+        // 获取 token
+        String token = StringUtils.substringAfter(header, "bearer ");
+        // 验证签名信息
+        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8")).
+                parseClaimsJws(token).getBody();
+        String company =(String) claims.get("company");
+        log.info(company);
         return user;
         //return SecurityContextHolder.getContext().getAuthentication();
     }

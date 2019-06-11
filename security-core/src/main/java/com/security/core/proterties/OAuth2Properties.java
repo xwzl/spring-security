@@ -7,7 +7,7 @@ package com.security.core.proterties;
 public class OAuth2Properties {
 
     /**
-     * 使用jwt时为token签名的秘钥
+     * 使用 jwt 时为 token 签名的秘钥,发放用来签发令牌
      */
     private String jwtSigningKey = "imooc";
     /**

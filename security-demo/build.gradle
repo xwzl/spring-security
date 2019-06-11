@@ -8,6 +8,8 @@ dependencies{
     compile(project(":security-app"))
     compile("com.github.tomakehurst:wiremock:${wireMockVersion}")
     compile("org.springframework.session:spring-session-data-redis:2.1.5.RELEASE")
+    // 加入 jwt 依赖，用于解析 jwt 信息
+    compile("io.jsonwebtoken:jjwt:0.7.0")
 }
 
 
