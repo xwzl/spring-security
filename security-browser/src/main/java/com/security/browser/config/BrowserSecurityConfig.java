@@ -7,6 +7,7 @@ import com.security.core.validate.core.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -155,9 +156,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/user/regist",
                         DEFAULT_SESSION_INVALID_URL
                 ).permitAll()
+                // Http get 请求 /user/* 请求必须拥有 ADMIN 权限
+                .antMatchers(HttpMethod.GET,"/user/*").hasRole("ADMIN")
                 // 任何请求都需要进行身份认证
                 .anyRequest()
-                // 授权的配置
+                // 都需要认证
                 .authenticated()
                 .and()
                 // 防护伪造的功能

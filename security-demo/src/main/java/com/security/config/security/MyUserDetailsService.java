@@ -70,6 +70,7 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
         // 数据库中用户和密码，以及相应的权限信息，密码会与前端传入的进行匹配,这是 Spring 提供的 UserDetails 实现类
         // 四个布尔分别对应 UserDetails 实现接口对象的状态信息，用户校验逻辑
         return new SocialUser(username, encode, true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
+                // 给用于配置权限 为什么要配置 ROLE_ADMIN 而不是 ADMIN 呢？
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER,ROLE_ADMIN"));
     }
 }
