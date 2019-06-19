@@ -1,7 +1,6 @@
 package com.security.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.security.app.social.AppSingUpUtils;
 import com.security.core.proterties.SecurityProperties;
 import com.security.dto.User;
 import com.security.dto.UserQueryCondition;
@@ -18,11 +17,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -41,8 +38,8 @@ public class UserController {
     /**
      * 工具类，从session 中获取消息
      */
-    @Autowired
-    private ProviderSignInUtils providerSignInUtils;
+    //@Autowired
+    //private ProviderSignInUtils providerSignInUtils;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -51,7 +48,7 @@ public class UserController {
      * app 端用这个
      */
     @Autowired
-    private AppSingUpUtils appSingUpUtils;
+    //private AppSingUpUtils appSingUpUtils;
 
     @PostMapping("/regist")
     public void regist(User user, HttpServletRequest request) {
@@ -59,7 +56,7 @@ public class UserController {
         String userId = user.getUsername();
         // 做一个查询的动作,向数据库中的表 UserConnection 中插入数据
         //providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-        appSingUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
+        //appSingUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
     }
 
 

@@ -10,7 +10,7 @@ spring:
   session:
     store-type: REDIS
   datasource:
-    url: jdbc:mysql://47.105.218.58/qq?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://47.105.218.58:3306/qq?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     username: root
     password: 158262751
     #    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource

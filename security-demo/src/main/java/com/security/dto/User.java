@@ -2,6 +2,7 @@ package com.security.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.security.validated.MyConstraint;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @author xuweizhi
  * @since 2019/05/11 21:31
  */
+@Component
 public class User {
 
     /**
