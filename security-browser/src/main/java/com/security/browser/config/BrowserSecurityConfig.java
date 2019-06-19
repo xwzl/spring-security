@@ -143,25 +143,27 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 // 判断之前的过滤配置，进行授权
                 .authorizeRequests()
-                // 以下路径不需要进行身份认证,securityProperties.getBrowser().getLoginPage()是真正的登录页面，包括用户自定义的
-                .antMatchers(
-                        DEFAULT_UNAUTHENTICATION_URL,
-                        securityProperties.getBrowser().getLoginPage(),
-                        // 配置 qq 授权后的注册页面
-                        securityProperties.getBrowser().getSignUrl(),
-                        securityProperties.getBrowser().getSignOutUrl()== null?"404":securityProperties.getBrowser().getSignOutUrl(),
-                        DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
-                        STATIC_RESOURCES_URL,
-                        "favicon.ico",
-                        "/user/regist",
-                        DEFAULT_SESSION_INVALID_URL
-                ).permitAll()
-                // Http get 请求 /user/* 请求必须拥有 ADMIN 权限
-                .antMatchers(HttpMethod.GET,"/user/*").hasRole("ADMIN")
-                // 任何请求都需要进行身份认证
-                .anyRequest()
-                // 都需要认证
-                .authenticated()
+                    // 以下路径不需要进行身份认证,securityProperties.getBrowser().getLoginPage()是真正的登录页面，包括用户自定义的
+                    .antMatchers(
+                            DEFAULT_UNAUTHENTICATION_URL,
+                            securityProperties.getBrowser().getLoginPage(),
+                            // 配置 qq 授权后的注册页面
+                            securityProperties.getBrowser().getSignUrl(),
+                            securityProperties.getBrowser().getSignOutUrl()== null?"404":securityProperties.getBrowser().getSignOutUrl(),
+                            DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
+                            STATIC_RESOURCES_URL,
+                            "favicon.ico",
+                            "/user/regist",
+                            DEFAULT_SESSION_INVALID_URL
+                    ).permitAll()
+                    // Http get 请求 /user/* 请求必须拥有 ADMIN 权限，返回用户全显示要接 ROLE_ 前缀
+                    .antMatchers(HttpMethod.GET,"/user/*").hasRole("ADMIN")
+                    // 拼凑权限表达式 同时拥有以下两个权限验证，不过hasAuthority 表达式的权限集不用 ROLE_下划线
+                    .antMatchers(HttpMethod.GET,"/user1/*").access("hasRole('ADMIN') and hasAuthority('admin')")
+                    // 任何请求都需要进行身份认证
+                    .anyRequest()
+                    // 都需要认证
+                    .authenticated()
                 .and()
                 // 防护伪造的功能
                 .csrf().disable();
