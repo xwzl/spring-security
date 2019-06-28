@@ -1,0 +1,33 @@
+task resourceOut(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+
+task resourceBuild(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/build/classes/java/main/")
+    }
+}
+
+
+dependencies {
+    compile(
+            "com.baomidou:mybatis-plus:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+            "com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}",
+            "com.alibaba:fastjson:${fastJsonVersion}",
+            "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
+            "org.apache.commons:commons-lang3:${commonLangVerion}"
+    )
+}
+

@@ -1,0 +1,5 @@
+spring:
+  jackson:
+    time-zone: GMT+8
+  profiles:
+    active: hikari

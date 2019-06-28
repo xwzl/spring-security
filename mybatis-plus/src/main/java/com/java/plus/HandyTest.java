@@ -17,10 +17,12 @@ public class HandyTest {
 
         //如果是子模块，必须设置
         handy.setChildModule(true);
-        handy.setChildModuleName("dynamic-datasource");
-        handy.setBasePackageName("com.data");
+        handy.setChildModuleName("spring-demo");
+        handy.setBasePackageName("com.spring");
         handy.setAuthor("xuweizhi");
-        handy.setUrl("47.105.218.58:3306/product_master");
+        handy.setUrl("17.17.17.208:3306/demo");
+        handy.setPassword("123456");
+        handy.setUsername("root");
 
         handy.setBaseColumnList(true);
         handy.setBaseResultMap(true);
