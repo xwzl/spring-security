@@ -4,7 +4,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'spring-cloud'
+rootProject.name = 'spring-security'
 
 //需要什么模块打开什么模块，多了卡
 //include 'sso-server'
