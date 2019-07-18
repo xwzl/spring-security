@@ -69,8 +69,8 @@ com:
       filterProcessesUrl: /login
       qq:
         #  申请
-        app-id: 101581644
-        app-secret: 9364692f2f218d8a8d0dadf2dcb978c6
+        app-id: 101729646
+        app-secret: 3dff32cf0a97cd7f52ecbee336d366f1
         providerId: qq
       weixin:
         app-id: wxd99431bbff8305a0
