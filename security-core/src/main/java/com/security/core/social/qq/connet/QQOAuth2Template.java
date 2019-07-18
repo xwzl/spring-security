@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.Charset;
 
 /**
- * qq的auth2模板,添加了对text的html支持
+ * qq 的auth2模板,添加了对text的html支持
  *
  * @author xuweizhi
  * @date 2019/05/16 16:45
@@ -23,7 +23,7 @@ public class QQOAuth2Template extends OAuth2Template {
 
     public QQOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
         super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
-        // 设置携带client_id
+        // 设置携带client_id，当true的时候，才会带上参数去获取token
         setUseParametersForClientAuthentication(true);
     }
 
@@ -51,6 +51,7 @@ public class QQOAuth2Template extends OAuth2Template {
     @Override
     protected RestTemplate createRestTemplate() {
         RestTemplate restTemplate = super.createRestTemplate();
+        //添加处理text/html的处理
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
         return restTemplate;
     }

@@ -12,9 +12,6 @@ import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
  */
 public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
 
-
-    private String appId;
-
     /**
      * Step1：获取Authorization Code,引导用于跳转需要的地址
      */
@@ -26,6 +23,8 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
      * http://wiki.connect.qq.com/%E4%BD%BF%E7%94%A8authorization_code%E8%8E%B7%E5%8F%96access_token
      */
     private static final String URL_ACCESS_TOKEN = "https://graph.qq.com/oauth2.0/token";
+
+    private String appId;
 
     /**
      * 应用对应的 appId 和 appSecret
